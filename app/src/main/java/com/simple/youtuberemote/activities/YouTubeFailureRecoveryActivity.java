@@ -1,4 +1,4 @@
-package com.simple.youtuberemote;
+package com.simple.youtuberemote.activities;
 
 import android.content.Intent;
 import android.widget.Toast;
