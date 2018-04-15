@@ -25,7 +25,7 @@
       android:name=".activities.TelevisionActivity"
       android:screenOrientation="landscape" />
 
-    <activity android:name=".activities.RemoteControlActivity" />
+    <activity android:name=".activities.RemoteControlActivity" android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>
