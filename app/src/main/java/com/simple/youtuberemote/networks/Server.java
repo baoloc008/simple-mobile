@@ -9,6 +9,7 @@ import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.Type;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,7 +21,7 @@ public class Server {
   public final static int PORT = 3456;
 
   private ServerSocket server;
-  private String ip;
+  private String ip = "";
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
   private String currentVideo;
@@ -33,27 +34,70 @@ public class Server {
   public void start(Context context) {
     try {
       server = new ServerSocket(PORT);
-      WifiManager wm = (WifiManager) context.getSystemService(WIFI_SERVICE);
-      ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+      WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
+      if (wm != null)
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
       new Thread(new Runnable() {
         @Override
         public void run() {
           while (true) {
             try {
-              Socket client = server.accept();
+              final Socket client = server.accept();
               send(client, new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo)));
               clients.add(client);
+              new Thread(new Runnable() {
+                @Override
+                public void run() {
+                  while (true) {
+                    try {
+                      ObjectInputStream streamIn = new ObjectInputStream(client.getInputStream());
+                      Message message  = (Message) streamIn.readObject();
+                      switch (message.type) {
+                        case NEXT:
+                          // TODO play next Video
+                          broadcastPlaylist();
+                          break;
+                        case PLAY:
+                          // TODO Play Video
+                          break;
+                        case PAUSE:
+                          // TODO Pause Video
+                          break;
+                        case PLAY_SPEC:
+                          // TODO Play a specific Video
+                          break;
+                        default:
+                          break;
+                      }
+                    }
+                    catch (Exception e) {
+                      e.printStackTrace();
+                    }
+                  }
+                }
+              }).start();
             } catch (IOException e) {
               e.printStackTrace();
             }
           }
         }
       }).start();
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  private void broadcastPlaylist() {
+    try {
+      Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
+      for (Socket client: clients) {
+        send(client, message);
+      }
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
   private void send(Socket client, Message message) {
     try {
       ObjectOutputStream streamOut = new ObjectOutputStream(client.getOutputStream());
