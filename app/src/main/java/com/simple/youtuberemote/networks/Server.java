@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
+import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
@@ -35,8 +36,10 @@ public abstract class Server {
     try {
       server = new ServerSocket(PORT);
       WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
-      if (wm != null)
+      if (wm != null) {
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        onGetIp(ip);
+      }
       new Thread(new Runnable() {
         @Override
         public void run() {
@@ -62,6 +65,11 @@ public abstract class Server {
                     case PLAY_SPEC:
                       PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
                       onVideoChange(playSpecVideo.videoId);
+                      break;
+                    case ADD_VIDEO:
+                      AddVideo addVideo = (AddVideo) message.data;
+                      playList.add(addVideo.videoId);
+                      onPlayListFilled();
                       break;
                     default:
                       break;
@@ -100,17 +108,13 @@ public abstract class Server {
     }
   }
 
-  public String getIp() {
-    return ip;
-  }
-
   private void peek() {
     if (playList.size() == 0) {
       currentVideo = "";
+      onPlayListEmpty();
+      return;
     }
-    else {
-      currentVideo = playList.get(0);
-    }
+    currentVideo = playList.get(0);
     onVideoChange(currentVideo);
   }
 
@@ -119,6 +123,9 @@ public abstract class Server {
     peek();
   }
 
+  public abstract void onGetIp(String ip);
+  public abstract void onPlayListFilled();
+  public abstract void onPlayListEmpty();
   public abstract void onVideoChange(String id);
   public abstract void onPause();
   public abstract void onPlay();
