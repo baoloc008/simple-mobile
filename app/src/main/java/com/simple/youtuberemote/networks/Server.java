@@ -6,6 +6,7 @@ import android.text.format.Formatter;
 
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
+import com.simple.youtuberemote.models.message.PlaySpecVideo;
 import com.simple.youtuberemote.models.message.Type;
 
 import java.io.IOException;
@@ -16,14 +17,14 @@ import java.util.ArrayList;
 
 import static android.content.Context.WIFI_SERVICE;
 
-public class Server {
+public abstract class Server {
   public final static int PORT = 3456;
 
   private ServerSocket server;
   private String ip = "";
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
-  private String currentVideo;
+  private String currentVideo = "";
 
   public Server() {
     playList = new ArrayList<>();
@@ -49,17 +50,18 @@ public class Server {
                 public void onMessage(Message message) {
                   switch (message.type) {
                     case NEXT:
-                      // TODO play next Video
+                      next();
                       broadcastPlaylist();
                       break;
                     case PLAY:
-                      // TODO Play Video
+                      onPlay();
                       break;
                     case PAUSE:
-                      // TODO Pause Video
+                      onPause();
                       break;
                     case PLAY_SPEC:
-                      // TODO Play a specific Video
+                      PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
+                      onVideoChange(playSpecVideo.videoId);
                       break;
                     default:
                       break;
@@ -102,18 +104,22 @@ public class Server {
     return ip;
   }
 
-  public String peek() throws Exception {
+  private void peek() {
     if (playList.size() == 0) {
-      throw new Exception("EMPTY_PLAYLIST");
+      currentVideo = "";
     }
-    currentVideo = playList.get(0);
-    return currentVideo;
+    else {
+      currentVideo = playList.get(0);
+    }
+    onVideoChange(currentVideo);
   }
 
-  public String next() throws Exception {
+  public void next() {
     playList.remove(currentVideo);
-    return peek();
+    peek();
   }
 
-
+  public abstract void onVideoChange(String id);
+  public abstract void onPause();
+  public abstract void onPlay();
 }
