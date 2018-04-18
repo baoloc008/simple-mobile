@@ -2,13 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="horizontal">
+  android:gravity="center"
+  android:orientation="vertical">
 
   <com.google.android.youtube.player.YouTubePlayerView
     android:id="@+id/youtube_view"
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
     android:layout_gravity="center_vertical"
-    android:layout_weight="1" />
+    android:layout_weight="1"
+    android:visibility="gone"
+  />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="30sp"
+      android:text="Playlist đang trống"/>
+  <TextView
+      android:id="@+id/ip_tv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="35sp"
+      android:text="192.168.x.xx"/>
 
 </LinearLayout>
