@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public class Client {
+public abstract class Client {
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
@@ -28,6 +28,7 @@ public class Client {
               PlayList data = (PlayList) message.data;
               playList = data.playlist;
               currentVideo = data.currentVideo;
+              onPlaylistChange(playList, currentVideo);
               break;
             default:
               break;
@@ -67,4 +68,5 @@ public class Client {
   public void addVideo(String id) {
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
   }
+  public abstract void onPlaylistChange(ArrayList<String> playList, String currentVideo);
 }
