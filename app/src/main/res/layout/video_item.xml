@@ -1,48 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="#ffffff"
-    >
-    <LinearLayout
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp">
+
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+      <ImageView
+          android:id="@+id/imgvThumbnail"
+          android:layout_width="match_parent"
+          android:layout_height="200dp" />
+
+      <TextView
+          android:id="@+id/txttvTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentEnd="true"
+          android:layout_marginBottom="10dp"
+          android:layout_marginEnd="5dp"
+          android:padding="2dp"
+          android:background="@android:color/black"
+          android:text="1:30"
+          android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtvTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-        <ImageView
-            android:id="@+id/imgvThumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-        <TextView
-            android:text="[LIC] Chênh Vênh - Lê Cát Trọng Lý"
-            android:paddingTop="15dp"
-            android:paddingLeft="10dp"
-            android:id="@+id/txtvTitle"
-            android:textColor="#DE000000"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="Lê Cát Trọng Lý - 950K views"
-            android:paddingTop="2dp"
-            android:paddingLeft="10dp"
-            android:textColor="#8A000000"
-            android:textSize="14sp"
-            android:id="@+id/txtvSubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:text="[LIC] Chênh Vênh - Lê Cát Trọng Lý"
+        android:textColor="#DE000000"
+        android:textSize="16sp" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/txtvSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:text="Lê Cát Trọng Lý - 950K views"
+        android:textColor="#8A000000"
+        android:textSize="14sp" />
+  </LinearLayout>
 
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#8a878787">
+  <LinearLayout
 
-    </LinearLayout>
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="15dp"
+      android:layout_marginTop="15dp"
+      android:background="#8a878787">
+
+  </LinearLayout>
 </LinearLayout>
