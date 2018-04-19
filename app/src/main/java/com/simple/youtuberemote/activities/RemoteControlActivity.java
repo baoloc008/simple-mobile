@@ -5,10 +5,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.HomeAdapter;
 import com.simple.youtuberemote.adapters.ViewPagerHomeAdapter;
+import com.simple.youtuberemote.networks.Client;
+
+import java.util.ArrayList;
+
 
 public class RemoteControlActivity extends AppCompatActivity {
   private TabLayout tabLayoutHome;
@@ -21,6 +26,15 @@ public class RemoteControlActivity extends AppCompatActivity {
     ViewPagerHomeAdapter viewPagerHomeAdapter = new ViewPagerHomeAdapter(getSupportFragmentManager(), this);
     viewPagerHome.setAdapter(viewPagerHomeAdapter);
     tabLayoutHome.setupWithViewPager(viewPagerHome);
+
+    Client client = new Client()
+    {
+      @Override
+      public void onPlaylistChange(ArrayList<String> playList, String currentVideo)
+      {
+        Log.d("PlayList Change", playList.toString());
+      }
+    };
   }
   private void mapComponent() {
     tabLayoutHome = findViewById(R.id.tabLayoutHome);
