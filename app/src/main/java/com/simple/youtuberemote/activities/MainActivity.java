@@ -2,6 +2,7 @@ package com.simple.youtuberemote.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simple.youtuberemote.R;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
 
     ButterKnife.bind(this);
+
+    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    StrictMode.setThreadPolicy(policy);
   }
 
   @OnClick (R.id.btn_television)
