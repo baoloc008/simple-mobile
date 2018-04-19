@@ -2,7 +2,9 @@ package com.simple.youtuberemote.networks;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.text.format.Formatter;
+import android.util.Log;
 
 import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
@@ -12,6 +14,8 @@ import com.simple.youtuberemote.models.message.Type;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -19,9 +23,16 @@ import java.util.ArrayList;
 import static android.content.Context.WIFI_SERVICE;
 
 public abstract class Server {
-  public final static int PORT = 3456;
+  public final static int TCP_PORT = 3456;
+  public final static int UDP_PORT = 3457;
 
-  private ServerSocket server;
+  public final static String QUESTION = "ARE YOU TV???";
+  public final static String RESPONSE = "YES, I AM";
+
+  private ServerSocket   server;
+  private DatagramSocket mDatagramSocket;
+  private byte[] buf = new byte[256];
+  private Handler        mHandler;
   private String ip = "";
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
@@ -34,12 +45,36 @@ public abstract class Server {
 
   public void start(Context context) {
     try {
-      server = new ServerSocket(PORT);
       WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
       if (wm != null) {
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         onGetIp(ip);
       }
+      mDatagramSocket = new DatagramSocket(UDP_PORT);
+      server = new ServerSocket(TCP_PORT);
+      mHandler = new Handler();
+      new Thread(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          DatagramPacket receivedPacket = new DatagramPacket(buf, buf.length);
+          try {
+            mDatagramSocket.receive(receivedPacket);
+            String message = new String(receivedPacket.getData());
+            if (message.equals(QUESTION)) {
+              DatagramPacket sendPacket = new DatagramPacket(RESPONSE.getBytes(),
+                                                             RESPONSE.length(),
+                                                             receivedPacket.getAddress(),
+                                                             receivedPacket.getPort());
+              mDatagramSocket.send(sendPacket);
+            }
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      }).start();
       new Thread(new Runnable() {
         @Override
         public void run() {
@@ -50,26 +85,65 @@ public abstract class Server {
               clients.add(client);
               (new Listener(client) {
                 @Override
-                public void onMessage(Message message) {
+                public void onMessage(final Message message) {
+                  Log.d("Message", message.toString());
                   switch (message.type) {
                     case NEXT:
-                      next();
+                      mHandler.post(new Runnable()
+                      {
+                        @Override
+                        public void run()
+                        {
+                          next();
+                        }
+                      });
                       broadcastPlaylist();
                       break;
                     case PLAY:
-                      onPlay();
+                      mHandler.post(new Runnable()
+                      {
+                        @Override
+                        public void run()
+                        {
+                          onPlay();
+                        }
+                      });
                       break;
                     case PAUSE:
-                      onPause();
+                      mHandler.post(new Runnable()
+                      {
+                        @Override
+                        public void run()
+                        {
+                          onPause();
+                        }
+                      });
                       break;
                     case PLAY_SPEC:
-                      PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
-                      onVideoChange(playSpecVideo.videoId);
+                      final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
+                      mHandler.post(new Runnable()
+                      {
+                        @Override
+                        public void run()
+                        {
+                          onVideoChange(playSpecVideo.videoId);
+                        }
+                      });
                       break;
                     case ADD_VIDEO:
                       AddVideo addVideo = (AddVideo) message.data;
                       playList.add(addVideo.videoId);
-                      onPlayListFilled();
+                      if (playList.size() == 1) {
+                        mHandler.post(new Runnable()
+                        {
+                          @Override
+                          public void run()
+                          {
+                            onPlayListFilled();
+                          }
+                        });
+                      }
+                      broadcastPlaylist();
                       break;
                     default:
                       break;
@@ -122,7 +196,15 @@ public abstract class Server {
     playList.remove(currentVideo);
     peek();
   }
-
+  public void close() {
+    mDatagramSocket.close();
+    try {
+      server.close();
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
   public abstract void onGetIp(String ip);
   public abstract void onPlayListFilled();
   public abstract void onPlayListEmpty();
