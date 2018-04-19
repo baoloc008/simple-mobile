@@ -1,5 +1,7 @@
 package com.simple.youtuberemote.networks;
 
+import android.util.Log;
+
 import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
@@ -8,6 +10,9 @@ import com.simple.youtuberemote.models.message.Type;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -17,9 +22,57 @@ public abstract class Client {
   private ArrayList<String> playList;
   private String            currentVideo;
 
-  public Client(String ip) {
+  private String serverIp;
+
+  public Client() {
+    findServer();
+  }
+  private void findServer() {
     try {
-      socket = new Socket(ip, Server.PORT);
+      final DatagramSocket datagramSocket = new DatagramSocket();
+      InetAddress    inetAddress    = InetAddress.getByName("192.168.13.255");
+      String         message        = Server.QUESTION;
+      final DatagramPacket datagramPacket = new DatagramPacket(message.getBytes(),
+                                                         message.length(),
+                                                         inetAddress,
+                                                         Server.UDP_PORT);
+      new Thread(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          boolean done = false;
+          while (!done) {
+            try {
+              datagramSocket.send(datagramPacket);
+              Log.d("sent","sent");
+              DatagramPacket receivedPacket = new DatagramPacket(Server.RESPONSE.getBytes(), Server.RESPONSE.length());
+              datagramSocket.receive(receivedPacket);
+              String response = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
+              if (response.equals(Server.RESPONSE)) {
+                serverIp = receivedPacket.getAddress().getHostName();
+                done = true;
+              }
+            }
+            catch (Exception e) {
+              e.printStackTrace();
+            }
+          }
+          datagramSocket.close();
+          Log.d("Server IP", serverIp);
+          start();
+        }
+      }).start();
+
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  private void start() {
+    try {
+      socket = new Socket(serverIp, Server.TCP_PORT);
+      addVideo("wKJ9KzGQq0w");
       (new Listener(socket) {
         @Override
         public void onMessage(Message message) {
@@ -46,6 +99,14 @@ public abstract class Client {
       streamOut.writeObject(message);
       streamOut.flush();
     } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public void close() {
+    try {
+      socket.close();
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
   }
