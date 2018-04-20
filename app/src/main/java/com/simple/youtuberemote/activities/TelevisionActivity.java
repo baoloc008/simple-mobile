@@ -23,7 +23,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
   @BindView (R.id.youtube_view)
   YouTubePlayerView mYoutubeView;
-  @BindView(R.id.ip_tv) TextView ipTextView;
+  @BindView(R.id.empty_tv) TextView emptyTextView;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -36,22 +36,16 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
     mServer = new Server()
     {
       @Override
-      public void onGetIp(String ip)
-      {
-        ipTextView.setText(ip);
-      }
-
-      @Override
       public void onPlayListFilled()
       {
-        ipTextView.setVisibility(View.GONE);
+        emptyTextView.setVisibility(View.GONE);
         mYoutubeView.setVisibility(View.VISIBLE);
       }
 
       @Override
       public void onPlayListEmpty()
       {
-        ipTextView.setVisibility(View.VISIBLE);
+        emptyTextView.setVisibility(View.VISIBLE);
         mYoutubeView.setVisibility(View.GONE);
       }
 
