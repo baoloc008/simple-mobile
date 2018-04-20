@@ -33,7 +33,6 @@ public abstract class Server {
   private DatagramSocket mDatagramSocket;
   private byte[] buf = new byte[256];
   private Handler        mHandler;
-  private String ip = "";
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
   private String currentVideo = "";
@@ -45,11 +44,6 @@ public abstract class Server {
 
   public void start(Context context) {
     try {
-      WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
-      if (wm != null) {
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        onGetIp(ip);
-      }
       mDatagramSocket = new DatagramSocket(UDP_PORT);
       server = new ServerSocket(TCP_PORT);
       mHandler = new Handler();
@@ -58,20 +52,22 @@ public abstract class Server {
         @Override
         public void run()
         {
-          DatagramPacket receivedPacket = new DatagramPacket(buf, buf.length);
-          try {
-            mDatagramSocket.receive(receivedPacket);
-            String message = new String(receivedPacket.getData());
-            if (message.equals(QUESTION)) {
-              DatagramPacket sendPacket = new DatagramPacket(RESPONSE.getBytes(),
-                                                             RESPONSE.length(),
-                                                             receivedPacket.getAddress(),
-                                                             receivedPacket.getPort());
-              mDatagramSocket.send(sendPacket);
+          while (true) {
+            DatagramPacket receivedPacket = new DatagramPacket(buf, buf.length);
+            try {
+              mDatagramSocket.receive(receivedPacket);
+              String message = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
+              if (message.equals(QUESTION)) {
+                DatagramPacket sendPacket = new DatagramPacket(RESPONSE.getBytes(),
+                                                               RESPONSE.length(),
+                                                               receivedPacket.getAddress(),
+                                                               receivedPacket.getPort());
+                mDatagramSocket.send(sendPacket);
+              }
             }
-          }
-          catch (Exception e) {
-            e.printStackTrace();
+            catch (Exception e) {
+              e.printStackTrace();
+            }
           }
         }
       }).start();
@@ -205,7 +201,6 @@ public abstract class Server {
       e.printStackTrace();
     }
   }
-  public abstract void onGetIp(String ip);
   public abstract void onPlayListFilled();
   public abstract void onPlayListEmpty();
   public abstract void onVideoChange(String id);
