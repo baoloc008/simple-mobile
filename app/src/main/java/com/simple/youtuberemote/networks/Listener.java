@@ -19,7 +19,7 @@ public abstract class Listener extends Thread{
       try {
         ObjectInputStream streamIn = new ObjectInputStream(socket.getInputStream());
         Message message  = (Message) streamIn.readObject();
-        Log.d("Message", message.toString());
+        Log.d("Message", message.type.toString());
         onMessage(message);
       }
       catch (Exception e) {
