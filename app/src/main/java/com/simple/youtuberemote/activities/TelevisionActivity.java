@@ -33,6 +33,13 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
     ButterKnife.bind(this);
 
+    mYoutubeView.initialize(DEVELOPER_KEY, this);
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
     mServer = new Server()
     {
       @Override
@@ -67,9 +74,14 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
       }
     };
-    mServer.start(this);
+    mServer.start();
+  }
 
-    mYoutubeView.initialize(DEVELOPER_KEY, this);
+  @Override
+  protected void onStop()
+  {
+    mServer.close();
+    super.onStop();
   }
 
   @Override
