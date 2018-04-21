@@ -1,9 +1,7 @@
 package com.simple.youtuberemote.networks;
 
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.text.format.Formatter;
 import android.util.Log;
 
 import com.simple.youtuberemote.models.message.AddVideo;
@@ -20,7 +18,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static android.content.Context.WIFI_SERVICE;
 
 public abstract class Server {
   public final static int TCP_PORT = 3456;
@@ -42,7 +39,7 @@ public abstract class Server {
     clients = new ArrayList<>();
   }
 
-  public void start(Context context) {
+  public void start() {
     try {
       mDatagramSocket = new DatagramSocket(UDP_PORT);
       server = new ServerSocket(TCP_PORT);
