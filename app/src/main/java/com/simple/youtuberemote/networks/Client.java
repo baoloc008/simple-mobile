@@ -1,5 +1,6 @@
 package com.simple.youtuberemote.networks;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.simple.youtuberemote.models.message.AddVideo;
@@ -7,6 +8,7 @@ import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
 import com.simple.youtuberemote.models.message.Type;
+import com.simple.youtuberemote.utils.Utils;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -24,13 +26,14 @@ public abstract class Client {
 
   private String serverIp;
 
-  public Client() {
-    findServer();
+  public Client(Context context) {
+    findServer(context);
   }
-  private void findServer() {
+  private void findServer(Context context) {
     try {
       final DatagramSocket datagramSocket = new DatagramSocket();
-      InetAddress    inetAddress    = InetAddress.getByName("192.168.13.255");
+      String broadcastAddress = Utils.getBroadcastAddress(context);
+      InetAddress    inetAddress    = InetAddress.getByName(broadcastAddress);
       String         message        = Server.QUESTION;
       final DatagramPacket datagramPacket = new DatagramPacket(message.getBytes(),
                                                          message.length(),
