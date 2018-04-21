@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class RemoteControlActivity extends AppCompatActivity {
   private TabLayout tabLayoutHome;
   private ViewPager viewPagerHome;
+  private Client mClient;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -26,8 +27,13 @@ public class RemoteControlActivity extends AppCompatActivity {
     ViewPagerHomeAdapter viewPagerHomeAdapter = new ViewPagerHomeAdapter(getSupportFragmentManager(), this);
     viewPagerHome.setAdapter(viewPagerHomeAdapter);
     tabLayoutHome.setupWithViewPager(viewPagerHome);
+  }
 
-    Client client = new Client()
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    mClient = new Client(this)
     {
       @Override
       public void onPlaylistChange(ArrayList<String> playList, String currentVideo)
@@ -36,6 +42,14 @@ public class RemoteControlActivity extends AppCompatActivity {
       }
     };
   }
+
+  @Override
+  protected void onStop()
+  {
+    mClient.close();
+    super.onStop();
+  }
+
   private void mapComponent() {
     tabLayoutHome = findViewById(R.id.tabLayoutHome);
     viewPagerHome = findViewById(R.id.viewPagerHome);
