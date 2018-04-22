@@ -9,4 +9,7 @@
   <color name="colorTextSecondary">#8A000000</color>
   <color name="colorDivider">#BDBDBD</color>
 
+  <color name="blackPrimary">#212121</color>
+  <color name="blackSecondary">#757575</color>
+  <color name="blackDisable">#BDBDBD</color>
 </resources>
