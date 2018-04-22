@@ -19,8 +19,7 @@ import java.util.List;
 
 public class ViewPagerHomeAdapter extends FragmentPagerAdapter
 {
-  private List<Fragment> listFragment      = new ArrayList<>();
-  private List<String>   listTitleFragment = new ArrayList<>();
+  private List<Fragment> listFragment = new ArrayList<>();
   private Context context;
 
   public ViewPagerHomeAdapter(FragmentManager fm, Context context)
@@ -36,13 +35,6 @@ public class ViewPagerHomeAdapter extends FragmentPagerAdapter
     listFragment.add(new HomeFragment());
     listFragment.add(new TrendFragment());
     listFragment.add(new PlaylistFragment());
-    // add Title
-    // String titleHome;
-    // titleHome = context.getResources().getString(R.string.titleHome);
-
-    // listTitleFragment.add("Home");
-    // listTitleFragment.add("Trend");
-    // listTitleFragment.add("Playlist");
   }
 
   @Override

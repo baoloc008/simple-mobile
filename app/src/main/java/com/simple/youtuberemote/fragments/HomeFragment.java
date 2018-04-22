@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment
                                                                .get(0)
                                                                .getStatistics()
                                                                .getViewCount() + " lượt xem");
+                              homeAdapter.notifyDataSetChanged();
                             }
                             else {
                               Toast.makeText(getActivity(),
