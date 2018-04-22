@@ -17,6 +17,6 @@ public interface DataClient
   @GET ("search?part=snippet&type=video&maxResults=50&key=AIzaSyC1aaCns4XPk3iXSgVxG4cVT5t-BbSeemM")
   Call<SearchVideos> getSearchVideos(@Query ("q") String keyword);
 
-  @GET ()
-  Call<VideoDetail> getVideoDetail();
+  @GET ("videos?part=contentDetails,statistics&key=AIzaSyC1aaCns4XPk3iXSgVxG4cVT5t-BbSeemM")
+  Call<VideoDetail> getVideoDetail(@Query ("id") String videoId);
 }

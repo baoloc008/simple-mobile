@@ -53,6 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
     VideoItem videoItem = videoList.get(position);
     holder.txtvTitle.setText(videoItem.getTitle());
     holder.txtvSubTitle.setText(videoItem.getSubTitle());
+    holder.txtvTime.setText(videoItem.getDuration());
     Glide.with(context)
          .load(videoItem.getThumbnail())
          .into(holder.imgvThumbnail);
@@ -72,6 +73,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
     TextView  txtvTitle;
     @BindView (R.id.txtvSubTitle)
     TextView  txtvSubTitle;
+    @BindView (R.id.txtvTime)
+    TextView  txtvTime;
 
     public ViewHolder(View itemView)
     {
