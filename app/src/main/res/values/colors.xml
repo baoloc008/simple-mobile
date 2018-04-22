@@ -12,4 +12,7 @@
   <color name="blackPrimary">#212121</color>
   <color name="blackSecondary">#757575</color>
   <color name="blackDisable">#BDBDBD</color>
+
+  <color name="white">#FFFFFF</color>
+
 </resources>
