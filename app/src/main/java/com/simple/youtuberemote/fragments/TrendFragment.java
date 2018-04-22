@@ -17,6 +17,9 @@ import com.simple.youtuberemote.models.VideoItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by loc on 15/04/2018.
@@ -26,6 +29,8 @@ public class TrendFragment extends Fragment
 {
   private TrendAdapter    trendAdapter;
   private List<VideoItem> videoList;
+  @BindView (R.id.recycleViewTrend)
+  RecyclerView recyclerViewHome;
 
   @Nullable
   @Override
@@ -33,8 +38,8 @@ public class TrendFragment extends Fragment
                            @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View         view             = inflater.inflate(R.layout.fragment_trend, container, false);
-    RecyclerView recyclerViewHome = view.findViewById(R.id.recycleViewTrend);
+    View view = inflater.inflate(R.layout.fragment_trend, container, false);
+    ButterKnife.bind(this, view);
     videoList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     trendAdapter = new TrendAdapter(getActivity(), videoList);

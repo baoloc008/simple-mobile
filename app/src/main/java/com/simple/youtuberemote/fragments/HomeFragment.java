@@ -23,6 +23,8 @@ import com.simple.youtuberemote.retrofit.DataClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +39,8 @@ public class HomeFragment extends Fragment
   private HomeAdapter     homeAdapter;
   private List<VideoItem> videoList;
   private DataClient      dataClient;
+  @BindView (R.id.recycleViewHome)
+  RecyclerView recyclerViewHome;
 
   @Nullable
   @Override
@@ -44,8 +48,8 @@ public class HomeFragment extends Fragment
                            @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View         view             = inflater.inflate(R.layout.fragment_home, container, false);
-    RecyclerView recyclerViewHome = view.findViewById(R.id.recycleViewHome);
+    View view = inflater.inflate(R.layout.fragment_home, container, false);
+    ButterKnife.bind(this, view);
     videoList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     homeAdapter = new HomeAdapter(getActivity(), videoList);

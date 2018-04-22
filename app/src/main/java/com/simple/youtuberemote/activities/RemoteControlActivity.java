@@ -14,22 +14,29 @@ import com.simple.youtuberemote.networks.Client;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class RemoteControlActivity extends AppCompatActivity
 {
-  private TabLayout tabLayoutHome;
-  private ViewPager viewPagerHome;
-  private Client    mClient;
+  @BindView (R.id.tabLayoutHome)
+  TabLayout tabLayoutHome;
+  @BindView (R.id.viewPagerHome)
+  ViewPager viewPagerHome;
+  Client mClient;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_remote_control);
-    mapComponent();
+    ButterKnife.bind(this);
     ViewPagerHomeAdapter viewPagerHomeAdapter
         = new ViewPagerHomeAdapter(getSupportFragmentManager(), this);
+    // viewPagerHome = findViewById(R.id.viewPagerHome);
     viewPagerHome.setAdapter(viewPagerHomeAdapter);
+    // tabLayoutHome = findViewById(R.id.tabLayoutHome);
     tabLayoutHome.setupWithViewPager(viewPagerHome);
   }
 
@@ -52,11 +59,5 @@ public class RemoteControlActivity extends AppCompatActivity
   {
     mClient.close();
     super.onStop();
-  }
-
-  private void mapComponent()
-  {
-    tabLayoutHome = findViewById(R.id.tabLayoutHome);
-    viewPagerHome = findViewById(R.id.viewPagerHome);
   }
 }
