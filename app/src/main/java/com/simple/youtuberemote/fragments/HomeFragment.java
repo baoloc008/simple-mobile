@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.HomeAdapter;
 import com.simple.youtuberemote.models.API.searchvideos.Item;
-import com.simple.youtuberemote.models.API.searchvideos.VideoAPI;
+import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.retrofit.APIUtils;
 import com.simple.youtuberemote.retrofit.DataClient;
@@ -55,15 +55,15 @@ public class HomeFragment extends Fragment
     recyclerViewHome.setLayoutManager(layoutManager);
     recyclerViewHome.setAdapter(homeAdapter);
     dataClient = APIUtils.getData();
-    dataClient.getVideo("phim songoku").enqueue(new Callback<VideoAPI>()
+    dataClient.getVideo("phim songoku").enqueue(new Callback<SearchVideos>()
     {
       @Override
-      public void onResponse(@NonNull Call<VideoAPI> call, @NonNull Response<VideoAPI> response)
+      public void onResponse(@NonNull Call<SearchVideos> call, @NonNull Response<SearchVideos> response)
       {
         if (response.isSuccessful()) {
-          VideoAPI videoAPI = response.body();
-          if (videoAPI != null) {
-            List<Item> videoAPIList = videoAPI.getItems();
+          SearchVideos searchVideos = response.body();
+          if (searchVideos != null) {
+            List<Item> videoAPIList = searchVideos.getItems();
             for (Item item : videoAPIList) {
               VideoItem videoItem = new VideoItem();
               videoItem.setThumbnail(item.getSnippet().getThumbnails().getMedium().getUrl());
@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment
       }
 
       @Override
-      public void onFailure(@NonNull Call<VideoAPI> call, @NonNull Throwable t)
+      public void onFailure(@NonNull Call<SearchVideos> call, @NonNull Throwable t)
       {
         Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
       }

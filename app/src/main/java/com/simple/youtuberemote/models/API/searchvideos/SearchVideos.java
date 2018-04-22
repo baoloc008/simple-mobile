@@ -10,7 +10,7 @@ import java.util.List;
  * Created by loc on 15/04/2018.
  */
 
-public class VideoAPI
+public class SearchVideos
 {
 
   @SerializedName ("kind")
