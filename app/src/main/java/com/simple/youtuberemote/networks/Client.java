@@ -120,7 +120,8 @@ public abstract class Client
   public void close()
   {
     try {
-      socket.close();
+      if (socket != null)
+        socket.close();
     }
     catch (IOException e) {
       e.printStackTrace();
