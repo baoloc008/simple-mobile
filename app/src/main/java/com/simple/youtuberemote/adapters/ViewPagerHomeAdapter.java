@@ -40,9 +40,9 @@ public class ViewPagerHomeAdapter extends FragmentPagerAdapter
     // String titleHome;
     // titleHome = context.getResources().getString(R.string.titleHome);
 
-    listTitleFragment.add("Home");
-    listTitleFragment.add("Trend");
-    listTitleFragment.add("Playlist");
+    // listTitleFragment.add("Home");
+    // listTitleFragment.add("Trend");
+    // listTitleFragment.add("Playlist");
   }
 
   @Override
@@ -60,6 +60,6 @@ public class ViewPagerHomeAdapter extends FragmentPagerAdapter
   @Override
   public CharSequence getPageTitle(int position)
   {
-    return listTitleFragment.get(position);
+    return null;
   }
 }
