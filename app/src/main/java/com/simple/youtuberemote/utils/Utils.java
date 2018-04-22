@@ -1,5 +1,6 @@
 package com.simple.youtuberemote.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
@@ -24,5 +25,25 @@ public class Utils
     }
 
     return result;
+  }
+
+  @SuppressLint ("DefaultLocale")
+  public static String formatDuration(String duration)
+  {
+    Log.i("duration", duration);
+    String temp[] = duration.replace("PT", "")
+                            .replace('H', ':')
+                            .replace('M', ':')
+                            .replace("S", "")
+                            .split(":");
+    if (temp.length == 3) {
+      return String.format("%d:%02d:%02d", Integer.parseInt(temp[0]),
+                                                            Integer.parseInt(temp[1]),
+                                                                             Integer.parseInt(temp[2]));
+    }
+    else if (temp.length == 2) {
+      return String.format("%d:%02d", Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+    }
+    return String.format("00:%02d", Integer.parseInt(temp[0]));
   }
 }
