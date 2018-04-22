@@ -81,20 +81,21 @@ public class HomeFragment extends Fragment
                           {
                             if (response.isSuccessful()) {
                               VideoDetail videoDetail = response.body();
-                              String duration = videoDetail.getItems()
-                                                           .get(0)
-                                                           .getContentDetails()
-                                                           .getDuration();
+                              String      duration    = videoDetail.getItems()
+                                                                   .get(0)
+                                                                   .getContentDetails()
+                                                                   .getDuration();
                               videoItem.setDuration(Utils.formatDuration(duration));
                               videoItem.setViewCount(videoDetail.getItems()
                                                                 .get(0)
                                                                 .getStatistics()
                                                                 .getViewCount());
+                              String viewCount = videoDetail.getItems()
+                                                            .get(0)
+                                                            .getStatistics()
+                                                            .getViewCount();
                               videoItem.setSubTitle(item.getSnippet().getChannelTitle() + " - " +
-                                                    videoDetail.getItems()
-                                                               .get(0)
-                                                               .getStatistics()
-                                                               .getViewCount() + " lượt xem");
+                                                    Utils.formatDecimal(viewCount) + " lượt xem");
                               homeAdapter.notifyDataSetChanged();
                             }
                             else {
