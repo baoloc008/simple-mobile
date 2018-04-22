@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import java.text.DecimalFormat;
+
 import static android.content.Context.WIFI_SERVICE;
 
 
@@ -45,5 +47,9 @@ public class Utils
       return String.format("%d:%02d", Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
     }
     return String.format("00:%02d", Integer.parseInt(temp[0]));
+  }
+  public static String formatDecimal(String number) {
+    DecimalFormat formatter = new DecimalFormat("#,###,###,###");
+    return formatter.format(Integer.valueOf(number));
   }
 }
