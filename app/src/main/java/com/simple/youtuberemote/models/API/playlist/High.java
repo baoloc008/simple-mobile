@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.models.API;
+package com.simple.youtuberemote.models.API.playlist;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by loc on 15/04/2018.
  */
 
-public class Default
+public class High
 {
 
   @SerializedName ("url")

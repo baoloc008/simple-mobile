@@ -1,12 +1,12 @@
-package com.simple.youtuberemote.models.API;
+package com.simple.youtuberemote.models.API.video;
+
+/**
+ * Created by loc on 4/22/18.
+ */
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-/**
- * Created by loc on 15/04/2018.
- */
 
 public class PageInfo
 {

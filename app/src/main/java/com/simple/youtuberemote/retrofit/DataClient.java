@@ -1,6 +1,6 @@
 package com.simple.youtuberemote.retrofit;
 
-import com.simple.youtuberemote.models.API.VideoAPI;
+import com.simple.youtuberemote.models.API.playlist.VideoAPI;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
