@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment
                           {
                             if (response.isSuccessful()) {
                               VideoDetail videoDetail = response.body();
-                              Log.d("dddddd",videoItem.getTitle() + videoDetail.getItems().get(0).getContentDetails().getDuration());
                               videoItem.setDuration(videoDetail.getItems()
                                                                .get(0)
                                                                .getContentDetails()
@@ -104,7 +103,8 @@ public class HomeFragment extends Fragment
                           }
 
                           @Override
-                          public void onFailure(@NonNull Call<VideoDetail> call, @NonNull Throwable t)
+                          public void onFailure(@NonNull Call<VideoDetail> call,
+                                                @NonNull Throwable t)
                           {
                             Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT)
                                  .show();
@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment
         Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
       }
     });
+
     return view;
   }
 }
