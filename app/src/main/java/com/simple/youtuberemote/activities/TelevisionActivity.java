@@ -23,7 +23,8 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
   @BindView (R.id.youtube_view)
   YouTubePlayerView mYoutubeView;
-  @BindView(R.id.empty_tv) TextView emptyTextView;
+  @BindView (R.id.empty_tv)
+  TextView          emptyTextView;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -98,5 +99,4 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
   {
     return (YouTubePlayerView) findViewById(R.id.youtube_view);
   }
-
 }

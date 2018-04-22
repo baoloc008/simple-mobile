@@ -19,26 +19,30 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public abstract class Client {
+public abstract class Client
+{
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
 
   private String serverIp;
 
-  public Client(Context context) {
+  public Client(Context context)
+  {
     findServer(context);
   }
-  private void findServer(Context context) {
+
+  private void findServer(Context context)
+  {
     try {
-      final DatagramSocket datagramSocket = new DatagramSocket();
-      String broadcastAddress = Utils.getBroadcastAddress(context);
-      InetAddress    inetAddress    = InetAddress.getByName(broadcastAddress);
-      String         message        = Server.QUESTION;
+      final DatagramSocket datagramSocket   = new DatagramSocket();
+      String               broadcastAddress = Utils.getBroadcastAddress(context);
+      InetAddress          inetAddress      = InetAddress.getByName(broadcastAddress);
+      String               message          = Server.QUESTION;
       final DatagramPacket datagramPacket = new DatagramPacket(message.getBytes(),
-                                                         message.length(),
-                                                         inetAddress,
-                                                         Server.UDP_PORT);
+                                                               message.length(),
+                                                               inetAddress,
+                                                               Server.UDP_PORT);
       new Thread(new Runnable()
       {
         @Override
@@ -48,8 +52,9 @@ public abstract class Client {
           while (!done) {
             try {
               datagramSocket.send(datagramPacket);
-              Log.d("sent","sent");
-              DatagramPacket receivedPacket = new DatagramPacket(Server.RESPONSE.getBytes(), Server.RESPONSE.length());
+              Log.d("sent", "sent");
+              DatagramPacket receivedPacket = new DatagramPacket(Server.RESPONSE.getBytes(),
+                                                                 Server.RESPONSE.length());
               datagramSocket.receive(receivedPacket);
               String response = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
               if (response.equals(Server.RESPONSE)) {
@@ -66,19 +71,22 @@ public abstract class Client {
           start();
         }
       }).start();
-
     }
     catch (Exception e) {
       e.printStackTrace();
     }
   }
-  private void start() {
+
+  private void start()
+  {
     try {
       socket = new Socket(serverIp, Server.TCP_PORT);
       addVideo("wKJ9KzGQq0w");
-      (new Listener(socket) {
+      (new Listener(socket)
+      {
         @Override
-        public void onMessage(Message message) {
+        public void onMessage(Message message)
+        {
           switch (message.type) {
             case PLAY_LIST:
               PlayList data = (PlayList) message.data;
@@ -96,16 +104,21 @@ public abstract class Client {
       e.printStackTrace();
     }
   }
-  private void send(Socket client, Message message) {
+
+  private void send(Socket client, Message message)
+  {
     try {
       ObjectOutputStream streamOut = new ObjectOutputStream(client.getOutputStream());
       streamOut.writeObject(message);
       streamOut.flush();
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
   }
-  public void close() {
+
+  public void close()
+  {
     try {
       socket.close();
     }
@@ -113,24 +126,36 @@ public abstract class Client {
       e.printStackTrace();
     }
   }
-  public ArrayList<String> getPlayList() {
+
+  public ArrayList<String> getPlayList()
+  {
     return playList;
   }
 
-  public String getCurrentVideo() {
+  public String getCurrentVideo()
+  {
     return currentVideo;
   }
-  public void pauseVideo() {
+
+  public void pauseVideo()
+  {
     send(socket, new Message(Type.PAUSE, null));
   }
-  public void playVideo() {
+
+  public void playVideo()
+  {
     send(socket, new Message(Type.PLAY, null));
   }
-  public void playVideo(String id) {
+
+  public void playVideo(String id)
+  {
     send(socket, new Message(Type.PLAY_SPEC, new PlaySpecVideo(id)));
   }
-  public void addVideo(String id) {
+
+  public void addVideo(String id)
+  {
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
   }
+
   public abstract void onPlaylistChange(ArrayList<String> playList, String currentVideo);
 }

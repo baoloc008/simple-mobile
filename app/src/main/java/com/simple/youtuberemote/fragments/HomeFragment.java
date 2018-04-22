@@ -27,18 +27,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class HomeFragment extends Fragment {
-  private HomeAdapter homeAdapter;
+public class HomeFragment extends Fragment
+{
+  private HomeAdapter     homeAdapter;
   private List<VideoItem> videoList;
-  private DataClient dataClient;
+  private DataClient      dataClient;
+
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_home, container, false);
+  public View onCreateView(LayoutInflater inflater,
+                           @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
+  {
+    View         view             = inflater.inflate(R.layout.fragment_home, container, false);
     RecyclerView recyclerViewHome = view.findViewById(R.id.recycleViewHome);
     videoList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -46,9 +52,11 @@ public class HomeFragment extends Fragment {
     recyclerViewHome.setLayoutManager(layoutManager);
     recyclerViewHome.setAdapter(homeAdapter);
     dataClient = APIUtils.getData();
-    dataClient.getVideo("phim songoku").enqueue(new Callback<VideoAPI>() {
+    dataClient.getVideo("phim songoku").enqueue(new Callback<VideoAPI>()
+    {
       @Override
-      public void onResponse(@NonNull Call<VideoAPI> call, @NonNull Response<VideoAPI> response) {
+      public void onResponse(@NonNull Call<VideoAPI> call, @NonNull Response<VideoAPI> response)
+      {
         if (response.isSuccessful()) {
           VideoAPI videoAPI = response.body();
           if (videoAPI != null) {
@@ -63,13 +71,17 @@ public class HomeFragment extends Fragment {
               homeAdapter.notifyDataSetChanged();
             }
           }
-        } else {
-          Toast.makeText(getActivity(), String.valueOf("Error:" + response.code()), Toast.LENGTH_SHORT).show();
+        }
+        else {
+          Toast.makeText(getActivity(),
+                         String.valueOf("Error:" + response.code()),
+                         Toast.LENGTH_SHORT).show();
         }
       }
 
       @Override
-      public void onFailure(@NonNull Call<VideoAPI> call, @NonNull Throwable t) {
+      public void onFailure(@NonNull Call<VideoAPI> call, @NonNull Throwable t)
+      {
         Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
       }
     });

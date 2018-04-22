@@ -8,17 +8,21 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 
-public abstract class Listener extends Thread{
+public abstract class Listener extends Thread
+{
   private Socket socket;
 
-  public Listener(Socket _socket) {
+  public Listener(Socket _socket)
+  {
     socket = _socket;
   }
-  public void run() {
+
+  public void run()
+  {
     while (true) {
       try {
         ObjectInputStream streamIn = new ObjectInputStream(socket.getInputStream());
-        Message message  = (Message) streamIn.readObject();
+        Message           message  = (Message) streamIn.readObject();
         Log.d("Message", message.type.toString());
         onMessage(message);
       }
@@ -27,6 +31,6 @@ public abstract class Listener extends Thread{
       }
     }
   }
-  public abstract void onMessage(Message message);
 
+  public abstract void onMessage(Message message);
 }

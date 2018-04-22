@@ -3,33 +3,38 @@ package com.simple.youtuberemote.models.API;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class PageInfo {
+public class PageInfo
+{
 
-  @SerializedName("totalResults")
+  @SerializedName ("totalResults")
   @Expose
   private Integer totalResults;
-  @SerializedName("resultsPerPage")
+  @SerializedName ("resultsPerPage")
   @Expose
   private Integer resultsPerPage;
 
-  public Integer getTotalResults() {
+  public Integer getTotalResults()
+  {
     return totalResults;
   }
 
-  public void setTotalResults(Integer totalResults) {
+  public void setTotalResults(Integer totalResults)
+  {
     this.totalResults = totalResults;
   }
 
-  public Integer getResultsPerPage() {
+  public Integer getResultsPerPage()
+  {
     return resultsPerPage;
   }
 
-  public void setResultsPerPage(Integer resultsPerPage) {
+  public void setResultsPerPage(Integer resultsPerPage)
+  {
     this.resultsPerPage = resultsPerPage;
   }
-
 }

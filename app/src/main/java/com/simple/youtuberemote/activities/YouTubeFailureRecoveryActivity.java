@@ -7,28 +7,33 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 
+
 /**
  * An abstract activity which deals with recovering from errors which may occur during API
  * initialization, but can be corrected through user action.
  */
 public abstract class YouTubeFailureRecoveryActivity extends YouTubeBaseActivity implements
-        YouTubePlayer.OnInitializedListener {
+                                                                                 YouTubePlayer.OnInitializedListener
+{
 
   private static final int RECOVERY_DIALOG_REQUEST = 1;
 
   @Override
   public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                      YouTubeInitializationResult errorReason) {
+                                      YouTubeInitializationResult errorReason)
+  {
     if (errorReason.isUserRecoverableError()) {
       errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
-    } else {
+    }
+    else {
       String errorMessage = String.format("Có lỗi xảy ra: (%1$s)", errorReason.toString());
       Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
     if (requestCode == RECOVERY_DIALOG_REQUEST) {
       // Retry initialization if user performed a recovery action
       getYouTubePlayerProvider().initialize("AIzaSyDiUkq0Jx96EW-D-zuqR45KYIvDmAnPn1s", this);
@@ -36,5 +41,4 @@ public abstract class YouTubeFailureRecoveryActivity extends YouTubeBaseActivity
   }
 
   protected abstract YouTubePlayer.Provider getYouTubePlayerProvider();
-
 }

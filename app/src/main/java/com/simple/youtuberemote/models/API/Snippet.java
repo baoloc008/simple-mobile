@@ -4,88 +4,103 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.simple.youtuberemote.*;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class Snippet {
+public class Snippet
+{
 
-  @SerializedName("publishedAt")
+  @SerializedName ("publishedAt")
   @Expose
-  private String publishedAt;
-  @SerializedName("channelId")
+  private String     publishedAt;
+  @SerializedName ("channelId")
   @Expose
-  private String channelId;
-  @SerializedName("title")
+  private String     channelId;
+  @SerializedName ("title")
   @Expose
-  private String title;
-  @SerializedName("description")
+  private String     title;
+  @SerializedName ("description")
   @Expose
-  private String description;
-  @SerializedName("thumbnails")
+  private String     description;
+  @SerializedName ("thumbnails")
   @Expose
   private Thumbnails thumbnails;
-  @SerializedName("channelTitle")
+  @SerializedName ("channelTitle")
   @Expose
-  private String channelTitle;
-  @SerializedName("liveBroadcastContent")
+  private String     channelTitle;
+  @SerializedName ("liveBroadcastContent")
   @Expose
-  private String liveBroadcastContent;
+  private String     liveBroadcastContent;
 
-  public String getPublishedAt() {
+  public String getPublishedAt()
+  {
     return publishedAt;
   }
 
-  public void setPublishedAt(String publishedAt) {
+  public void setPublishedAt(String publishedAt)
+  {
     this.publishedAt = publishedAt;
   }
 
-  public String getChannelId() {
+  public String getChannelId()
+  {
     return channelId;
   }
 
-  public void setChannelId(String channelId) {
+  public void setChannelId(String channelId)
+  {
     this.channelId = channelId;
   }
 
-  public String getTitle() {
+  public String getTitle()
+  {
     return title;
   }
 
-  public void setTitle(String title) {
+  public void setTitle(String title)
+  {
     this.title = title;
   }
 
-  public String getDescription() {
+  public String getDescription()
+  {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(String description)
+  {
     this.description = description;
   }
 
-  public Thumbnails getThumbnails() {
+  public Thumbnails getThumbnails()
+  {
     return thumbnails;
   }
 
-  public void setThumbnails(Thumbnails thumbnails) {
+  public void setThumbnails(Thumbnails thumbnails)
+  {
     this.thumbnails = thumbnails;
   }
 
-  public String getChannelTitle() {
+  public String getChannelTitle()
+  {
     return channelTitle;
   }
 
-  public void setChannelTitle(String channelTitle) {
+  public void setChannelTitle(String channelTitle)
+  {
     this.channelTitle = channelTitle;
   }
 
-  public String getLiveBroadcastContent() {
+  public String getLiveBroadcastContent()
+  {
     return liveBroadcastContent;
   }
 
-  public void setLiveBroadcastContent(String liveBroadcastContent) {
+  public void setLiveBroadcastContent(String liveBroadcastContent)
+  {
     this.liveBroadcastContent = liveBroadcastContent;
   }
-
 }

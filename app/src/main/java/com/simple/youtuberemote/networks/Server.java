@@ -19,7 +19,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public abstract class Server {
+public abstract class Server
+{
   public final static int TCP_PORT = 3456;
   public final static int UDP_PORT = 3457;
 
@@ -29,17 +30,19 @@ public abstract class Server {
   private ServerSocket   server;
   private DatagramSocket mDatagramSocket;
   private byte[] buf = new byte[256];
-  private Handler        mHandler;
+  private Handler           mHandler;
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
   private String currentVideo = "";
 
-  public Server() {
+  public Server()
+  {
     playList = new ArrayList<>();
     clients = new ArrayList<>();
   }
 
-  public void start() {
+  public void start()
+  {
     try {
       mDatagramSocket = new DatagramSocket(UDP_PORT);
       server = new ServerSocket(TCP_PORT);
@@ -68,17 +71,21 @@ public abstract class Server {
           }
         }
       }).start();
-      new Thread(new Runnable() {
+      new Thread(new Runnable()
+      {
         @Override
-        public void run() {
+        public void run()
+        {
           while (true) {
             try {
               final Socket client = server.accept();
               send(client, new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo)));
               clients.add(client);
-              (new Listener(client) {
+              (new Listener(client)
+              {
                 @Override
-                public void onMessage(final Message message) {
+                public void onMessage(final Message message)
+                {
                   Log.d("Message", message.toString());
                   switch (message.type) {
                     case NEXT:
@@ -143,21 +150,24 @@ public abstract class Server {
                   }
                 }
               }).start();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
               e.printStackTrace();
             }
           }
         }
       }).start();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  private void broadcastPlaylist() {
+  private void broadcastPlaylist()
+  {
     try {
       Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
-      for (Socket client: clients) {
+      for (Socket client : clients) {
         send(client, message);
       }
     }
@@ -165,17 +175,21 @@ public abstract class Server {
       e.printStackTrace();
     }
   }
-  private void send(Socket client, Message message) {
+
+  private void send(Socket client, Message message)
+  {
     try {
       ObjectOutputStream streamOut = new ObjectOutputStream(client.getOutputStream());
       streamOut.writeObject(message);
       streamOut.flush();
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private void peek() {
+  private void peek()
+  {
     if (playList.size() == 0) {
       currentVideo = "";
       onPlayListEmpty();
@@ -185,11 +199,14 @@ public abstract class Server {
     onVideoChange(currentVideo);
   }
 
-  public void next() {
+  public void next()
+  {
     playList.remove(currentVideo);
     peek();
   }
-  public void close() {
+
+  public void close()
+  {
     mDatagramSocket.close();
     try {
       server.close();
@@ -198,9 +215,14 @@ public abstract class Server {
       e.printStackTrace();
     }
   }
+
   public abstract void onPlayListFilled();
+
   public abstract void onPlayListEmpty();
+
   public abstract void onVideoChange(String id);
+
   public abstract void onPause();
+
   public abstract void onPlay();
 }

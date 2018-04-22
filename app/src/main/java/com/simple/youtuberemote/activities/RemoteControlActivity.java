@@ -15,16 +15,20 @@ import com.simple.youtuberemote.networks.Client;
 import java.util.ArrayList;
 
 
-public class RemoteControlActivity extends AppCompatActivity {
+public class RemoteControlActivity extends AppCompatActivity
+{
   private TabLayout tabLayoutHome;
   private ViewPager viewPagerHome;
-  private Client mClient;
+  private Client    mClient;
+
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState)
+  {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_remote_control);
     mapComponent();
-    ViewPagerHomeAdapter viewPagerHomeAdapter = new ViewPagerHomeAdapter(getSupportFragmentManager(), this);
+    ViewPagerHomeAdapter viewPagerHomeAdapter
+        = new ViewPagerHomeAdapter(getSupportFragmentManager(), this);
     viewPagerHome.setAdapter(viewPagerHomeAdapter);
     tabLayoutHome.setupWithViewPager(viewPagerHome);
   }
@@ -50,7 +54,8 @@ public class RemoteControlActivity extends AppCompatActivity {
     super.onStop();
   }
 
-  private void mapComponent() {
+  private void mapComponent()
+  {
     tabLayoutHome = findViewById(R.id.tabLayoutHome);
     viewPagerHome = findViewById(R.id.viewPagerHome);
   }

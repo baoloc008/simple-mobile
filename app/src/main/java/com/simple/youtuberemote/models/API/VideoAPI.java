@@ -5,77 +5,90 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class VideoAPI {
+public class VideoAPI
+{
 
-  @SerializedName("kind")
+  @SerializedName ("kind")
   @Expose
-  private String kind;
-  @SerializedName("etag")
+  private String   kind;
+  @SerializedName ("etag")
   @Expose
-  private String etag;
-  @SerializedName("nextPageToken")
+  private String   etag;
+  @SerializedName ("nextPageToken")
   @Expose
-  private String nextPageToken;
-  @SerializedName("regionCode")
+  private String   nextPageToken;
+  @SerializedName ("regionCode")
   @Expose
-  private String regionCode;
-  @SerializedName("pageInfo")
+  private String   regionCode;
+  @SerializedName ("pageInfo")
   @Expose
   private PageInfo pageInfo;
-  @SerializedName("items")
+  @SerializedName ("items")
   @Expose
   private List<Item> items = null;
 
-  public String getKind() {
+  public String getKind()
+  {
     return kind;
   }
 
-  public void setKind(String kind) {
+  public void setKind(String kind)
+  {
     this.kind = kind;
   }
 
-  public String getEtag() {
+  public String getEtag()
+  {
     return etag;
   }
 
-  public void setEtag(String etag) {
+  public void setEtag(String etag)
+  {
     this.etag = etag;
   }
 
-  public String getNextPageToken() {
+  public String getNextPageToken()
+  {
     return nextPageToken;
   }
 
-  public void setNextPageToken(String nextPageToken) {
+  public void setNextPageToken(String nextPageToken)
+  {
     this.nextPageToken = nextPageToken;
   }
 
-  public String getRegionCode() {
+  public String getRegionCode()
+  {
     return regionCode;
   }
 
-  public void setRegionCode(String regionCode) {
+  public void setRegionCode(String regionCode)
+  {
     this.regionCode = regionCode;
   }
 
-  public PageInfo getPageInfo() {
+  public PageInfo getPageInfo()
+  {
     return pageInfo;
   }
 
-  public void setPageInfo(PageInfo pageInfo) {
+  public void setPageInfo(PageInfo pageInfo)
+  {
     this.pageInfo = pageInfo;
   }
 
-  public List<Item> getItems() {
+  public List<Item> getItems()
+  {
     return items;
   }
 
-  public void setItems(List<Item> items) {
+  public void setItems(List<Item> items)
+  {
     this.items = items;
   }
-
 }

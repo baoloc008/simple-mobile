@@ -9,26 +9,29 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class RetrofitClient {
+public class RetrofitClient
+{
   private static Retrofit retrofit = null;
 
-  public static Retrofit getClient(String url) {
+  public static Retrofit getClient(String url)
+  {
     OkHttpClient builder = new OkHttpClient.Builder()
-            .readTimeout(5000, TimeUnit.MILLISECONDS)
-            .writeTimeout(5000, TimeUnit.MILLISECONDS)
-            .connectTimeout(10000, TimeUnit.MILLISECONDS)
-            .retryOnConnectionFailure(true)
-            .build();
+        .readTimeout(5000, TimeUnit.MILLISECONDS)
+        .writeTimeout(5000, TimeUnit.MILLISECONDS)
+        .connectTimeout(10000, TimeUnit.MILLISECONDS)
+        .retryOnConnectionFailure(true)
+        .build();
     Gson gson = new GsonBuilder().setLenient().create();
     retrofit = new Retrofit.Builder()
-            .baseUrl(url)
-            .client(builder)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+        .baseUrl(url)
+        .client(builder)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build();
     return retrofit;
   }
 }

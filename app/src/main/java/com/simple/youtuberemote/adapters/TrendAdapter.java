@@ -15,37 +15,45 @@ import com.simple.youtuberemote.models.VideoItem;
 
 import java.util.List;
 
+
 /**
  * Created by loc on 15/04/2018.
  */
 
-public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder> {
-  private Context context;
+public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
+{
+  private Context         context;
   private List<VideoItem> videoList;
 
-  public TrendAdapter(Context context, List<VideoItem> videoList) {
+  public TrendAdapter(Context context, List<VideoItem> videoList)
+  {
     this.context = context;
     this.videoList = videoList;
   }
 
   @Override
-  public TrendAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  public TrendAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  {
+    LayoutInflater layoutInflater
+        = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View view = layoutInflater.inflate(R.layout.video_item, parent, false);
     return new ViewHolder(view);
   }
 
   @Override
-  public void onBindViewHolder(TrendAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(TrendAdapter.ViewHolder holder, int position)
+  {
     final VideoItem videoItem = videoList.get(position);
     holder.txtvTitle.setText(videoItem.getTitle());
     holder.txtvSubTitle.setText(videoItem.getSubTitle());
     Glide.with(context)
-            .load(videoItem.getThumbnail())
-            .into(holder.imgvThumbnail);
-    holder.imgvThumbnail.setOnClickListener(new View.OnClickListener() {
+         .load(videoItem.getThumbnail())
+         .into(holder.imgvThumbnail);
+    holder.imgvThumbnail.setOnClickListener(new View.OnClickListener()
+    {
       @Override
-      public void onClick(View view) {
+      public void onClick(View view)
+      {
         Toast.makeText(context, String.valueOf(videoItem.getVideoId()), Toast.LENGTH_SHORT).show();
 //        Bundle bundle = new Bundle();
 //        bundle.putString("videoId", videoItem.getVideoId());
@@ -57,15 +65,18 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder> 
   }
 
   @Override
-  public int getItemCount() {
+  public int getItemCount()
+  {
     return videoList.size();
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  public class ViewHolder extends RecyclerView.ViewHolder
+  {
     ImageView imgvThumbnail;
-    TextView txtvTitle, txtvSubTitle;
+    TextView  txtvTitle, txtvSubTitle;
 
-    public ViewHolder(View itemView) {
+    public ViewHolder(View itemView)
+    {
       super(itemView);
       imgvThumbnail = itemView.findViewById(R.id.imgvThumbnail);
       txtvTitle = itemView.findViewById(R.id.txtvTitle);
