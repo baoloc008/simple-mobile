@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import com.simple.youtuberemote.models.API.video.VideoDetail;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.retrofit.APIUtils;
 import com.simple.youtuberemote.retrofit.DataClient;
+import com.simple.youtuberemote.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,11 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment
 {
+  @BindView (R.id.recycleViewHome)
+  RecyclerView recyclerViewHome;
   private HomeAdapter     homeAdapter;
   private List<VideoItem> videoList;
   private DataClient      dataClient;
-  @BindView (R.id.recycleViewHome)
-  RecyclerView recyclerViewHome;
 
   @Nullable
   @Override
@@ -81,10 +81,11 @@ public class HomeFragment extends Fragment
                           {
                             if (response.isSuccessful()) {
                               VideoDetail videoDetail = response.body();
-                              videoItem.setDuration(videoDetail.getItems()
-                                                               .get(0)
-                                                               .getContentDetails()
-                                                               .getDuration());
+                              String duration = videoDetail.getItems()
+                                                           .get(0)
+                                                           .getContentDetails()
+                                                           .getDuration();
+                              videoItem.setDuration(Utils.formatDuration(duration));
                               videoItem.setViewCount(videoDetail.getItems()
                                                                 .get(0)
                                                                 .getStatistics()
