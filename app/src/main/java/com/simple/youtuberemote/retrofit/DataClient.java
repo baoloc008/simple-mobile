@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 public interface DataClient
 {
   @GET ("search?part=snippet&type=video&maxResults=50&key=AIzaSyC1aaCns4XPk3iXSgVxG4cVT5t-BbSeemM")
-  Call<SearchVideos> getVideo(@Query ("q") String keyword);
+  Call<SearchVideos> getSearchVideos(@Query ("q") String keyword);
 
   @GET ()
   Call<VideoDetail> getVideoDetail();

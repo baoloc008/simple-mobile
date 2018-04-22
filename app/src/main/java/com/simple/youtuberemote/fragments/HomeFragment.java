@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment
     recyclerViewHome.setLayoutManager(layoutManager);
     recyclerViewHome.setAdapter(homeAdapter);
     dataClient = APIUtils.getData();
-    dataClient.getVideo("phim songoku").enqueue(new Callback<SearchVideos>()
+    dataClient.getSearchVideos("phim songoku").enqueue(new Callback<SearchVideos>()
     {
       @Override
       public void onResponse(@NonNull Call<SearchVideos> call, @NonNull Response<SearchVideos> response)
