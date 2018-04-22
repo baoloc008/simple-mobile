@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.HomeAdapter;
-import com.simple.youtuberemote.models.API.playlist.Item;
-import com.simple.youtuberemote.models.API.playlist.VideoAPI;
+import com.simple.youtuberemote.models.API.searchvideos.Item;
+import com.simple.youtuberemote.models.API.searchvideos.VideoAPI;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.retrofit.APIUtils;
 import com.simple.youtuberemote.retrofit.DataClient;

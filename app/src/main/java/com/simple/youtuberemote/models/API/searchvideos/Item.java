@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.models.API.playlist;
+package com.simple.youtuberemote.models.API.searchvideos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
