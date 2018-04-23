@@ -37,8 +37,10 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment
 {
+
   @BindView (R.id.recycleViewHome)
   RecyclerView recyclerViewHome;
+
   private HomeAdapter     homeAdapter;
   private List<VideoItem> videoList;
   private DataClient      dataClient;
@@ -51,11 +53,14 @@ public class HomeFragment extends Fragment
   {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     ButterKnife.bind(this, view);
+
     videoList = new ArrayList<>();
+
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     homeAdapter = new HomeAdapter(getActivity(), videoList);
     recyclerViewHome.setLayoutManager(layoutManager);
     recyclerViewHome.setAdapter(homeAdapter);
+
     dataClient = APIUtils.getData();
     dataClient.getSearchVideos("phim songoku").enqueue(new Callback<SearchVideos>()
     {
@@ -81,10 +86,10 @@ public class HomeFragment extends Fragment
                           {
                             if (response.isSuccessful()) {
                               VideoDetail videoDetail = response.body();
-                              String      duration    = videoDetail.getItems()
-                                                                   .get(0)
-                                                                   .getContentDetails()
-                                                                   .getDuration();
+                              String duration = videoDetail.getItems()
+                                                           .get(0)
+                                                           .getContentDetails()
+                                                           .getDuration();
                               videoItem.setDuration(Utils.formatDuration(duration));
                               videoItem.setViewCount(videoDetail.getItems()
                                                                 .get(0)
