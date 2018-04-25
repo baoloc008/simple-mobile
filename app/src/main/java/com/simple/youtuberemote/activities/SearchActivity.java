@@ -3,12 +3,17 @@ package com.simple.youtuberemote.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.widget.ImageView;
 
 import com.simple.youtuberemote.R;
+import com.simple.youtuberemote.models.VideoItem;
+import com.simple.youtuberemote.networks.YoutubeApiHelper;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +32,9 @@ public class SearchActivity extends AppCompatActivity
   @BindView (R.id.rv_search_results)
   RecyclerView mSearchVideoList;
 
+  private Handler         mHandler;
+  private List<VideoItem> mSearchResults;
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -42,6 +50,7 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onQueryTextSubmit(String query)
       {
+        searchOnYoutube(query);
         return false;
       }
 
@@ -51,6 +60,8 @@ public class SearchActivity extends AppCompatActivity
         return false;
       }
     });
+
+    mHandler = new Handler();
 
   }
 
@@ -66,6 +77,25 @@ public class SearchActivity extends AppCompatActivity
       setResult(Activity.RESULT_OK, resultIntent);
     }
     finish();
+  }
+
+  private void searchOnYoutube(final String query)
+  {
+    new Thread()
+    {
+      public void run()
+      {
+        YoutubeApiHelper yc = new YoutubeApiHelper(SearchActivity.this);
+        mSearchResults = yc.search(query);
+        mHandler.post(new Runnable()
+        {
+          public void run()
+          {
+            System.out.println(mSearchResults);
+          }
+        });
+      }
+    }.start();
   }
 
 }

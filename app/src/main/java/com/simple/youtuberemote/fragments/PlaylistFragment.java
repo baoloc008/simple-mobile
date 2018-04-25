@@ -74,7 +74,7 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.Playli
             for (Item item : videoAPIList)
             {
               VideoItem videoItem = new VideoItem();
-              videoItem.setThumbnail(item.getSnippet().getThumbnails().getMedium().getUrl());
+              videoItem.setThumbnailUrl(item.getSnippet().getThumbnails().getMedium().getUrl());
               videoItem.setTitle(item.getSnippet().getTitle());
               videoItem.setSubTitle(item.getSnippet().getChannelTitle());
               videoList.add(videoItem);

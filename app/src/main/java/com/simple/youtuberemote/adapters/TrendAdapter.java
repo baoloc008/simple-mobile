@@ -47,7 +47,7 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
     holder.txtvTitle.setText(videoItem.getTitle());
     holder.txtvSubTitle.setText(videoItem.getSubTitle());
     Glide.with(context)
-         .load(videoItem.getThumbnail())
+         .load(videoItem.getThumbnailUrl())
          .into(holder.imgvThumbnail);
     holder.imgvThumbnail.setOnClickListener(new View.OnClickListener()
     {

@@ -6,19 +6,20 @@ package com.simple.youtuberemote.models;
 
 public class VideoItem
 {
-  private String thumbnail, title, subTitle, videoId, viewCount, duration;
+
+  private String thumbnailUrl, title, subTitle, videoId, viewCount, duration;
 
   public VideoItem()
   {
   }
 
-  public VideoItem(String thumbnail,
+  public VideoItem(String videoId,
                    String title,
                    String subTitle,
-                   String videoId,
+                   String thumbnailUrl,
                    String viewCount, String duration)
   {
-    this.thumbnail = thumbnail;
+    this.thumbnailUrl = thumbnailUrl;
     this.title = title;
     this.subTitle = subTitle;
     this.videoId = videoId;
@@ -26,14 +27,14 @@ public class VideoItem
     this.duration = duration;
   }
 
-  public String getThumbnail()
+  public String getThumbnailUrl()
   {
-    return thumbnail;
+    return thumbnailUrl;
   }
 
-  public void setThumbnail(String thumbnail)
+  public void setThumbnailUrl(String thumbnailUrl)
   {
-    this.thumbnail = thumbnail;
+    this.thumbnailUrl = thumbnailUrl;
   }
 
   public String getTitle()

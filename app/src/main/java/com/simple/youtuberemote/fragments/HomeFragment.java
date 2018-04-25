@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment
             List<Item> videoAPIList = searchVideos.getItems();
             for (final Item item : videoAPIList) {
               final VideoItem videoItem = new VideoItem();
-              videoItem.setThumbnail(item.getSnippet().getThumbnails().getMedium().getUrl());
+              videoItem.setThumbnailUrl(item.getSnippet().getThumbnails().getMedium().getUrl());
               videoItem.setTitle(item.getSnippet().getTitle());
               videoItem.setVideoId(item.getId().getVideoId());
               dataClient.getVideoDetail(item.getId().getVideoId())
