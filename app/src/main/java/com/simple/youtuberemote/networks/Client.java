@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public abstract class Client
 {
+  public final static String NO_CONNECTION = "NO_CONNECTION";
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
@@ -52,7 +53,6 @@ public abstract class Client
           while (!done) {
             try {
               datagramSocket.send(datagramPacket);
-              Log.d("sent", "sent");
               DatagramPacket receivedPacket = new DatagramPacket(Server.RESPONSE.getBytes(),
                                                                  Server.RESPONSE.length());
               datagramSocket.receive(receivedPacket);
@@ -67,7 +67,6 @@ public abstract class Client
             }
           }
           datagramSocket.close();
-          Log.d("Server IP", serverIp);
           start();
         }
       }).start();
@@ -81,7 +80,6 @@ public abstract class Client
   {
     try {
       socket = new Socket(serverIp, Server.TCP_PORT);
-      addVideo("wKJ9KzGQq0w");
       (new Listener(socket)
       {
         @Override
@@ -105,8 +103,11 @@ public abstract class Client
     }
   }
 
-  private void send(Socket client, Message message)
+  private void send(Socket client, Message message) throws Exception
   {
+    if (client == null) {
+      throw new Exception(NO_CONNECTION);
+    }
     try {
       ObjectOutputStream streamOut = new ObjectOutputStream(client.getOutputStream());
       streamOut.writeObject(message);
@@ -138,22 +139,22 @@ public abstract class Client
     return currentVideo;
   }
 
-  public void pauseVideo()
+  public void pauseVideo() throws Exception
   {
     send(socket, new Message(Type.PAUSE, null));
   }
 
-  public void playVideo()
+  public void playVideo() throws Exception
   {
     send(socket, new Message(Type.PLAY, null));
   }
 
-  public void playVideo(String id)
+  public void playVideo(String id) throws Exception
   {
     send(socket, new Message(Type.PLAY_SPEC, new PlaySpecVideo(id)));
   }
 
-  public void addVideo(String id)
+  public void addVideo(String id) throws Exception
   {
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
   }
