@@ -31,11 +31,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
 {
   private Context         context;
   private List<VideoItem> videoList;
-
-  public HomeAdapter(Context context, List<VideoItem> videoList)
+  private RecyclerViewHomeAdapterOnclickListener mRecyclerViewHomeAdapterOnclickListener;
+  public interface RecyclerViewHomeAdapterOnclickListener {
+    void onItemClick(View v, int position);
+  }
+  public HomeAdapter(Context context, List<VideoItem> videoList, RecyclerViewHomeAdapterOnclickListener listener)
   {
     this.context = context;
     this.videoList = videoList;
+    this.mRecyclerViewHomeAdapterOnclickListener = listener;
   }
 
   @Override
@@ -85,9 +89,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
     @OnClick (R.id.imgvThumbnail)
     public void onClickVideo()
     {
-      int       selectedPosition = getAdapterPosition();
-      VideoItem videoItem        = videoList.get(selectedPosition);
-      Toast.makeText(context, String.valueOf(videoItem.getVideoId()), Toast.LENGTH_SHORT).show();
+      mRecyclerViewHomeAdapterOnclickListener.onItemClick(itemView, getAdapterPosition());
+      // int       selectedPosition = getAdapterPosition();
+      // VideoItem videoItem        = videoList.get(selectedPosition);
+      // Toast.makeText(context, String.valueOf(videoItem.getVideoId()), Toast.LENGTH_SHORT).show();
       // Bundle bundle = new Bundle();
       // bundle.putString("videoId", videoItem.getVideoId());
       // Intent intent = new Intent(context, PlayVideo.class);
