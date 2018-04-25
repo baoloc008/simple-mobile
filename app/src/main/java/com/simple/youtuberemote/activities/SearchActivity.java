@@ -37,6 +37,20 @@ public class SearchActivity extends AppCompatActivity
 
     mSearchView.setIconifiedByDefault(false);
     mSearchView.setQueryHint("Search YouTube");
+    mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+    {
+      @Override
+      public boolean onQueryTextSubmit(String query)
+      {
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String newText)
+      {
+        return false;
+      }
+    });
 
   }
 
