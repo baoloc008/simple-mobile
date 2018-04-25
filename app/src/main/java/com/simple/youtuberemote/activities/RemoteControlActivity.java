@@ -52,14 +52,7 @@ public class RemoteControlActivity extends AppCompatActivity
   protected void onStart()
   {
     super.onStart();
-    mClient = new Client(this)
-    {
-      @Override
-      public void onPlaylistChange(ArrayList<String> playList, String currentVideo)
-      {
-        Log.d("PlayList Change", playList.toString());
-      }
-    };
+    mClient = new Client(this);
   }
 
   @Override

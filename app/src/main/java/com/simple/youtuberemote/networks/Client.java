@@ -19,12 +19,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public abstract class Client
+public class Client
 {
   public final static String NO_CONNECTION = "NO_CONNECTION";
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
+  private OnPlaylistChange subscriber;
 
   private String serverIp;
 
@@ -90,11 +91,19 @@ public abstract class Client
               PlayList data = (PlayList) message.data;
               playList = data.playlist;
               currentVideo = data.currentVideo;
-              onPlaylistChange(playList, currentVideo);
+              if (subscriber != null) {
+                subscriber.onChange(playList, currentVideo);
+              }
               break;
             default:
               break;
           }
+        }
+
+        @Override
+        public void onError()
+        {
+
         }
       }).start();
     }
@@ -159,5 +168,11 @@ public abstract class Client
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
   }
 
-  public abstract void onPlaylistChange(ArrayList<String> playList, String currentVideo);
+  public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange) {
+    subscriber = onPlaylistChange;
+  }
+
+  public interface OnPlaylistChange {
+    public void onChange(ArrayList<String> playList, String currentVideo);
+  }
 }

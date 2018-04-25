@@ -28,9 +28,12 @@ public abstract class Listener extends Thread
       }
       catch (Exception e) {
         e.printStackTrace();
+        onError();
+        break;
       }
     }
   }
 
   public abstract void onMessage(Message message);
+  public abstract void onError();
 }

@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.models.API.video;
+package com.simple.youtuberemote.models.API.videodetail;
 
 /**
  * Created by loc on 4/22/18.
@@ -20,6 +20,9 @@ public class Item
   @SerializedName ("id")
   @Expose
   private String         id;
+  @SerializedName ("snippet")
+  @Expose
+  private Snippet        snippet;
   @SerializedName ("contentDetails")
   @Expose
   private ContentDetails contentDetails;
@@ -55,6 +58,16 @@ public class Item
   public void setId(String id)
   {
     this.id = id;
+  }
+
+  public Snippet getSnippet()
+  {
+    return snippet;
+  }
+
+  public void setSnippet(Snippet snippet)
+  {
+    this.snippet = snippet;
   }
 
   public ContentDetails getContentDetails()
