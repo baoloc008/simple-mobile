@@ -57,7 +57,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
   {
     VideoItem videoItem = videoList.get(position);
     holder.txtvTitlePlaylist.setText(videoItem.getTitle());
-    holder.txtvSubTitlePlaylist.setText(videoItem.getSubTitle());
+    holder.txtvSubTitlePlaylist.setText(videoItem.getChannelTitle());
     Glide.with(context)
          .load(videoItem.getThumbnailUrl())
          .into(holder.imgvThumbnailPlaylist);

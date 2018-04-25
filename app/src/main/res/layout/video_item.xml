@@ -9,17 +9,17 @@
     android:paddingBottom="10dp">
 
   <ImageView
-      android:id="@+id/imgvThumbnail"
+      android:id="@+id/iv_video_thumbnail"
       android:layout_width="match_parent"
       android:layout_height="184.5dp"
       android:adjustViewBounds="true"
       android:scaleType="fitXY" />
 
   <TextView
-      android:id="@+id/txtvTime"
+      android:id="@+id/tv_video_duration"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/imgvThumbnail"
+      android:layout_alignBottom="@id/iv_video_thumbnail"
       android:layout_alignParentEnd="true"
       android:layout_marginBottom="8dp"
       android:layout_marginEnd="8dp"
@@ -30,10 +30,10 @@
 
 
   <TextView
-      android:id="@+id/txtvTitle"
+      android:id="@+id/tv_video_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/imgvThumbnail"
+      android:layout_below="@id/iv_video_thumbnail"
       android:layout_marginEnd="8dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
@@ -42,20 +42,13 @@
       tools:text="[LIC] Chênh Vênh - Lê Cát Trọng Lý" />
 
   <TextView
-      android:id="@+id/txtvSubTitle"
+      android:id="@+id/tv_video_statistics"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/txtvTitle"
+      android:layout_below="@id/tv_video_title"
       android:layout_marginStart="8dp"
       android:textAppearance="@style/AppTheme.Text"
       android:textColor="@color/colorDarkTextSecondary"
       tools:text="Lê Cát Trọng Lý - 950K views" />
 
-  <!--<ImageView-->
-      <!--android:layout_width="30dp"-->
-      <!--android:layout_height="30dp"-->
-      <!--android:layout_alignParentEnd="true"-->
-      <!--android:layout_below="@id/imgvThumbnail"-->
-      <!--android:layout_marginTop="16dp"-->
-      <!--android:src="@drawable/ic_more_vert" />-->
 </RelativeLayout>

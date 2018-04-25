@@ -119,8 +119,8 @@ public class HomeFragment extends Fragment
                                                             .get(0)
                                                             .getStatistics()
                                                             .getViewCount();
-                              videoItem.setSubTitle(item.getSnippet().getChannelTitle() + " - " +
-                                                    Utils.formatDecimal(viewCount) + " lượt xem");
+                              videoItem.setChannelTitle(item.getSnippet().getChannelTitle() + " - " +
+                                                        Utils.formatDecimal(viewCount) + " lượt xem");
                               homeAdapter.notifyDataSetChanged();
                             }
                             else {

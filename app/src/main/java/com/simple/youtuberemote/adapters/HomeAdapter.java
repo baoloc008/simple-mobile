@@ -52,7 +52,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
   {
     VideoItem videoItem = videoList.get(position);
     holder.txtvTitle.setText(videoItem.getTitle());
-    holder.txtvSubTitle.setText(videoItem.getSubTitle());
+    holder.txtvSubTitle.setText(videoItem.getChannelTitle());
     holder.txtvTime.setText(videoItem.getDuration());
     Glide.with(context)
          .load(videoItem.getThumbnailUrl())
@@ -67,13 +67,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
 
   public class ViewHolder extends RecyclerView.ViewHolder
   {
-    @BindView (R.id.imgvThumbnail)
+    @BindView (R.id.iv_video_thumbnail)
     ImageView imgvThumbnail;
-    @BindView (R.id.txtvTitle)
+    @BindView (R.id.tv_video_title)
     TextView  txtvTitle;
-    @BindView (R.id.txtvSubTitle)
+    @BindView (R.id.tv_video_statistics)
     TextView  txtvSubTitle;
-    @BindView (R.id.txtvTime)
+    @BindView (R.id.tv_video_duration)
     TextView  txtvTime;
 
     public ViewHolder(View itemView)
@@ -82,7 +82,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick (R.id.imgvThumbnail)
+    @OnClick (R.id.iv_video_thumbnail)
     public void onClickVideo()
     {
       mRecyclerViewHomeAdapterOnclickListener.onItemClick(itemView, getAdapterPosition());

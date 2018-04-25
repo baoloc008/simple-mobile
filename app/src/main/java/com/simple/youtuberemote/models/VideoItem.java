@@ -7,7 +7,12 @@ package com.simple.youtuberemote.models;
 public class VideoItem
 {
 
-  private String thumbnailUrl, title, subTitle, videoId, viewCount, duration;
+  private String mVideoId;
+  private String mTitle;
+  private String mChannelTitle;
+  private String mThumbnailUrl;
+  private String mViewCount;
+  private String mDuration;
 
   public VideoItem()
   {
@@ -15,75 +20,75 @@ public class VideoItem
 
   public VideoItem(String videoId,
                    String title,
-                   String subTitle,
+                   String mChannelTitle,
                    String thumbnailUrl,
                    String viewCount, String duration)
   {
-    this.thumbnailUrl = thumbnailUrl;
-    this.title = title;
-    this.subTitle = subTitle;
-    this.videoId = videoId;
-    this.viewCount = viewCount;
-    this.duration = duration;
+    this.mThumbnailUrl = thumbnailUrl;
+    this.mTitle = title;
+    this.mChannelTitle = mChannelTitle;
+    this.mVideoId = videoId;
+    this.mViewCount = viewCount;
+    this.mDuration = duration;
   }
 
   public String getThumbnailUrl()
   {
-    return thumbnailUrl;
+    return mThumbnailUrl;
   }
 
   public void setThumbnailUrl(String thumbnailUrl)
   {
-    this.thumbnailUrl = thumbnailUrl;
+    this.mThumbnailUrl = thumbnailUrl;
   }
 
   public String getTitle()
   {
-    return title;
+    return mTitle;
   }
 
   public void setTitle(String title)
   {
-    this.title = title;
+    this.mTitle = title;
   }
 
-  public String getSubTitle()
+  public String getChannelTitle()
   {
-    return subTitle;
+    return mChannelTitle;
   }
 
-  public void setSubTitle(String subTitle)
+  public void setChannelTitle(String channelTitle)
   {
-    this.subTitle = subTitle;
+    this.mChannelTitle = channelTitle;
   }
 
   public String getVideoId()
   {
-    return videoId;
+    return mVideoId;
   }
 
   public void setVideoId(String videoId)
   {
-    this.videoId = videoId;
+    this.mVideoId = videoId;
   }
 
   public String getViewCount()
   {
-    return viewCount;
+    return mViewCount;
   }
 
   public void setViewCount(String viewCount)
   {
-    this.viewCount = viewCount;
+    this.mViewCount = viewCount;
   }
 
   public String getDuration()
   {
-    return duration;
+    return mDuration;
   }
 
   public void setDuration(String duration)
   {
-    this.duration = duration;
+    this.mDuration = duration;
   }
 }

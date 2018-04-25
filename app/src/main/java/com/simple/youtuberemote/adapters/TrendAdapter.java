@@ -45,7 +45,7 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
   {
     final VideoItem videoItem = videoList.get(position);
     holder.txtvTitle.setText(videoItem.getTitle());
-    holder.txtvSubTitle.setText(videoItem.getSubTitle());
+    holder.txtvSubTitle.setText(videoItem.getChannelTitle());
     Glide.with(context)
          .load(videoItem.getThumbnailUrl())
          .into(holder.imgvThumbnail);
@@ -78,9 +78,9 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
     public ViewHolder(View itemView)
     {
       super(itemView);
-      imgvThumbnail = itemView.findViewById(R.id.imgvThumbnail);
-      txtvTitle = itemView.findViewById(R.id.txtvTitle);
-      txtvSubTitle = itemView.findViewById(R.id.txtvSubTitle);
+      imgvThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
+      txtvTitle = itemView.findViewById(R.id.tv_video_title);
+      txtvSubTitle = itemView.findViewById(R.id.tv_video_statistics);
     }
   }
 }

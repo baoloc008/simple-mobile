@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
+import com.simple.youtuberemote.adapters.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApiHelper;
 
@@ -21,19 +26,32 @@ import butterknife.OnClick;
 
 
 public class SearchActivity extends AppCompatActivity
+    implements RecyclerArrayAdapter.OnLoadMoreListener
 {
 
-  public static final int SEARCH_REQUEST_CODE = 10;
+  public static final  int    SEARCH_REQUEST_CODE = 10;
+  private static final String TAG                 = SearchActivity.class.getSimpleName();
 
   @BindView (R.id.iv_action_back)
-  ImageView    mActionBack;
+  ImageView        mActionBack;
   @BindView (R.id.searchView)
-  SearchView   mSearchView;
+  SearchView       mSearchView;
   @BindView (R.id.rv_search_results)
-  RecyclerView mSearchVideoList;
+  EasyRecyclerView mResultVideoList;
 
-  private Handler         mHandler;
+  private VideoListAdapter mResultVideoListAdapter;
+
+  private Handler mHandler;
+  private String  mQuery;
+  private Boolean mIsNewSearch = false;
   private List<VideoItem> mSearchResults;
+
+  @Override
+  public void onLoadMore()
+  {
+    Log.d(TAG, "Load more search results...");
+    searchOnYoutube(mQuery);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -50,6 +68,12 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onQueryTextSubmit(String query)
       {
+        Log.d(TAG, "Start new searching...");
+
+        mIsNewSearch = true;
+        mSearchView.clearFocus();
+
+        mQuery = query;
         searchOnYoutube(query);
         return false;
       }
@@ -61,8 +85,9 @@ public class SearchActivity extends AppCompatActivity
       }
     });
 
-    mHandler = new Handler();
+    initResultVideoListView();
 
+    mHandler = new Handler();
   }
 
   @OnClick (R.id.iv_action_back)
@@ -79,19 +104,64 @@ public class SearchActivity extends AppCompatActivity
     finish();
   }
 
+  private void initResultVideoListView()
+  {
+    mResultVideoListAdapter = new VideoListAdapter(this);
+
+
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    mResultVideoList.setLayoutManager(layoutManager);
+    mResultVideoList.addItemDecoration(new DividerItemDecoration(this,
+                                                                 DividerItemDecoration.VERTICAL));
+
+    mResultVideoList.setAdapterWithProgress(mResultVideoListAdapter);
+
+    mResultVideoListAdapter.setMore(R.layout.rv_more, this);
+    mResultVideoListAdapter.setError(R.layout.rv_error, new RecyclerArrayAdapter.OnErrorListener()
+    {
+      @Override
+      public void onErrorShow()
+      {
+        mResultVideoListAdapter.resumeMore();
+      }
+
+      @Override
+      public void onErrorClick()
+      {
+        mResultVideoListAdapter.resumeMore();
+      }
+    });
+
+    mResultVideoListAdapter.clear();
+    mResultVideoListAdapter.pauseMore();
+  }
+
   private void searchOnYoutube(final String query)
   {
     new Thread()
     {
       public void run()
       {
+        Log.d(TAG, "Requesting...");
         YoutubeApiHelper yc = new YoutubeApiHelper(SearchActivity.this);
         mSearchResults = yc.search(query);
         mHandler.post(new Runnable()
         {
           public void run()
           {
-            System.out.println(mSearchResults);
+            Log.d(TAG, "Response: " + mSearchResults);
+            if (mSearchResults != null) {
+              if (mIsNewSearch) {
+                mResultVideoListAdapter.clear();
+                mIsNewSearch = false;
+              }
+              mResultVideoListAdapter.addAll(mSearchResults);
+            }
+            else {
+              mResultVideoListAdapter.pauseMore();
+
+              mResultVideoList.showError();
+            }
           }
         });
       }
@@ -99,3 +169,4 @@ public class SearchActivity extends AppCompatActivity
   }
 
 }
+
