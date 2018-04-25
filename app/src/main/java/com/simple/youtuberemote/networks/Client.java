@@ -63,7 +63,7 @@ public abstract class Client
               }
             }
             catch (Exception e) {
-              e.printStackTrace();
+              // e.printStackTrace();
             }
           }
           datagramSocket.close();
@@ -112,7 +112,7 @@ public abstract class Client
       streamOut.writeObject(message);
       streamOut.flush();
     }
-    catch (IOException e) {
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
