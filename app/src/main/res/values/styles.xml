@@ -37,4 +37,9 @@
     <item name="android:textSize">12sp</item>
   </style>
 
+  <style name="AppTheme.Toolbar" parent="Base.V7.Widget.AppCompat.Toolbar">
+    <item name="android:textColorPrimary">@color/colorLightTextPrimary</item>
+    <item name="android:textColorSecondary">@color/colorLightTextSecondary</item>
+  </style>
+
 </resources>

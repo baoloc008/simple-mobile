@@ -5,8 +5,10 @@
   <color name="colorPrimaryLight">#FFCDD2</color>
   <color name="colorAccent">#FF4081</color>
 
-  <color name="colorTextPrimary">#DE000000</color>
-  <color name="colorTextSecondary">#8A000000</color>
+  <color name="colorDarkTextPrimary">#DE000000</color>
+  <color name="colorDarkTextSecondary">#8A000000</color>
+  <color name="colorLightTextPrimary">#FFFFFFFF</color>
+  <color name="colorLightTextSecondary">#B1FFFFFF</color>
   <color name="colorDivider">#BDBDBD</color>
 
   <color name="blackPrimary">#212121</color>

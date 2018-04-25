@@ -1,10 +1,11 @@
 package com.simple.youtuberemote.fragments;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.activities.RemoteControlActivity;
+import com.simple.youtuberemote.activities.SearchActivity;
 import com.simple.youtuberemote.adapters.HomeAdapter;
 import com.simple.youtuberemote.models.API.searchvideos.Item;
 import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
@@ -41,18 +43,26 @@ import retrofit2.Response;
  * Created by loc on 15/04/2018.
  */
 
-public class HomeFragment extends Fragment implements HomeAdapter.RecyclerViewHomeAdapterOnclickListener
+public class HomeFragment extends Fragment
+    implements HomeAdapter.RecyclerViewHomeAdapterOnclickListener
 {
 
-  @BindView (R.id.recycleViewHome)
-  RecyclerView recyclerViewHome;
+  @BindView (R.id.rv_home_videos)
+  RecyclerView mVideoList;
 
-  private HomeAdapter     homeAdapter;
-  private List<VideoItem> videoList;
-  private DataClient      dataClient;
+  @BindView (R.id.tv_empty_message)
+  TextView mEmptyMessage;
+
+  @BindView (R.id.fab_search)
+  FloatingActionButton mSearchButton;
+
+  private HomeAdapter         homeAdapter;
+  private List<VideoItem>     videoList;
+  private DataClient          dataClient;
   private AlertDialog.Builder mBuilder;
-  private AlertDialog mAlertDialog;
-  private TextView txtvClickPlay, txtvClickAddPlaylist;
+  private AlertDialog         mAlertDialog;
+  private TextView            txtvClickPlay, txtvClickAddPlaylist;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater,
@@ -66,10 +76,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.RecyclerViewHo
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     homeAdapter = new HomeAdapter(getActivity(), videoList, this);
-    recyclerViewHome.setLayoutManager(layoutManager);
-    recyclerViewHome.addItemDecoration(new DividerItemDecoration(getContext(),
-                                                                 DividerItemDecoration.VERTICAL));
-    recyclerViewHome.setAdapter(homeAdapter);
+    mVideoList.setLayoutManager(layoutManager);
+    mVideoList.addItemDecoration(new DividerItemDecoration(getContext(),
+                                                           DividerItemDecoration.VERTICAL));
+    mVideoList.setAdapter(homeAdapter);
 
     dataClient = APIUtils.getData();
     dataClient.getSearchVideos("phim songoku").enqueue(new Callback<SearchVideos>()
@@ -185,5 +195,12 @@ public class HomeFragment extends Fragment implements HomeAdapter.RecyclerViewHo
     });
 
     mAlertDialog.show();
+  }
+
+  @OnClick (R.id.fab_search)
+  void searchVideo()
+  {
+    Intent intent = new Intent(getContext(), SearchActivity.class);
+    startActivityForResult(intent, SearchActivity.SEARCH_REQUEST_CODE);
   }
 }

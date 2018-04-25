@@ -37,7 +37,7 @@
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
       android:textAppearance="@style/AppTheme.Text.Subheader"
-      android:textColor="@color/colorTextPrimary"
+      android:textColor="@color/colorDarkTextPrimary"
       tools:text="[LIC] Chênh Vênh - Lê Cát Trọng Lý" />
 
   <TextView
@@ -47,7 +47,7 @@
       android:layout_below="@id/txtvTitle"
       android:layout_marginStart="8dp"
       android:textAppearance="@style/AppTheme.Text"
-      android:textColor="@color/colorTextSecondary"
+      android:textColor="@color/colorDarkTextSecondary"
       tools:text="Lê Cát Trọng Lý - 950K views" />
 
 

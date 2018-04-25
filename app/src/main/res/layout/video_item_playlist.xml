@@ -34,7 +34,7 @@
         android:paddingRight="5dp"
         android:text="[LIC] Chênh Vênh - Lê Cát Trọng Lý ddd [LIC] Chênh Vênh - Lê Cát Trọng Lý ddd "
         android:textAppearance="@style/AppTheme.Text.Subheader"
-        android:textColor="@color/colorTextPrimary" />
+        android:textColor="@color/colorDarkTextPrimary" />
 
     <TextView
         android:id="@+id/txtvSubTitlePlaylist"
@@ -48,6 +48,6 @@
         android:paddingRight="5dp"
         android:text="Lê Cát Trọng Lý"
         android:textAppearance="@style/AppTheme.Text"
-        android:textColor="@color/colorTextSecondary" />
+        android:textColor="@color/colorDarkTextSecondary" />
   </RelativeLayout>
 </LinearLayout>
