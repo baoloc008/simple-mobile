@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:background="#ffffff"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingBottom="10dp">
 
   <ImageView
       android:id="@+id/imgvThumbnail"
@@ -22,7 +23,7 @@
       android:layout_alignParentEnd="true"
       android:layout_marginBottom="8dp"
       android:layout_marginEnd="8dp"
-      android:background="@android:color/black"
+      android:background="#a7000000"
       android:padding="2dp"
       android:textColor="@android:color/white"
       tools:text="1:30" />
@@ -50,12 +51,11 @@
       android:textColor="@color/colorTextSecondary"
       tools:text="Lê Cát Trọng Lý - 950K views" />
 
-
-  <ImageView
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_alignParentEnd="true"
-      android:layout_below="@id/imgvThumbnail"
-      android:layout_marginTop="16dp"
-      android:src="@drawable/ic_more_vert" />
+  <!--<ImageView-->
+      <!--android:layout_width="30dp"-->
+      <!--android:layout_height="30dp"-->
+      <!--android:layout_alignParentEnd="true"-->
+      <!--android:layout_below="@id/imgvThumbnail"-->
+      <!--android:layout_marginTop="16dp"-->
+      <!--android:src="@drawable/ic_more_vert" />-->
 </RelativeLayout>
