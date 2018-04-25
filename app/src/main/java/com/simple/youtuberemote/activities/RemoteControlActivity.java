@@ -25,7 +25,7 @@ public class RemoteControlActivity extends AppCompatActivity
   @BindView (R.id.viewPagerHome)
   ViewPager viewPagerHome;
 
-  private Client mClient;
+  public static Client mClient;
   private int[] tabIcons = {
       R.drawable.ic_appbar_home,
       R.drawable.ic_appbar_trending,
