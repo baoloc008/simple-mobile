@@ -171,16 +171,18 @@ public class HomeFragment extends Fragment
   public void onItemClick(View v, int position)
   {
     final VideoItem videoItem = videoList.get(position);
-    Toast.makeText(getActivity(), videoItem.getVideoId(), Toast.LENGTH_SHORT).show();
-
     txtvClickPlay.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View view)
       {
-        Toast.makeText(getActivity(), "click play", Toast.LENGTH_SHORT).show();
         mAlertDialog.dismiss();
-        RemoteControlActivity.mClient.playVideo(videoItem.getVideoId());
+        try {
+          RemoteControlActivity.mClient.playVideo(videoItem.getVideoId());
+        }
+        catch (Exception e) {
+          Toast.makeText(getActivity(), "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
+        }
       }
     });
     txtvClickAddPlaylist.setOnClickListener(new View.OnClickListener()
@@ -188,9 +190,13 @@ public class HomeFragment extends Fragment
       @Override
       public void onClick(View view)
       {
-        Toast.makeText(getActivity(), "click add playlist", Toast.LENGTH_SHORT).show();
         mAlertDialog.dismiss();
-        RemoteControlActivity.mClient.addVideo(videoItem.getVideoId());
+        try {
+          RemoteControlActivity.mClient.addVideo(videoItem.getVideoId());
+        }
+        catch (Exception e) {
+          Toast.makeText(getActivity(), "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
+        }
       }
     });
 

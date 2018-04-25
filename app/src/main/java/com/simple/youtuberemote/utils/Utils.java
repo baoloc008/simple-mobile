@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
-import android.util.Log;
 
 import java.text.DecimalFormat;
 
@@ -32,7 +31,6 @@ public class Utils
   @SuppressLint ("DefaultLocale")
   public static String formatDuration(String duration)
   {
-    Log.i("duration", duration);
     String temp[] = duration.replace("PT", "")
                             .replace('H', ':')
                             .replace('M', ':')
