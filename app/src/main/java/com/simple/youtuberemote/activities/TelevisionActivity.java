@@ -18,7 +18,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
   private static final String DEVELOPER_KEY    = "AIzaSyDiUkq0Jx96EW-D-zuqR45KYIvDmAnPn1s";
   private static final String DEFAULT_VIDEO_ID = "wKJ9KzGQq0w";
-
+  private  YouTubePlayer mYouTubePlayer;
   private Server mServer;
 
   @BindView (R.id.youtube_view)
@@ -60,7 +60,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
       @Override
       public void onVideoChange(String id)
       {
-
+        mYouTubePlayer.loadVideo(id);
       }
 
       @Override
@@ -89,6 +89,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
   public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
                                       boolean wasRestored)
   {
+    mYouTubePlayer = player;
     if (!wasRestored) {
       player.cueVideo(DEFAULT_VIDEO_ID);
     }
