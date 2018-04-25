@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import butterknife.OnClick;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import com.simple.youtuberemote.activities.SearchActivity;
 import com.simple.youtuberemote.adapters.HomeAdapter;
 import com.simple.youtuberemote.models.API.searchvideos.Item;
 import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
-import com.simple.youtuberemote.models.API.video.VideoDetail;
+import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.retrofit.APIUtils;
 import com.simple.youtuberemote.retrofit.DataClient;
@@ -33,7 +34,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment
                             }
                             else {
                               Toast.makeText(getActivity(),
-                                             String.valueOf("Error:" + response.code()),
+                                             String.valueOf("Error2:" + response.code()),
                                              Toast.LENGTH_SHORT).show();
                             }
                           }
@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment
         }
         else {
           Toast.makeText(getActivity(),
-                         String.valueOf("Error:" + response.code()),
+                         String.valueOf("Error 1:" + response.code()),
                          Toast.LENGTH_SHORT).show();
         }
       }

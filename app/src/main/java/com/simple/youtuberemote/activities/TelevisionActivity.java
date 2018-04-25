@@ -60,19 +60,20 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
       @Override
       public void onVideoChange(String id)
       {
+        mYouTubePlayer.setFullscreen(true);
         mYouTubePlayer.loadVideo(id);
       }
 
       @Override
       public void onPause()
       {
-
+        mYouTubePlayer.pause();
       }
 
       @Override
       public void onPlay()
       {
-
+        mYouTubePlayer.play();
       }
     };
     mServer.start();
@@ -89,9 +90,9 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
   public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
                                       boolean wasRestored)
   {
-    mYouTubePlayer = player;
+    
     if (!wasRestored) {
-      player.cueVideo(DEFAULT_VIDEO_ID);
+      mYouTubePlayer = player;
     }
   }
 

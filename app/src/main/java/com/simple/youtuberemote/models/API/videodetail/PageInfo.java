@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.models.API.video;
+package com.simple.youtuberemote.models.API.videodetail;
 
 /**
  * Created by loc on 4/22/18.

@@ -29,6 +29,7 @@ public abstract class Server
 
   private ServerSocket   server;
   private DatagramSocket mDatagramSocket;
+  private boolean running;
   private byte[] buf = new byte[256];
   private Handler           mHandler;
   private ArrayList<Socket> clients;
@@ -43,6 +44,7 @@ public abstract class Server
 
   public void start()
   {
+    running = true;
     try {
       mDatagramSocket = new DatagramSocket(UDP_PORT);
       server = new ServerSocket(TCP_PORT);
@@ -52,7 +54,7 @@ public abstract class Server
         @Override
         public void run()
         {
-          while (true) {
+          while (running) {
             DatagramPacket receivedPacket = new DatagramPacket(buf, buf.length);
             try {
               mDatagramSocket.receive(receivedPacket);
@@ -76,17 +78,17 @@ public abstract class Server
         @Override
         public void run()
         {
-          while (true) {
+          while (running) {
             try {
               final Socket client = server.accept();
               send(client, new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo)));
               clients.add(client);
-              (new Listener(client)
+
+              Listener listener = new Listener(client)
               {
                 @Override
                 public void onMessage(final Message message)
                 {
-                  Log.d("Message", message.toString());
                   switch (message.type) {
                     case NEXT:
                       mHandler.post(new Runnable()
@@ -121,35 +123,47 @@ public abstract class Server
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
-                      mHandler.post(new Runnable()
-                      {
-                        @Override
-                        public void run()
+                      final String id = playSpecVideo.videoId;
+                      if (playList.contains(id)) {
+                        mHandler.post(new Runnable()
                         {
-                          onVideoChange(playSpecVideo.videoId);
-                        }
-                      });
-                      break;
-                    case ADD_VIDEO:
-                      AddVideo addVideo = (AddVideo) message.data;
-                      playList.add(addVideo.videoId);
-                      if (playList.size() == 1) {
+                          @Override
+                          public void run()
+                          {
+                            onVideoChange(playSpecVideo.videoId);
+                          }
+                        });
+                      }
+                      else {
                         mHandler.post(new Runnable()
                         {
                           @Override
                           public void run()
                           {
                             onPlayListFilled();
+                            playList.add(id);
+                            onVideoChange(id);
                           }
                         });
                       }
-                      broadcastPlaylist();
+                      break;
+                    case ADD_VIDEO:
+                      AddVideo addVideo = (AddVideo) message.data;
+                      playList.add(addVideo.videoId);
                       break;
                     default:
                       break;
                   }
+                  broadcastPlaylist();
                 }
-              }).start();
+
+                @Override
+                public void onError()
+                {
+                  clients.remove(client);
+                }
+              };
+              listener.start();
             }
             catch (IOException e) {
               e.printStackTrace();
@@ -207,6 +221,7 @@ public abstract class Server
 
   public void close()
   {
+    running = false;
     mDatagramSocket.close();
     try {
       server.close();
