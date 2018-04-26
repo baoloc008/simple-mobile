@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.retrofit;
+package com.simple.youtuberemote.networks.retrofit;
 
 /**
  * Created by loc on 15/04/2018.

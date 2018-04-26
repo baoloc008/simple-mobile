@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.retrofit;
+package com.simple.youtuberemote.networks.retrofit;
 
 import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
 import com.simple.youtuberemote.models.API.videodetail.VideoDetail;

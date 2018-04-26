@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import butterknife.OnClick;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +20,14 @@ import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.activities.RemoteControlActivity;
 import com.simple.youtuberemote.activities.SearchActivity;
 import com.simple.youtuberemote.adapters.HomeAdapter;
+import com.simple.youtuberemote.adapters.VideoListAdapter;
 import com.simple.youtuberemote.models.API.searchvideos.Item;
 import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
 import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
 import com.simple.youtuberemote.models.VideoItem;
-import com.simple.youtuberemote.retrofit.APIUtils;
-import com.simple.youtuberemote.retrofit.DataClient;
-import com.simple.youtuberemote.utils.Utils;
+import com.simple.youtuberemote.networks.retrofit.APIUtils;
+import com.simple.youtuberemote.networks.retrofit.DataClient;
+import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment
   @BindView (R.id.fab_search)
   FloatingActionButton mSearchButton;
 
-  private HomeAdapter         homeAdapter;
+  private VideoListAdapter    homeAdapter;
   private List<VideoItem>     videoList;
   private DataClient          dataClient;
   private AlertDialog.Builder mBuilder;
@@ -76,7 +77,8 @@ public class HomeFragment extends Fragment
     videoList = new ArrayList<>();
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-    homeAdapter = new HomeAdapter(getActivity(), videoList, this);
+    homeAdapter = new VideoListAdapter(getContext(),
+                                       new VideoPopupMenuOnItemClickHandler(getContext()));
     mVideoList.setLayoutManager(layoutManager);
     mVideoList.addItemDecoration(new DividerItemDecoration(getContext(),
                                                            DividerItemDecoration.VERTICAL));
@@ -111,18 +113,13 @@ public class HomeFragment extends Fragment
                                                            .get(0)
                                                            .getContentDetails()
                                                            .getDuration();
-                              videoItem.setDuration(Utils.formatDuration(duration));
+                              videoItem.setDuration(duration);
                               videoItem.setViewCount(new BigInteger(videoDetail.getItems()
                                                                                .get(0)
                                                                                .getStatistics()
                                                                                .getViewCount()));
-                              String viewCount = videoDetail.getItems()
-                                                            .get(0)
-                                                            .getStatistics()
-                                                            .getViewCount();
-                              videoItem.setChannelTitle(item.getSnippet().getChannelTitle() + " - " +
-                                                        Utils.formatDecimal(viewCount) + " lượt xem");
-                              homeAdapter.notifyDataSetChanged();
+                              videoItem.setChannelTitle(item.getSnippet().getChannelTitle());
+                              homeAdapter.add(videoItem);
                             }
                             else {
                               Toast.makeText(getActivity(),
@@ -140,7 +137,8 @@ public class HomeFragment extends Fragment
                           }
                         });
               videoList.add(videoItem);
-              homeAdapter.notifyDataSetChanged();
+
+//              homeAdapter.notifyDataSetChanged();
             }
           }
         }

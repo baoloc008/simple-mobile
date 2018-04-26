@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.retrofit;
+package com.simple.youtuberemote.networks.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -17,6 +17,7 @@ import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApiHelper;
+import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
 import java.util.List;
 
@@ -61,6 +62,28 @@ public class SearchActivity extends AppCompatActivity
 
     ButterKnife.bind(this);
 
+    initSearchView();
+    initResultVideoListView();
+
+    mHandler = new Handler();
+  }
+
+  @OnClick (R.id.iv_action_back)
+  void back()
+  {
+    boolean result = true;
+    if (!result) {
+      setResult(Activity.RESULT_CANCELED);
+    }
+    else {
+      Intent resultIntent = new Intent();
+      setResult(Activity.RESULT_OK, resultIntent);
+    }
+    finish();
+  }
+
+  private void initSearchView()
+  {
     mSearchView.setIconifiedByDefault(false);
     mSearchView.setQueryHint("Search YouTube");
     mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
@@ -84,35 +107,18 @@ public class SearchActivity extends AppCompatActivity
         return false;
       }
     });
-
-    initResultVideoListView();
-
-    mHandler = new Handler();
-  }
-
-  @OnClick (R.id.iv_action_back)
-  void back()
-  {
-    boolean result = true;
-    if (!result) {
-      setResult(Activity.RESULT_CANCELED);
-    }
-    else {
-      Intent resultIntent = new Intent();
-      setResult(Activity.RESULT_OK, resultIntent);
-    }
-    finish();
   }
 
   private void initResultVideoListView()
   {
-    mResultVideoListAdapter = new VideoListAdapter(this);
+    mResultVideoListAdapter = new VideoListAdapter(this,
+                                                   new VideoPopupMenuOnItemClickHandler(this));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
     mResultVideoList.setLayoutManager(layoutManager);
     mResultVideoList.addItemDecoration(new DividerItemDecoration(this,
                                                                  DividerItemDecoration.VERTICAL));
-
     mResultVideoList.setAdapterWithProgress(mResultVideoListAdapter);
 
     mResultVideoListAdapter.setMore(R.layout.rv_more, this);
@@ -145,7 +151,7 @@ public class SearchActivity extends AppCompatActivity
         YoutubeApiHelper yc          = new YoutubeApiHelper(SearchActivity.this);
         List<String>     videoIdList = yc.search(query);
         mSearchResults = yc.requestVideosInfoById(videoIdList);
-        
+
         mHandler.post(new Runnable()
         {
           public void run()

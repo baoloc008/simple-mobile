@@ -18,8 +18,8 @@ import com.simple.youtuberemote.adapters.PlaylistAdapter;
 import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.Client;
-import com.simple.youtuberemote.retrofit.APIUtils;
-import com.simple.youtuberemote.retrofit.DataClient;
+import com.simple.youtuberemote.networks.retrofit.APIUtils;
+import com.simple.youtuberemote.networks.retrofit.DataClient;
 
 import java.util.ArrayList;
 import java.util.List;
