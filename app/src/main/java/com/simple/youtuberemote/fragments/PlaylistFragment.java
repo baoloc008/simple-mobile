@@ -88,6 +88,7 @@ public class PlaylistFragment extends Fragment
 
   private void fetchVideoList(ArrayList<String> listId)
   {
+    videoList.clear();
     for (String videoId : listId) {
       dataClient.getVideoDetail(videoId).enqueue(new Callback<VideoDetail>()
       {
