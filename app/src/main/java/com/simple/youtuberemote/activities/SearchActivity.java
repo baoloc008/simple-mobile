@@ -108,7 +108,6 @@ public class SearchActivity extends AppCompatActivity
   {
     mResultVideoListAdapter = new VideoListAdapter(this);
 
-
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
     mResultVideoList.setLayoutManager(layoutManager);
     mResultVideoList.addItemDecoration(new DividerItemDecoration(this,
@@ -143,8 +142,10 @@ public class SearchActivity extends AppCompatActivity
       public void run()
       {
         Log.d(TAG, "Requesting...");
-        YoutubeApiHelper yc = new YoutubeApiHelper(SearchActivity.this);
-        mSearchResults = yc.search(query);
+        YoutubeApiHelper yc          = new YoutubeApiHelper(SearchActivity.this);
+        List<String>     videoIdList = yc.search(query);
+        mSearchResults = yc.requestVideosInfoById(videoIdList);
+        
         mHandler.post(new Runnable()
         {
           public void run()

@@ -1,5 +1,8 @@
 package com.simple.youtuberemote.models;
 
+import java.math.BigInteger;
+
+
 /**
  * Created by loc on 15/04/2018.
  */
@@ -7,12 +10,12 @@ package com.simple.youtuberemote.models;
 public class VideoItem
 {
 
-  private String mVideoId;
-  private String mTitle;
-  private String mChannelTitle;
-  private String mThumbnailUrl;
-  private String mViewCount;
-  private String mDuration;
+  private String     mVideoId;
+  private String     mTitle;
+  private String     mChannelTitle;
+  private String     mThumbnailUrl;
+  private BigInteger mViewCount;
+  private String     mDuration;
 
   public VideoItem()
   {
@@ -22,7 +25,7 @@ public class VideoItem
                    String title,
                    String mChannelTitle,
                    String thumbnailUrl,
-                   String viewCount, String duration)
+                   BigInteger viewCount, String duration)
   {
     this.mThumbnailUrl = thumbnailUrl;
     this.mTitle = title;
@@ -72,12 +75,12 @@ public class VideoItem
     this.mVideoId = videoId;
   }
 
-  public String getViewCount()
+  public BigInteger getViewCount()
   {
     return mViewCount;
   }
 
-  public void setViewCount(String viewCount)
+  public void setViewCount(BigInteger viewCount)
   {
     this.mViewCount = viewCount;
   }

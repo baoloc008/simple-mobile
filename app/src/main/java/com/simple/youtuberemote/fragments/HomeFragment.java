@@ -29,6 +29,7 @@ import com.simple.youtuberemote.retrofit.APIUtils;
 import com.simple.youtuberemote.retrofit.DataClient;
 import com.simple.youtuberemote.utils.Utils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,10 +112,10 @@ public class HomeFragment extends Fragment
                                                            .getContentDetails()
                                                            .getDuration();
                               videoItem.setDuration(Utils.formatDuration(duration));
-                              videoItem.setViewCount(videoDetail.getItems()
-                                                                .get(0)
-                                                                .getStatistics()
-                                                                .getViewCount());
+                              videoItem.setViewCount(new BigInteger(videoDetail.getItems()
+                                                                               .get(0)
+                                                                               .getStatistics()
+                                                                               .getViewCount()));
                               String viewCount = videoDetail.getItems()
                                                             .get(0)
                                                             .getStatistics()

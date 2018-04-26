@@ -10,6 +10,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.models.VideoItem;
+import com.simple.youtuberemote.utils.Utils;
 
 
 public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
@@ -49,8 +50,10 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
     {
       Glide.with(getContext()).load(video.getThumbnailUrl()).into(mThumbnail);
       mTitle.setText(video.getTitle());
-      mStatistics.setText(video.getChannelTitle());
-      mDuration.setText(video.getDuration());
+      mStatistics.setText(getContext().getString(R.string.video_item_statistics,
+                                                 video.getChannelTitle(),
+                                                 video.getViewCount()));
+      mDuration.setText(Utils.formatDuration(video.getDuration()));
     }
   }
 
