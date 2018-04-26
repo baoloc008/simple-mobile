@@ -5,43 +5,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_home_videos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_home_videos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <ProgressBar
+        android:id="@+id/pb_home_videos_loading"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
-        <ProgressBar
-            android:id="@+id/pb_home_videos_loading"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/tv_empty_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="serif"
-            android:text="No video found."
-            android:textAppearance="@style/AppTheme.Text.Headline"
-            android:textColor="@color/colorDarkTextSecondary"
-            android:visibility="invisible" />
-    </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_search"
+    <TextView
+        android:id="@+id/tv_empty_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:focusable="true"
-        android:src="@drawable/ic_search"
-        app:layout_behavior="com.simple.youtuberemote.utils.FABScrollBehavior" />
+        android:layout_centerInParent="true"
+        android:fontFamily="serif"
+        android:text="No video found."
+        android:textAppearance="@style/AppTheme.Text.Headline"
+        android:textColor="@color/colorDarkTextSecondary"
+        android:visibility="invisible" />
+  </RelativeLayout>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_search"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|bottom"
+      android:layout_margin="16dp"
+      android:focusable="true"
+      android:src="@drawable/ic_search"
+      app:backgroundTint="@color/colorPrimaryDark"
+      app:layout_behavior="com.simple.youtuberemote.utils.FABScrollBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>
