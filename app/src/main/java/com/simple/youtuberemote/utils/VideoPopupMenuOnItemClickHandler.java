@@ -27,7 +27,7 @@ public class VideoPopupMenuOnItemClickHandler
   {
     Log.d(TAG, "Add to playlist: " + video.getTitle());
     try {
-      RemoteControlActivity.mClient.playVideo(video.getVideoId());
+      RemoteControlActivity.mClient.addVideo(video.getVideoId());
     }
     catch (Exception e) {
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
@@ -39,7 +39,7 @@ public class VideoPopupMenuOnItemClickHandler
   {
     Log.d(TAG, "Play: " + video.getTitle());
     try {
-      RemoteControlActivity.mClient.addVideo(video.getVideoId());
+      RemoteControlActivity.mClient.playVideo(video.getVideoId());
     }
     catch (Exception e) {
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
