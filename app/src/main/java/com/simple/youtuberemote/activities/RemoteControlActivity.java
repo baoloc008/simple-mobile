@@ -46,20 +46,16 @@ public class RemoteControlActivity extends AppCompatActivity
 
     tabLayoutHome.setupWithViewPager(viewPagerHome);
     setupTabIcons();
-  }
-
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
     mClient = new Client(this);
+
   }
 
   @Override
-  protected void onStop()
+  protected void onDestroy()
   {
     mClient.close();
-    super.onStop();
+
+    super.onDestroy();
   }
 
   private void setupTabIcons()
