@@ -92,10 +92,10 @@ public final class YoutubeApiHelper
 
   public static class SearchTask
   {
-    private          Handler  mHandler;
-    private          Callback mCallback;
-    private          String   mQueryTerm;
-    private volatile String   mNextPageToken;
+    private Handler  mHandler;
+    private Callback mCallback;
+    private String   mQueryTerm;
+    private String   mNextPageToken;
 
     public SearchTask()
     {
@@ -127,6 +127,7 @@ public final class YoutubeApiHelper
           Log.d(TAG, "Search Requesting...");
 
           final List<String> results = search(queryTerm);
+          Log.d(TAG, "Search Response: " + results);
 
           mHandler.post(new Runnable()
           {
