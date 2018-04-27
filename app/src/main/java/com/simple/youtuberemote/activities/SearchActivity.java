@@ -3,7 +3,6 @@ package com.simple.youtuberemote.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,16 +41,39 @@ public class SearchActivity extends AppCompatActivity
 
   private VideoListAdapter mResultVideoListAdapter;
 
-  private Handler mHandler;
-  private String  mQuery;
+  private YoutubeApiHelper.SearchTask mSearchTask;
+  private List<VideoItem>             mSearchResults;
+  private String                      mQuery;
   private Boolean mIsNewSearch = false;
-  private List<VideoItem> mSearchResults;
+
+  private YoutubeApiHelper.SearchTask.Callback mSearchTaskCallback
+      = new YoutubeApiHelper.SearchTask.Callback()
+  {
+
+    @Override
+    public void onSearchComplete(boolean ok, List<String> result)
+    {
+      if (ok) {
+        mSearchResults = YoutubeApiHelper.requestVideosInfoById(result);
+        Log.d(TAG, "Search Response: " + mSearchResults);
+        if (mIsNewSearch) {
+          mResultVideoListAdapter.clear();
+          mIsNewSearch = false;
+        }
+        mResultVideoListAdapter.addAll(mSearchResults);
+      }
+      else {
+        mResultVideoListAdapter.pauseMore();
+        mResultVideoList.showError();
+      }
+    }
+  };
 
   @Override
   public void onLoadMore()
   {
     Log.d(TAG, "Load more search results...");
-    searchOnYoutube(mQuery);
+    mSearchTask.searchNext();
   }
 
   @Override
@@ -65,7 +87,7 @@ public class SearchActivity extends AppCompatActivity
     initSearchView();
     initResultVideoListView();
 
-    mHandler = new Handler();
+    mSearchTask = new YoutubeApiHelper.SearchTask();
   }
 
   @OnClick (R.id.iv_action_back)
@@ -96,8 +118,7 @@ public class SearchActivity extends AppCompatActivity
         mIsNewSearch = true;
         mSearchView.clearFocus();
 
-        mQuery = query;
-        searchOnYoutube(query);
+        mSearchTask.search(query, mSearchTaskCallback);
         return false;
       }
 
@@ -139,40 +160,6 @@ public class SearchActivity extends AppCompatActivity
 
     mResultVideoListAdapter.clear();
     mResultVideoListAdapter.pauseMore();
-  }
-
-  private void searchOnYoutube(final String query)
-  {
-    new Thread()
-    {
-      public void run()
-      {
-        Log.d(TAG, "Requesting...");
-        YoutubeApiHelper yc          = new YoutubeApiHelper(SearchActivity.this);
-        List<String>     videoIdList = yc.search(query);
-        mSearchResults = yc.requestVideosInfoById(videoIdList);
-
-        mHandler.post(new Runnable()
-        {
-          public void run()
-          {
-            Log.d(TAG, "Response: " + mSearchResults);
-            if (mSearchResults != null) {
-              if (mIsNewSearch) {
-                mResultVideoListAdapter.clear();
-                mIsNewSearch = false;
-              }
-              mResultVideoListAdapter.addAll(mSearchResults);
-            }
-            else {
-              mResultVideoListAdapter.pauseMore();
-
-              mResultVideoList.showError();
-            }
-          }
-        });
-      }
-    }.start();
   }
 
 }
