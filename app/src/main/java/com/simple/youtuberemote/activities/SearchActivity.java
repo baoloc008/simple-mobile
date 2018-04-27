@@ -119,7 +119,7 @@ public class SearchActivity extends AppCompatActivity
   private void initSearchView()
   {
     mSearchView.setIconifiedByDefault(false);
-    mSearchView.setQueryHint("Search YouTube");
+    mSearchView.setQueryHint("Tìm kiếm YouTube");
 
     String[] from = new String[]{ SearchManager.SUGGEST_COLUMN_TEXT_1 };
     int[]    to   = new int[]{ android.R.id.text1 };
