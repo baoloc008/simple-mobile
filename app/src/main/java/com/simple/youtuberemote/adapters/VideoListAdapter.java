@@ -83,7 +83,7 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
       mTitle.setText(video.getTitle());
       mStatistics.setText(getContext().getString(R.string.video_item_statistics,
                                                  video.getChannelTitle(),
-                                                 video.getViewCount()));
+                                                 Utils.formatDecimal(video.getViewCount())));
       mDuration.setText(Utils.formatDuration(video.getDuration()));
     }
 
