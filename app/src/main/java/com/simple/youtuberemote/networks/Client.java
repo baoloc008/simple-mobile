@@ -32,6 +32,7 @@ public class Client
   public Client(Context context)
   {
     findServer(context);
+    playList = new ArrayList<>();
   }
 
   private void findServer(Context context)
