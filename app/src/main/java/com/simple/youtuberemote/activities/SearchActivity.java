@@ -1,8 +1,13 @@
 package com.simple.youtuberemote.activities;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +23,7 @@ import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApiHelper;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,6 +46,12 @@ public class SearchActivity extends AppCompatActivity
   EasyRecyclerView mResultVideoList;
 
   private VideoListAdapter mResultVideoListAdapter;
+
+  private CursorAdapter mSuggestionAdapter;
+  private List<String> mSuggestions = Arrays.asList(
+      "Bauru", "Sao Paulo", "Rio de Janeiro",
+      "Bahia", "Mato Grosso", "Minas Gerais",
+      "Tocantins", "Rio Grande do Sul");
 
   private YoutubeApiHelper.SearchTask mSearchTask;
   private List<VideoItem>             mSearchResults;
@@ -108,6 +120,35 @@ public class SearchActivity extends AppCompatActivity
   {
     mSearchView.setIconifiedByDefault(false);
     mSearchView.setQueryHint("Search YouTube");
+
+    String[] from = new String[]{ SearchManager.SUGGEST_COLUMN_TEXT_1 };
+    int[]    to   = new int[]{ android.R.id.text1 };
+    mSuggestionAdapter = new SimpleCursorAdapter(this,
+                                                 android.R.layout.simple_list_item_1,
+                                                 null,
+                                                 from, to,
+                                                 0);
+    mSearchView.setSuggestionsAdapter(mSuggestionAdapter);
+    mSearchView.setOnSuggestionListener(new SearchView.OnSuggestionListener()
+    {
+      @Override
+      public boolean onSuggestionSelect(int position)
+      {
+        return false;
+      }
+
+      @Override
+      public boolean onSuggestionClick(int position)
+      {
+        if (mSuggestions.size() > 0) {
+          mSearchView.setQuery(mSuggestions.get(position), true);
+          mSearchView.clearFocus();
+          return true;
+        }
+        return false;
+      }
+    });
+
     mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
     {
       @Override
@@ -125,9 +166,26 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onQueryTextChange(String newText)
       {
+        populateSuggestionAdapter(newText);
         return false;
       }
     });
+  }
+
+  private void populateSuggestionAdapter(String query)
+  {
+    String[] columns = {
+        BaseColumns._ID,
+        SearchManager.SUGGEST_COLUMN_TEXT_1
+    };
+
+    MatrixCursor c = new MatrixCursor(columns);
+    for (int i = 0; i < mSuggestions.size(); i++) {
+      if (mSuggestions.get(i).toLowerCase().startsWith(query.toLowerCase())) {
+        c.addRow(new Object[]{ i, mSuggestions.get(i) });
+      }
+    }
+    mSuggestionAdapter.changeCursor(c);
   }
 
   private void initResultVideoListView()
