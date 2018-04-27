@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import static android.content.Context.WIFI_SERVICE;
@@ -46,8 +47,8 @@ public class Utils
     }
     return String.format("00:%02d", Integer.parseInt(temp[0]));
   }
-  public static String formatDecimal(String number) {
+  public static String formatDecimal(BigInteger number) {
     DecimalFormat formatter = new DecimalFormat("#,###,###,###");
-    return formatter.format(Integer.valueOf(number));
+    return formatter.format(number);
   }
 }
