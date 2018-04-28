@@ -172,32 +172,16 @@ public class SearchActivity extends AppCompatActivity
     });
   }
 
-  private void populateSuggestionAdapter(String query)
-  {
-    String[] columns = {
-        BaseColumns._ID,
-        SearchManager.SUGGEST_COLUMN_TEXT_1
-    };
-
-    MatrixCursor c = new MatrixCursor(columns);
-    for (int i = 0; i < mSuggestions.size(); i++) {
-      if (mSuggestions.get(i).toLowerCase().startsWith(query.toLowerCase())) {
-        c.addRow(new Object[]{ i, mSuggestions.get(i) });
-      }
-    }
-    mSuggestionAdapter.changeCursor(c);
-  }
-
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(this, VideoListAdapter.COMPACT_VIEW_TYPE,
                                                    new VideoPopupMenuOnItemClickHandler(this));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+                                                                            DividerItemDecoration.VERTICAL);
     mResultVideoList.setLayoutManager(layoutManager);
-    mResultVideoList.addItemDecoration(new DividerItemDecoration(this,
-                                                                 DividerItemDecoration.VERTICAL));
+    mResultVideoList.addItemDecoration(dividerItemDecoration);
     mResultVideoList.setAdapterWithProgress(mResultVideoListAdapter);
 
     mResultVideoListAdapter.setMore(R.layout.rv_more, this);
@@ -218,6 +202,22 @@ public class SearchActivity extends AppCompatActivity
 
     mResultVideoListAdapter.clear();
     mResultVideoListAdapter.pauseMore();
+  }
+
+  private void populateSuggestionAdapter(String query)
+  {
+    String[] columns = {
+        BaseColumns._ID,
+        SearchManager.SUGGEST_COLUMN_TEXT_1
+    };
+
+    MatrixCursor c = new MatrixCursor(columns);
+    for (int i = 0; i < mSuggestions.size(); i++) {
+      if (mSuggestions.get(i).toLowerCase().startsWith(query.toLowerCase())) {
+        c.addRow(new Object[]{ i, mSuggestions.get(i) });
+      }
+    }
+    mSuggestionAdapter.changeCursor(c);
   }
 
 }

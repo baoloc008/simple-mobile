@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.models.VideoItem;
@@ -54,7 +55,7 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
   public void setData(VideoItem video)
   {
     mVideo = video;
-    Glide.with(getContext()).load(video.getThumbnailUrl()).into(mThumbnail);
+    Glide.with(getContext()).load(video.getThumbnailUrl()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888).into(mThumbnail);
     mTitle.setText(video.getTitle());
     mChannelTitle.setText(video.getChannelTitle());
 //    mStatistics.setText(getContext().getString(R.string.video_item_statistics,
