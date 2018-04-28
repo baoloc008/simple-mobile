@@ -5,12 +5,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.simple.youtuberemote.activities.RemoteControlActivity;
-import com.simple.youtuberemote.adapters.VideoListAdapter;
+import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 
 
 public class VideoPopupMenuOnItemClickHandler
-    implements VideoListAdapter.PopupMenuOnItemClickListener
+    implements VideoListAdapter.OnItemPopupMenuClickListener
 {
 
   private static final String TAG = VideoPopupMenuOnItemClickHandler.class.getSimpleName();

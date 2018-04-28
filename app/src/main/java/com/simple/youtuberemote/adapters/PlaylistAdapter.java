@@ -48,7 +48,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
   {
     LayoutInflater layoutInflater
                         = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View           view = layoutInflater.inflate(R.layout.video_item_playlist, parent, false);
+    View           view = layoutInflater.inflate(R.layout.video_item_compact, parent, false);
     return new ViewHolder(view);
   }
 
@@ -71,11 +71,11 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
   public class ViewHolder extends RecyclerView.ViewHolder
   {
-    @BindView (R.id.imgvThumbnailPlaylist)
+    @BindView (R.id.video_item_compact_iv_thumbnail)
     ImageView imgvThumbnailPlaylist;
-    @BindView (R.id.txtvTitlePlaylist)
+    @BindView (R.id.video_item_compact_tv_title)
     TextView  txtvTitlePlaylist;
-    @BindView (R.id.txtvSubTitlePlaylist)
+    @BindView (R.id.video_item_compact_tv_channel_title)
     TextView  txtvSubTitlePlaylist;
 
     public ViewHolder(View itemView)
@@ -84,7 +84,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick (R.id.imgvThumbnailPlaylist)
+    @OnClick (R.id.video_item_compact_iv_thumbnail)
     public void onClickVideoPlaylist()
     {
       mAdapterOnClickListener.onItemClick(itemView, getAdapterPosition());

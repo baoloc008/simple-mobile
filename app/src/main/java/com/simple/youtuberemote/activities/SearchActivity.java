@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
-import com.simple.youtuberemote.adapters.VideoListAdapter;
+import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApiHelper;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
@@ -190,7 +190,7 @@ public class SearchActivity extends AppCompatActivity
 
   private void initResultVideoListView()
   {
-    mResultVideoListAdapter = new VideoListAdapter(this,
+    mResultVideoListAdapter = new VideoListAdapter(this, VideoListAdapter.COMPACT_VIEW_TYPE,
                                                    new VideoPopupMenuOnItemClickHandler(this));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);

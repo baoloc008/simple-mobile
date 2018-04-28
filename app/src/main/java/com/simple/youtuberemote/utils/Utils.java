@@ -14,6 +14,7 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class Utils
 {
+
   public static String getBroadcastAddress(Context context)
   {
     WifiManager wm = (WifiManager) context.getApplicationContext()
@@ -39,16 +40,18 @@ public class Utils
                             .split(":");
     if (temp.length == 3) {
       return String.format("%d:%02d:%02d", Integer.parseInt(temp[0]),
-                                                            Integer.parseInt(temp[1]),
-                                                                             Integer.parseInt(temp[2]));
+                           Integer.parseInt(temp[1]),
+                           Integer.parseInt(temp[2]));
     }
     else if (temp.length == 2) {
       return String.format("%d:%02d", Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
     }
     return String.format("00:%02d", Integer.parseInt(temp[0]));
   }
-  public static String formatDecimal(BigInteger number) {
+
+  public static String prettyViewCount(BigInteger viewCount)
+  {
     DecimalFormat formatter = new DecimalFormat("#,###,###,###");
-    return formatter.format(number);
+    return formatter.format(viewCount);
   }
 }

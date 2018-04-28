@@ -36,7 +36,7 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
   {
     LayoutInflater layoutInflater
         = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View view = layoutInflater.inflate(R.layout.video_item, parent, false);
+    View view = layoutInflater.inflate(R.layout.video_item_full, parent, false);
     return new ViewHolder(view);
   }
 
@@ -78,9 +78,9 @@ public class TrendAdapter extends RecyclerView.Adapter<TrendAdapter.ViewHolder>
     public ViewHolder(View itemView)
     {
       super(itemView);
-      imgvThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
-      txtvTitle = itemView.findViewById(R.id.tv_video_title);
-      txtvSubTitle = itemView.findViewById(R.id.tv_video_statistics);
+      imgvThumbnail = itemView.findViewById(R.id.video_item_full_iv_thumbnail);
+      txtvTitle = itemView.findViewById(R.id.video_item_full_tv_title);
+      txtvSubTitle = itemView.findViewById(R.id.video_item_full_tv_statistics);
     }
   }
 }

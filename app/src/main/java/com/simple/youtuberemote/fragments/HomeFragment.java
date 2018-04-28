@@ -20,7 +20,7 @@ import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.activities.RemoteControlActivity;
 import com.simple.youtuberemote.activities.SearchActivity;
 import com.simple.youtuberemote.adapters.HomeAdapter;
-import com.simple.youtuberemote.adapters.VideoListAdapter;
+import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.API.searchvideos.Item;
 import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
 import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment
     videoList = new ArrayList<>();
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-    homeAdapter = new VideoListAdapter(getContext(),
+    homeAdapter = new VideoListAdapter(getContext(), VideoListAdapter.FULL_VIEW_TYPE,
                                        new VideoPopupMenuOnItemClickHandler(getContext()));
     mVideoList.setLayoutManager(layoutManager);
     mVideoList.addItemDecoration(new DividerItemDecoration(getContext(),

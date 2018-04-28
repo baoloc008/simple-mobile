@@ -43,7 +43,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
   {
     LayoutInflater layoutInflater
         = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View view = layoutInflater.inflate(R.layout.video_item, parent, false);
+    View view = layoutInflater.inflate(R.layout.video_item_full, parent, false);
     return new ViewHolder(view);
   }
 
@@ -67,13 +67,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
 
   public class ViewHolder extends RecyclerView.ViewHolder
   {
-    @BindView (R.id.iv_video_thumbnail)
+    @BindView (R.id.video_item_full_iv_thumbnail)
     ImageView imgvThumbnail;
-    @BindView (R.id.tv_video_title)
+    @BindView (R.id.video_item_full_tv_title)
     TextView  txtvTitle;
-    @BindView (R.id.tv_video_statistics)
+    @BindView (R.id.video_item_full_tv_statistics)
     TextView  txtvSubTitle;
-    @BindView (R.id.tv_video_duration)
+    @BindView (R.id.video_item_full_tv_duration)
     TextView  txtvTime;
 
     public ViewHolder(View itemView)
@@ -82,7 +82,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick (R.id.iv_video_thumbnail)
+    @OnClick (R.id.video_item_full_iv_thumbnail)
     public void onClickVideo()
     {
       mRecyclerViewHomeAdapterOnclickListener.onItemClick(itemView, getAdapterPosition());
