@@ -20,12 +20,12 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
+import com.simple.youtuberemote.networks.SuggestionApi.SuggestionApiHelper;
 import com.simple.youtuberemote.networks.YoutubeApi.FetchVideoDetailTask;
 import com.simple.youtuberemote.networks.YoutubeApi.SearchYoutubeTask;
 import com.simple.youtuberemote.networks.YoutubeApi.YoutubeApiHelper;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,10 +50,7 @@ public class SearchActivity extends AppCompatActivity
   private VideoListAdapter mResultVideoListAdapter;
 
   private CursorAdapter mSuggestionAdapter;
-  private List<String> mSuggestions = Arrays.asList(
-      "Bauru", "Sao Paulo", "Rio de Janeiro",
-      "Bahia", "Mato Grosso", "Minas Gerais",
-      "Tocantins", "Rio Grande do Sul");
+  private List<String>  mSuggestions;
 
   private List<VideoItem> mSearchResults;
   private Boolean mIsNewSearch = false;
@@ -141,7 +138,7 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onSuggestionClick(int position)
       {
-        if (mSuggestions.size() > 0) {
+        if (mSuggestions != null && mSuggestions.size() > 0) {
           mSearchView.setQuery(mSuggestions.get(position), true);
           mSearchView.clearFocus();
           return true;
@@ -167,6 +164,7 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onQueryTextChange(String newText)
       {
+        Log.d(TAG, "Query text changed");
         populateSuggestionAdapter(newText);
         return false;
       }
@@ -207,18 +205,33 @@ public class SearchActivity extends AppCompatActivity
 
   private void populateSuggestionAdapter(String query)
   {
-    String[] columns = {
-        BaseColumns._ID,
-        SearchManager.SUGGEST_COLUMN_TEXT_1
-    };
+    Log.d(TAG, "popul");
+    SuggestionApiHelper.fetchAsync(query, new SuggestionApiHelper.Callback()
+    {
+      @Override
+      public void onFetchComplete(boolean ok, List<String> suggestions)
+      {
+        Log.d(TAG, "SearchActivity suggestion");
+        if (!ok || suggestions.size() == 0) {
+          Log.d(TAG, "false");
+          return;
+        }
+        String[] columns = {
+            BaseColumns._ID,
+            SearchManager.SUGGEST_COLUMN_TEXT_1
+        };
+        Log.d(TAG, suggestions.toString());
+        mSuggestions = suggestions;
+        MatrixCursor c = new MatrixCursor(columns);
 
-    MatrixCursor c = new MatrixCursor(columns);
-    for (int i = 0; i < mSuggestions.size(); i++) {
-      if (mSuggestions.get(i).toLowerCase().startsWith(query.toLowerCase())) {
-        c.addRow(new Object[]{ i, mSuggestions.get(i) });
+        for (int i = 0; i < mSuggestions.size(); i++) {
+          c.addRow(new Object[]{ i, mSuggestions.get(i) });
+        }
+        mSuggestionAdapter.changeCursor(c);
+
       }
-    }
-    mSuggestionAdapter.changeCursor(c);
+    });
+
   }
 
 }
