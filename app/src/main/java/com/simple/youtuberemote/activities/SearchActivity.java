@@ -20,7 +20,9 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
-import com.simple.youtuberemote.networks.YoutubeApiHelper;
+import com.simple.youtuberemote.networks.YoutubeApi.FetchVideoDetailTask;
+import com.simple.youtuberemote.networks.YoutubeApi.SearchYoutubeTask;
+import com.simple.youtuberemote.networks.YoutubeApi.YoutubeApiHelper;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
 import java.util.Arrays;
@@ -53,20 +55,21 @@ public class SearchActivity extends AppCompatActivity
       "Bahia", "Mato Grosso", "Minas Gerais",
       "Tocantins", "Rio Grande do Sul");
 
-  private YoutubeApiHelper.SearchTask mSearchTask;
-  private List<VideoItem>             mSearchResults;
-  private String                      mQuery;
+  private List<VideoItem> mSearchResults;
   private Boolean mIsNewSearch = false;
 
-  private YoutubeApiHelper.SearchTask.Callback mSearchTaskCallback
-      = new YoutubeApiHelper.SearchTask.Callback()
+  private SearchYoutubeTask    mSearchTask = YoutubeApiHelper.searchYoutube();
+  private FetchVideoDetailTask mFetchTask  = YoutubeApiHelper.fetchVideoDetail();
+
+  private SearchYoutubeTask.Callback mSearchTaskCallback
+      = new SearchYoutubeTask.Callback()
   {
 
     @Override
     public void onSearchComplete(boolean ok, List<String> result)
     {
       if (ok) {
-        mSearchResults = YoutubeApiHelper.requestVideosInfoById(result);
+        mSearchResults = mFetchTask.fetch(result);
         Log.d(TAG, "Search Response: " + mSearchResults);
         if (mIsNewSearch) {
           mResultVideoListAdapter.clear();
@@ -84,8 +87,8 @@ public class SearchActivity extends AppCompatActivity
   @Override
   public void onLoadMore()
   {
-    Log.d(TAG, "Load more search results...");
-    mSearchTask.searchNext();
+    Log.d(TAG, "Load more searchAsync results...");
+    mSearchTask.searchNextAsync();
   }
 
   @Override
@@ -98,8 +101,6 @@ public class SearchActivity extends AppCompatActivity
 
     initSearchView();
     initResultVideoListView();
-
-    mSearchTask = new YoutubeApiHelper.SearchTask();
   }
 
   @OnClick (R.id.iv_action_back)
@@ -159,7 +160,7 @@ public class SearchActivity extends AppCompatActivity
         mIsNewSearch = true;
         mSearchView.clearFocus();
 
-        mSearchTask.search(query, mSearchTaskCallback);
+        mSearchTask.searchAsync(query, mSearchTaskCallback);
         return false;
       }
 

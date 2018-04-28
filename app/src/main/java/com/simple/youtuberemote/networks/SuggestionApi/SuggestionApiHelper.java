@@ -1,4 +1,4 @@
-package com.simple.youtuberemote.networks;
+package com.simple.youtuberemote.networks.SuggestionApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
 public class SuggestionApiHelper
 {
 
-  private static final String BASE_URL = "http://suggestqueries.google.com/complete/search";
+  private static final String BASE_URL = "http://suggestqueries.google.com/complete/searchAsync";
 
   private static final String PARAMETER_CLIENT = "client";
   private static final String PARAMETER_QUERY  = "q";
