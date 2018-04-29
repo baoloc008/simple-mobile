@@ -14,6 +14,19 @@
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
       android:scaleType="fitXY" />
+  <TextView
+      android:id="@+id/video_item_compact_tv_duration"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/video_item_compact_iv_thumbnail"
+      android:layout_alignEnd="@+id/video_item_compact_iv_thumbnail"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:background="@drawable/rounded_corners"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      android:textColor="@android:color/white"
+      tools:text="1:30" />
 
   <TextView
       android:id="@+id/video_item_compact_tv_title"
@@ -42,6 +55,20 @@
       android:textAppearance="@style/AppTheme.Text"
       android:textColor="@color/colorDarkTextSecondary"
       tools:text="Lê Cát Trọng Lý" />
+
+  <TextView
+      android:id="@+id/video_item_compact_tv_view_count"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/video_item_compact_tv_channel_title"
+      android:layout_toEndOf="@id/video_item_compact_iv_thumbnail"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="8dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textAppearance="@style/AppTheme.Text"
+      android:textColor="@color/colorDarkTextSecondary"
+      tools:text="100 lượt xem" />
 
   <ImageButton
       android:id="@+id/video_item_compact_tv_menu"

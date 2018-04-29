@@ -14,6 +14,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.models.VideoItem;
+import com.simple.youtuberemote.utils.Utils;
 
 
 public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
@@ -24,6 +25,8 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
   ImageView   mThumbnail;
   TextView    mTitle;
   TextView    mChannelTitle;
+  TextView    mDuration;
+  TextView    mStatistics;
   ImageButton mMenuButton;
 
   VideoListAdapter.OnItemPopupMenuClickListener mListener;
@@ -39,6 +42,8 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     mTitle = $(R.id.video_item_compact_tv_title);
     mChannelTitle = $(R.id.video_item_compact_tv_channel_title);
     mMenuButton = $(R.id.video_item_compact_tv_menu);
+    mDuration = $(R.id.video_item_compact_tv_duration);
+    mStatistics = $(R.id.video_item_compact_tv_view_count);
 
     mMenuButton.setOnClickListener(new View.OnClickListener()
     {
@@ -58,10 +63,9 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     Glide.with(getContext()).load(video.getThumbnailUrl()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888).into(mThumbnail);
     mTitle.setText(video.getTitle());
     mChannelTitle.setText(video.getChannelTitle());
-//    mStatistics.setText(getContext().getString(R.string.video_item_statistics,
-//                                               video.getChannelTitle(),
-//                                               Utils.prettyViewCount(video.getViewCount())));
-//    mDuration.setText(Utils.formatDuration(video.getDuration()));
+    mStatistics.setText(getContext().getString(R.string.video_item_statistics,
+                                              Utils.prettyViewCount(video.getViewCount())));
+    mDuration.setText(Utils.formatDuration(video.getDuration()));
   }
 
   private void showPopupMenu(View view)

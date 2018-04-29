@@ -4,5 +4,5 @@
     <string name="activity_main_btn_remote_control_text">Remote Control</string>
     <string name="activity_main_btn_television_text">Television</string>
 
-    <string name="video_item_statistics">%s  •  %s views</string>
+    <string name="video_item_statistics">%s lượt xem</string>
 </resources>
