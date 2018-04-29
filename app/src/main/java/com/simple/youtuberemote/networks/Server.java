@@ -110,6 +110,7 @@ public abstract class Server
                           onPlay();
                         }
                       });
+                      broadcast(Type.PLAY);
                       break;
                     case PAUSE:
                       mHandler.post(new Runnable()
@@ -120,6 +121,7 @@ public abstract class Server
                           onPause();
                         }
                       });
+                      broadcast(Type.PAUSE);
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
@@ -146,15 +148,16 @@ public abstract class Server
                           }
                         });
                       }
+                      broadcastPlaylist();
                       break;
                     case ADD_VIDEO:
                       AddVideo addVideo = (AddVideo) message.data;
                       playList.add(addVideo.videoId);
+                      broadcastPlaylist();
                       break;
                     default:
                       break;
                   }
-                  broadcastPlaylist();
                 }
 
                 @Override
@@ -176,17 +179,28 @@ public abstract class Server
       e.printStackTrace();
     }
   }
-
-  private void broadcastPlaylist()
-  {
-    try {
-      Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
-      for (Socket client : clients) {
+  private void broadcast(Type type) {
+    Message message = new Message(type, null);
+    for (Socket client : clients) {
+      try {
         send(client, message);
       }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
     }
-    catch (Exception e) {
-      e.printStackTrace();
+
+  }
+  private void broadcastPlaylist()
+  {
+    Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
+    for (Socket client : clients) {
+      try {
+        send(client, message);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 
