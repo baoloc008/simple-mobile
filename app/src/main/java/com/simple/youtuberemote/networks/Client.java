@@ -96,6 +96,12 @@ public class Client
                 subscriber.onChange(playList, currentVideo);
               }
               break;
+            case PLAY:
+              subscriber.onPlay();
+              break;
+            case PAUSE:
+              subscriber.onPause();
+              break;
             default:
               break;
           }
@@ -174,6 +180,8 @@ public class Client
   }
 
   public interface OnPlaylistChange {
-    public void onChange(ArrayList<String> playList, String currentVideo);
+    void onChange(ArrayList<String> playList, String currentVideo);
+    void onPlay();
+    void onPause();
   }
 }

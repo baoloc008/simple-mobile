@@ -75,6 +75,18 @@ public class PlaylistFragment extends Fragment
       {
         fetchVideoList(playList);
       }
+
+      @Override
+      public void onPlay()
+      {
+
+      }
+
+      @Override
+      public void onPause()
+      {
+
+      }
     });
 
     return view;
