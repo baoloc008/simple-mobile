@@ -22,7 +22,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Back"
         android:padding="2dp"
-        android:src="@drawable/ic_back_search" />
+        app:srcCompat="@drawable/ic_back_search" />
 
     <android.support.v7.widget.SearchView
         android:id="@+id/searchView"

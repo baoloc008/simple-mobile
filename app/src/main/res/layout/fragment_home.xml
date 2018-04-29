@@ -43,7 +43,7 @@
       android:layout_gravity="end|bottom"
       android:layout_margin="16dp"
       android:focusable="true"
-      android:src="@drawable/ic_search"
+      app:srcCompat="@drawable/ic_search"
       app:backgroundTint="@color/colorPrimaryDark"
       app:layout_behavior="com.simple.youtuberemote.utils.FABScrollBehavior" />
 
