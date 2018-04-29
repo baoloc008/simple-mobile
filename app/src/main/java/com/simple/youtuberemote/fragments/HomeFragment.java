@@ -1,50 +1,33 @@
 package com.simple.youtuberemote.fragments;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
-import com.simple.youtuberemote.activities.RemoteControlActivity;
 import com.simple.youtuberemote.activities.SearchActivity;
-import com.simple.youtuberemote.adapters.HomeAdapter;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
-import com.simple.youtuberemote.models.API.searchvideos.Item;
-import com.simple.youtuberemote.models.API.searchvideos.SearchVideos;
-import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApi.FetchVideoDetailTask;
 import com.simple.youtuberemote.networks.YoutubeApi.SearchYoutubeTask;
 import com.simple.youtuberemote.networks.YoutubeApi.YoutubeApiHelper;
-import com.simple.youtuberemote.networks.retrofit.APIUtils;
-import com.simple.youtuberemote.networks.retrofit.DataClient;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
