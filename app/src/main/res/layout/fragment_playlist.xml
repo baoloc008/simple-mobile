@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <android.support.v7.widget.RecyclerView
+  <com.jude.easyrecyclerview.EasyRecyclerView
       android:id="@+id/recycleViewPlaylist"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
-  </android.support.v7.widget.RecyclerView>
+      android:layout_height="match_parent"
+      app:layout_empty="@layout/rv_empty"
+      app:layout_progress="@layout/rv_progress"
+      app:scrollbarStyle="insideOverlay" />
 
-</LinearLayout>
+  <LinearLayout
+      android:layout_gravity="start|bottom"
+      android:layout_width="match_parent"
+      android:layout_height="50dp">
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Play"/>
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Next"/>
+  </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

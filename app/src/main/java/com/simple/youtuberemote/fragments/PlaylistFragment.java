@@ -1,34 +1,30 @@
 package com.simple.youtuberemote.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.activities.RemoteControlActivity;
-import com.simple.youtuberemote.adapters.PlaylistAdapter;
-import com.simple.youtuberemote.models.API.videodetail.VideoDetail;
+import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.Client;
-import com.simple.youtuberemote.networks.retrofit.APIUtils;
-import com.simple.youtuberemote.networks.retrofit.DataClient;
+import com.simple.youtuberemote.networks.YoutubeApi.FetchVideoDetailTask;
+import com.simple.youtuberemote.networks.YoutubeApi.YoutubeApiHelper;
+import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -36,15 +32,14 @@ import retrofit2.Response;
  */
 
 public class PlaylistFragment extends Fragment
-    implements PlaylistAdapter.PlaylistAdapterOnClickListener
 {
 
   @BindView (R.id.recycleViewPlaylist)
-  RecyclerView recyclerViewPlaylist;
+  EasyRecyclerView recyclerViewPlaylist;
 
-  private PlaylistAdapter playlistAdapter;
-  private List<VideoItem> videoList;
-  private DataClient      dataClient;
+  private VideoListAdapter mResultVideoListAdapter;
+
+  private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
 
   @Nullable
   @Override
@@ -55,25 +50,15 @@ public class PlaylistFragment extends Fragment
     View view = inflater.inflate(R.layout.fragment_playlist, container, false);
     ButterKnife.bind(this, view);
 
-    videoList = new ArrayList<>();
-
-    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-    playlistAdapter = new PlaylistAdapter(getActivity(), videoList, this);
-    recyclerViewPlaylist.setLayoutManager(layoutManager);
-    recyclerViewPlaylist.addItemDecoration(new DividerItemDecoration(getContext(),
-                                                                     DividerItemDecoration.VERTICAL));
-    recyclerViewPlaylist.setAdapter(playlistAdapter);
-
-    dataClient = APIUtils.getData();
-
-    fetchVideoList(RemoteControlActivity.mClient.getPlayList());
+    initResultVideoListView();
+    fetch(RemoteControlActivity.mClient.getPlayList());
 
     RemoteControlActivity.mClient.setOnPlaylistChange(new Client.OnPlaylistChange()
     {
       @Override
       public void onChange(ArrayList<String> playList, String currentVideo)
       {
-        fetchVideoList(playList);
+        fetch(playList);
       }
 
       @Override
@@ -91,50 +76,38 @@ public class PlaylistFragment extends Fragment
 
     return view;
   }
-
-  @Override
-  public void onItemClick(View v, int position)
-  {
-
+  private void fetch(ArrayList<String> playlist) {
+    List<VideoItem> detailResults = mFetchTask.fetch(playlist);
+    mResultVideoListAdapter.addAll(detailResults);
   }
-
-  private void fetchVideoList(ArrayList<String> listId)
+  private void initResultVideoListView()
   {
-    videoList.clear();
-    for (String videoId : listId) {
-      dataClient.getVideoDetail(videoId).enqueue(new Callback<VideoDetail>()
+    mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,
+                                                   new VideoPopupMenuOnItemClickHandler(getContext()));
+
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                                                                            DividerItemDecoration.VERTICAL);
+    recyclerViewPlaylist.setLayoutManager(layoutManager);
+    recyclerViewPlaylist.addItemDecoration(dividerItemDecoration);
+    recyclerViewPlaylist.setAdapterWithProgress(mResultVideoListAdapter);
+
+    mResultVideoListAdapter.setError(R.layout.rv_error, new RecyclerArrayAdapter.OnErrorListener()
+    {
+      @Override
+      public void onErrorShow()
       {
-        @Override
-        public void onResponse(@NonNull Call<VideoDetail> call,
-                               @NonNull Response<VideoDetail> response)
-        {
-          if (response.isSuccessful()) {
-            VideoDetail videoDetail = response.body();
-            VideoItem   videoItem   = new VideoItem();
-            videoItem.setThumbnailUrl(videoDetail.getItems()
-                                                 .get(0)
-                                                 .getSnippet()
-                                                 .getThumbnails()
-                                                 .getMedium()
-                                                 .getUrl());
-            videoItem.setTitle(videoDetail.getItems().get(0).getSnippet().getTitle());
-            videoItem.setChannelTitle(videoDetail.getItems().get(0).getSnippet().getChannelTitle());
-            videoList.add(videoItem);
-            playlistAdapter.notifyDataSetChanged();
-          }
-          else {
-            Toast.makeText(getActivity(),
-                           String.valueOf("Error while get videoDetail:" + response.code()),
-                           Toast.LENGTH_SHORT).show();
-          }
-        }
+        mResultVideoListAdapter.resumeMore();
+      }
 
-        @Override
-        public void onFailure(@NonNull Call<VideoDetail> call, @NonNull Throwable t)
-        {
+      @Override
+      public void onErrorClick()
+      {
+        mResultVideoListAdapter.resumeMore();
+      }
+    });
 
-        }
-      });
-    }
+    mResultVideoListAdapter.clear();
+    mResultVideoListAdapter.pauseMore();
   }
 }
