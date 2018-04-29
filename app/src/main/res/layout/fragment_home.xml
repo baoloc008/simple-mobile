@@ -9,10 +9,13 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_home_videos"
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/rv_home_video"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_empty="@layout/rv_empty"
+        app:layout_progress="@layout/rv_progress"
+        app:scrollbarStyle="insideOverlay" />
 
     <ProgressBar
         android:id="@+id/pb_home_videos_loading"
