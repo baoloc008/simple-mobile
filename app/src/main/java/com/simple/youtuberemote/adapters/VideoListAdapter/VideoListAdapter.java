@@ -43,7 +43,7 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
   public interface OnItemPopupMenuClickListener
   {
 
-    void onAddToPlayist(VideoItem video);
+    void onAddToPlaylist(VideoItem video);
 
     void onPlay(VideoItem video);
   }

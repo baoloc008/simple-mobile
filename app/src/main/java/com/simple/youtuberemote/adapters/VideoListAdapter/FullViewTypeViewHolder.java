@@ -76,7 +76,7 @@ public class FullViewTypeViewHolder extends BaseViewHolder<VideoItem>
       {
         switch (item.getItemId()) {
           case R.id.video_item_action_add_to_playlist:
-            mListener.onAddToPlayist(mVideo);
+            mListener.onAddToPlaylist(mVideo);
             return true;
           case R.id.video_item_action_play:
             mListener.onPlay(mVideo);

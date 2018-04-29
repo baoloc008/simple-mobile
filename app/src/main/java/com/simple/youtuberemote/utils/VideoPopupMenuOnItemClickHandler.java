@@ -23,7 +23,7 @@ public class VideoPopupMenuOnItemClickHandler
   }
 
   @Override
-  public void onAddToPlayist(VideoItem video)
+  public void onAddToPlaylist(VideoItem video)
   {
     Log.d(TAG, "Add to playlist: " + video.getTitle());
     try {
