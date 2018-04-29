@@ -3,9 +3,9 @@
   <item
       android:id="@+id/video_item_action_add_to_playlist"
       android:orderInCategory="100"
-      android:title="Add to playlist" />
+      android:title="Thêm vào playlist" />
   <item
       android:id="@+id/video_item_action_play"
       android:orderInCategory="101"
-      android:title="Play" />
+      android:title="Phát" />
 </menu>
