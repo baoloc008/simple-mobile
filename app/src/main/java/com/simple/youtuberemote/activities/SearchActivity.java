@@ -155,16 +155,15 @@ public class SearchActivity extends AppCompatActivity
         Log.d(TAG, "Start new searching...");
 
         mIsNewSearch = true;
-        mSearchView.clearFocus();
-
         mSearchTask.searchAsync(query, mSearchTaskCallback);
+        
+        mSearchView.clearFocus();
         return false;
       }
 
       @Override
       public boolean onQueryTextChange(String newText)
       {
-        Log.d(TAG, "Query text changed");
         populateSuggestionAdapter(newText);
         return false;
       }
@@ -205,7 +204,6 @@ public class SearchActivity extends AppCompatActivity
 
   private void populateSuggestionAdapter(String query)
   {
-    Log.d(TAG, "popul");
     SuggestionApiHelper.fetchAsync(query, new SuggestionApiHelper.Callback()
     {
       @Override

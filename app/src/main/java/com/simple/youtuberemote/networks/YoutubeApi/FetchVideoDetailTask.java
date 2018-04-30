@@ -31,12 +31,18 @@ public class FetchVideoDetailTask
 
   public List<VideoItem> fetch(List<String> videoIdList)
   {
+    if (videoIdList == null || videoIdList.size() == 0) {
+      return new ArrayList<>();
+    }
     reset(videoIdList, null);
     return execute();
   }
 
   public void fetchAsync(List<String> videoIdList, Callback callback)
   {
+    if (videoIdList == null || videoIdList.size() == 0) {
+      return;
+    }
     reset(videoIdList, callback);
     asyncExecute();
   }
