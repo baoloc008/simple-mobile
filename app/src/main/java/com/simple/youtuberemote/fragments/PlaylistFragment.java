@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -36,6 +39,13 @@ public class PlaylistFragment extends Fragment
 
   @BindView (R.id.recycleViewPlaylist)
   EasyRecyclerView recyclerViewPlaylist;
+
+  @BindView (R.id.playlist_ib_skip_previous)
+  ImageButton mSkipPreviousButton;
+  @BindView (R.id.playlist_ib_play)
+  ImageButton mPlayButton;
+  @BindView (R.id.playlist_ib_skip_next)
+  ImageButton mSkipNextButton;
 
   private VideoListAdapter mResultVideoListAdapter;
 
@@ -76,10 +86,31 @@ public class PlaylistFragment extends Fragment
 
     return view;
   }
-  private void fetch(ArrayList<String> playlist) {
+
+  @OnClick (R.id.playlist_ib_skip_previous)
+  void onSkipPreviousButtonClick()
+  {
+    Toast.makeText(getContext(), "Skip Previous clicked.", Toast.LENGTH_LONG).show();
+  }
+
+  @OnClick (R.id.playlist_ib_play)
+  void onPlayButtonClick()
+  {
+    Toast.makeText(getContext(), "Play clicked.", Toast.LENGTH_LONG).show();
+  }
+
+  @OnClick (R.id.playlist_ib_skip_next)
+  void onSkipNextButtonClick()
+  {
+    Toast.makeText(getContext(), "Skip Next clicked.", Toast.LENGTH_LONG).show();
+  }
+
+  private void fetch(ArrayList<String> playlist)
+  {
     List<VideoItem> detailResults = mFetchTask.fetch(playlist);
     mResultVideoListAdapter.addAll(detailResults);
   }
+
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,

@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <com.jude.easyrecyclerview.EasyRecyclerView
-      android:id="@+id/recycleViewPlaylist"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_empty="@layout/rv_empty"
-      app:layout_progress="@layout/rv_progress"
-      android:layout_weight="1"
-      app:scrollbarStyle="insideOverlay" />
+    android:id="@+id/recycleViewPlaylist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    app:layout_empty="@layout/rv_empty"
+    app:layout_progress="@layout/rv_progress"
+    app:scrollbarStyle="insideOverlay" />
 
   <LinearLayout
-      android:layout_gravity="start|bottom"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_weight="0">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorDarkTextPrimary"
+    android:gravity="center"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Play"/>
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Next"/>
+    <ImageButton
+      android:id="@+id/playlist_ib_skip_previous"
+      android:layout_width="@dimen/video_player_icon_size"
+      android:layout_height="@dimen/video_player_icon_size"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:contentDescription="skip previous"
+      android:scaleType="fitXY"
+      app:srcCompat="@drawable/ic_video_player_skip_previous" />
+
+    <ImageButton
+      android:id="@+id/playlist_ib_play"
+      android:layout_width="@dimen/video_player_icon_size"
+      android:layout_height="@dimen/video_player_icon_size"
+      android:layout_marginEnd="@dimen/video_player_icon_margin"
+      android:layout_marginStart="@dimen/video_player_icon_margin"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:contentDescription="play/pause"
+      android:scaleType="fitXY"
+      app:srcCompat="@drawable/ic_video_player_play" />
+
+    <ImageButton
+      android:id="@+id/playlist_ib_skip_next"
+      android:layout_width="@dimen/video_player_icon_size"
+      android:layout_height="@dimen/video_player_icon_size"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:contentDescription="next"
+      android:padding="2dp"
+      android:scaleType="fitXY"
+      app:srcCompat="@drawable/ic_video_player_skip_next" />
+
   </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
