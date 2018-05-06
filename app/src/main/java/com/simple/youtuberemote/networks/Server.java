@@ -125,8 +125,8 @@ public abstract class Server
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
-                      final String id = playSpecVideo.videoId;
-                      if (playList.contains(id)) {
+                      currentVideo = playSpecVideo.videoId;
+                      if (playList.contains(currentVideo)) {
                         mHandler.post(new Runnable()
                         {
                           @Override
@@ -143,8 +143,8 @@ public abstract class Server
                           public void run()
                           {
                             onPlayListFilled();
-                            playList.add(id);
-                            onVideoChange(id);
+                            playList.add(currentVideo);
+                            onVideoChange(currentVideo);
                           }
                         });
                       }
