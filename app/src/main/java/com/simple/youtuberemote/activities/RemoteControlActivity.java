@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.simple.youtuberemote.R;
 import com.simple.youtuberemote.adapters.ViewPagerHomeAdapter;
 import com.simple.youtuberemote.networks.Client;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +22,6 @@ public class RemoteControlActivity extends AppCompatActivity
   @BindView (R.id.viewPagerHome)
   ViewPager viewPagerHome;
 
-  public static Client mClient;
   private int[] tabIcons = {
       R.drawable.ic_appbar_home,
       R.drawable.ic_appbar_trending,
@@ -46,14 +42,12 @@ public class RemoteControlActivity extends AppCompatActivity
 
     tabLayoutHome.setupWithViewPager(viewPagerHome);
     setupTabIcons();
-    mClient = new Client(this);
-
   }
 
   @Override
   protected void onDestroy()
   {
-    mClient.close();
+    Client.close();
 
     super.onDestroy();
   }

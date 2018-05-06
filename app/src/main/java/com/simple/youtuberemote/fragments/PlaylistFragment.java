@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
-import com.simple.youtuberemote.activities.RemoteControlActivity;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.Client;
@@ -49,6 +48,7 @@ public class PlaylistFragment extends Fragment
   ImageButton mSkipNextButton;
   private Handler mHandler;
   private VideoListAdapter mResultVideoListAdapter;
+  private Client mClient;
 
   private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
 
@@ -62,9 +62,10 @@ public class PlaylistFragment extends Fragment
     ButterKnife.bind(this, view);
     mHandler = new Handler();
     initResultVideoListView();
-    fetch(RemoteControlActivity.mClient.getPlayList());
+    mClient = Client.getInstance(getContext());
+    fetch(mClient.getPlayList());
 
-    RemoteControlActivity.mClient.setOnPlaylistChange(new Client.OnPlaylistChange()
+    mClient.setOnPlaylistChange(new Client.OnPlaylistChange()
     {
       @Override
       public void onChange(ArrayList<String> playList, String currentVideo)

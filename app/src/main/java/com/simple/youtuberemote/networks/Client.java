@@ -1,7 +1,7 @@
 package com.simple.youtuberemote.networks;
 
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
 
 import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
@@ -21,21 +21,33 @@ import java.util.ArrayList;
 
 public class Client
 {
+  private static Client instance = null;
+
   public final static String NO_CONNECTION = "NO_CONNECTION";
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
-  private OnPlaylistChange subscriber;
+  private OnPlaylistChange  subscriber;
+  private Handler           mHandler;
+  private Context context;
 
   private String serverIp;
 
-  public Client(Context context)
+  private Client()
   {
-    findServer(context);
     playList = new ArrayList<>();
+    mHandler = new Handler();
   }
 
-  private void findServer(Context context)
+  public static Client getInstance(Context context) {
+    if (instance == null) {
+      instance = new Client();
+    }
+    instance.context = context;
+    return instance;
+  }
+
+  public void findServer(final Runnable runnable)
   {
     try {
       final DatagramSocket datagramSocket   = new DatagramSocket();
@@ -70,6 +82,7 @@ public class Client
           }
           datagramSocket.close();
           start();
+          mHandler.post(runnable);
         }
       }).start();
     }
@@ -138,16 +151,6 @@ public class Client
     }
   }
 
-  public void close()
-  {
-    try {
-      if (socket != null)
-        socket.close();
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 
   public ArrayList<String> getPlayList()
   {
@@ -181,6 +184,17 @@ public class Client
 
   public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange) {
     subscriber = onPlaylistChange;
+  }
+
+  public static void close() {
+    try {
+      if (instance.socket != null)
+        instance.socket.close();
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+    instance = null;
   }
 
   public interface OnPlaylistChange {
