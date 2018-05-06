@@ -97,10 +97,14 @@ public class Client
               }
               break;
             case PLAY:
-              subscriber.onPlay();
+              if (subscriber != null) {
+                subscriber.onPlay();
+              }
               break;
             case PAUSE:
-              subscriber.onPause();
+              if (subscriber != null) {
+                subscriber.onPause();
+              }
               break;
             default:
               break;
