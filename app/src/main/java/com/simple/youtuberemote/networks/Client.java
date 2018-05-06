@@ -7,6 +7,7 @@ import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
+import com.simple.youtuberemote.models.message.RemoveVideo;
 import com.simple.youtuberemote.models.message.Type;
 import com.simple.youtuberemote.utils.Utils;
 
@@ -180,6 +181,11 @@ public class Client
   public void addVideo(String id) throws Exception
   {
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
+  }
+
+  public void removeVideo(String id) throws Exception
+  {
+    send(socket, new Message(Type.REMOVE_VIDEO, new RemoveVideo(id)));
   }
 
   public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange)

@@ -165,7 +165,7 @@ public abstract class Server
                     case REMOVE_VIDEO:
                       RemoveVideo removeVideo = (RemoveVideo) message.data;
                       playList.remove(removeVideo.videoId);
-
+                      broadcastPlaylist();
                       break;
                     default:
                       break;
