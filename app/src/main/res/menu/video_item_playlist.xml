@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/video_item_action_play_in_playlist"
+      android:orderInCategory="100"
+      android:title="Phát" />
+  <item
+      android:id="@+id/video_item_action_delete"
+      android:orderInCategory="101"
+      android:title="Xóa" />
+</menu>
