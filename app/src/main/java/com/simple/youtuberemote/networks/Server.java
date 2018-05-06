@@ -6,6 +6,7 @@ import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
+import com.simple.youtuberemote.models.message.PlayerState;
 import com.simple.youtuberemote.models.message.RemoveVideo;
 import com.simple.youtuberemote.models.message.Type;
 
@@ -34,6 +35,7 @@ public abstract class Server
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
   private String currentVideo = "";
+  private boolean isPlaying = false;
 
   public Server()
   {
@@ -105,6 +107,8 @@ public abstract class Server
                           next();
                         }
                       });
+                      isPlaying = true;
+                      broadcastPlayerState();
                       break;
                     case PLAY:
                       mHandler.post(new Runnable()
@@ -115,7 +119,8 @@ public abstract class Server
                           onPlay();
                         }
                       });
-                      broadcast(Type.PLAY);
+                      isPlaying = true;
+                      broadcastPlayerState();
                       break;
                     case PAUSE:
                       mHandler.post(new Runnable()
@@ -126,7 +131,8 @@ public abstract class Server
                           onPause();
                         }
                       });
-                      broadcast(Type.PAUSE);
+                      isPlaying = false;
+                      broadcastPlayerState();
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
@@ -153,7 +159,8 @@ public abstract class Server
                           }
                         });
                       }
-                      broadcast(Type.PLAY);
+                      isPlaying = true;
+                      broadcastPlayerState();
                       broadcastPlaylist();
                       break;
                     case ADD_VIDEO:
@@ -199,9 +206,8 @@ public abstract class Server
     }
   }
 
-  private void broadcast(Type type)
-  {
-    Message message = new Message(type, null);
+  private void broadcastPlayerState() {
+    Message message = new Message(Type.PLAYER_STATE, new PlayerState(isPlaying));
     for (Socket client : clients) {
       try {
         send(client, message);
@@ -211,7 +217,6 @@ public abstract class Server
       }
     }
   }
-
   private void broadcastPlaylist()
   {
     Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
