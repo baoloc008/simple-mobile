@@ -55,6 +55,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
       {
         emptyTextView.setVisibility(View.GONE);
         mYoutubeView.setVisibility(View.VISIBLE);
+        mYouTubePlayer.setFullscreen(true);
       }
 
       @Override
