@@ -20,6 +20,7 @@ public class YoutubeApiHelper
 
   private static FetchVideoDetailTask mFetchVideoDetailTask;
   private static SearchYoutubeTask    mSearchTask;
+  private static GetTrendVideoTask    mGetTrendVideoTask;
 
   private static YouTube mYoutube;
 
@@ -43,6 +44,7 @@ public class YoutubeApiHelper
                                      .build();
     mFetchVideoDetailTask = new FetchVideoDetailTask();
     mSearchTask = new SearchYoutubeTask();
+    mGetTrendVideoTask = new GetTrendVideoTask();
   }
 
   public static YoutubeApiHelper getInstance()
@@ -65,4 +67,8 @@ public class YoutubeApiHelper
     return mSearchTask;
   }
 
+  public static GetTrendVideoTask getTrendVideoTask()
+  {
+    return mGetTrendVideoTask;
+  }
 }
