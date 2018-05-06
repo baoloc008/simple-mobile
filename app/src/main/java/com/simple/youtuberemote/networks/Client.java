@@ -7,6 +7,7 @@ import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
+import com.simple.youtuberemote.models.message.PlayerState;
 import com.simple.youtuberemote.models.message.RemoveVideo;
 import com.simple.youtuberemote.models.message.Type;
 import com.simple.youtuberemote.utils.Utils;
@@ -28,9 +29,10 @@ public class Client
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
-  private OnPlaylistChange  subscriber;
-  private Handler           mHandler;
-  private Context           context;
+  private boolean          isPlaying;
+  private OnPlaylistChange subscriber;
+  private Handler          mHandler;
+  private Context          context;
 
   private String serverIp;
 
@@ -111,16 +113,12 @@ public class Client
                 subscriber.onChange(playList, currentVideo);
               }
               break;
-            case PLAY:
+            case PLAYER_STATE:
+              PlayerState playerState = (PlayerState) message.data;
+              isPlaying = playerState.isPlaying;
               if (subscriber != null) {
-                subscriber.onPlay();
+                subscriber.onPlayerStateChange(isPlaying);
               }
-              break;
-            case PAUSE:
-              if (subscriber != null) {
-                subscriber.onPause();
-              }
-              break;
             default:
               break;
           }
@@ -162,7 +160,10 @@ public class Client
   {
     return currentVideo;
   }
-
+  public boolean isPlaying()
+  {
+    return isPlaying;
+  }
   public void pauseVideo() throws Exception
   {
     send(socket, new Message(Type.PAUSE, null));
@@ -210,8 +211,6 @@ public class Client
   {
     void onChange(ArrayList<String> playList, String currentVideo);
 
-    void onPlay();
-
-    void onPause();
+    void onPlayerStateChange(boolean isPlaying);
   }
 }

@@ -74,15 +74,9 @@ public class PlaylistFragment extends Fragment
       }
 
       @Override
-      public void onPlay()
+      public void onPlayerStateChange(boolean isPlaying)
       {
-
-      }
-
-      @Override
-      public void onPause()
-      {
-
+        
       }
     });
 
