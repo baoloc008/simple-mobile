@@ -68,7 +68,7 @@ public class FullViewTypeViewHolder extends BaseViewHolder<VideoItem>
   {
     PopupMenu    popup    = new PopupMenu(view.getContext(), view);
     MenuInflater inflater = popup.getMenuInflater();
-    inflater.inflate(R.menu.video_item, popup.getMenu());
+    inflater.inflate(R.menu.video_item_normal, popup.getMenu());
     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
     {
       @Override

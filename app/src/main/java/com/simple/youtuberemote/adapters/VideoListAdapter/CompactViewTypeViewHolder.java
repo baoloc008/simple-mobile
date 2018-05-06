@@ -28,15 +28,16 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
   TextView    mDuration;
   TextView    mStatistics;
   ImageButton mMenuButton;
-
+  int         mPopupType;
   VideoListAdapter.OnItemPopupMenuClickListener mListener;
 
   public CompactViewTypeViewHolder(ViewGroup parent,
-                                   VideoListAdapter.OnItemPopupMenuClickListener listener)
+                                   VideoListAdapter.OnItemPopupMenuClickListener listener, int popupType)
   {
     super(parent, R.layout.video_item_compact);
 
     mListener = listener;
+    mPopupType = popupType;
 
     mThumbnail = $(R.id.video_item_compact_iv_thumbnail);
     mTitle = $(R.id.video_item_compact_tv_title);
@@ -51,7 +52,20 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
       @Override
       public void onClick(View v)
       {
-        showPopupMenu(mMenuButton);
+
+        switch (mPopupType) {
+          case VideoListAdapter.POPUP_MEMNU_NORMAL:
+          {
+            showPopupMenuNormal(mMenuButton);
+            break;
+          }
+          case VideoListAdapter.POPUP_MEMNU_PLAYLIST:
+          {
+            showPopupMenuPlaylist(mMenuButton);
+            break;
+          }
+          default: break;
+        }
       }
     });
   }
@@ -72,11 +86,11 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     mDuration.setText(Utils.formatDuration(video.getDuration()));
   }
 
-  private void showPopupMenu(View view)
+  private void showPopupMenuNormal(View view)
   {
     PopupMenu    popup    = new PopupMenu(view.getContext(), view);
     MenuInflater inflater = popup.getMenuInflater();
-    inflater.inflate(R.menu.video_item, popup.getMenu());
+    inflater.inflate(R.menu.video_item_normal, popup.getMenu());
     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
     {
       @Override
@@ -89,6 +103,31 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
 
           case R.id.video_item_action_play:
             mListener.onPlay(mVideo);
+            return true;
+          default:
+            return false;
+        }
+      }
+    });
+    popup.show();
+  }
+  private void showPopupMenuPlaylist(View view)
+  {
+    PopupMenu    popup    = new PopupMenu(view.getContext(), view);
+    MenuInflater inflater = popup.getMenuInflater();
+    inflater.inflate(R.menu.video_item_playlist, popup.getMenu());
+    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+    {
+      @Override
+      public boolean onMenuItemClick(MenuItem item)
+      {
+        switch (item.getItemId()) {
+          case R.id.video_item_action_play_in_playlist:
+            mListener.onPlay(mVideo);
+            return true;
+
+          case R.id.video_item_action_delete:
+            mListener.onDelete(mVideo);
             return true;
           default:
             return false;

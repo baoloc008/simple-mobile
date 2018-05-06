@@ -14,17 +14,23 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
   public static final int FULL_VIEW_TYPE    = 0;
   public static final int COMPACT_VIEW_TYPE = 1;
 
+  public static final int POPUP_MEMNU_NORMAL = 0;
+  public static final int POPUP_MEMNU_PLAYLIST = 1;
+
   private int                          mViewType;
+  private int                          mPopupType;
   private OnItemPopupMenuClickListener mListener;
 
   public VideoListAdapter(Context context,
                           int viewType,
+                          int popupType,
                           OnItemPopupMenuClickListener listener)
   {
     super(context);
 
     mViewType = viewType;
     mListener = listener;
+    mPopupType = popupType;
   }
 
   @Override
@@ -34,7 +40,7 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
       case FULL_VIEW_TYPE:
         return new FullViewTypeViewHolder(parent, mListener);
       case COMPACT_VIEW_TYPE:
-        return new CompactViewTypeViewHolder(parent, mListener);
+        return new CompactViewTypeViewHolder(parent, mListener, mPopupType);
       default:
         return new FullViewTypeViewHolder(parent, mListener);
     }
@@ -46,5 +52,7 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
     void onAddToPlaylist(VideoItem video);
 
     void onPlay(VideoItem video);
+
+    void onDelete(VideoItem video);
   }
 }
