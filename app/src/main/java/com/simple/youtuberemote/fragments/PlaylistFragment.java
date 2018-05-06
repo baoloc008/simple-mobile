@@ -1,6 +1,7 @@
 package com.simple.youtuberemote.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -46,7 +47,7 @@ public class PlaylistFragment extends Fragment
   ImageButton mPlayButton;
   @BindView (R.id.playlist_ib_skip_next)
   ImageButton mSkipNextButton;
-
+  private Handler mHandler;
   private VideoListAdapter mResultVideoListAdapter;
 
   private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
@@ -59,7 +60,7 @@ public class PlaylistFragment extends Fragment
   {
     View view = inflater.inflate(R.layout.fragment_playlist, container, false);
     ButterKnife.bind(this, view);
-
+    mHandler = new Handler();
     initResultVideoListView();
     fetch(RemoteControlActivity.mClient.getPlayList());
 
@@ -107,8 +108,16 @@ public class PlaylistFragment extends Fragment
 
   private void fetch(ArrayList<String> playlist)
   {
-    List<VideoItem> detailResults = mFetchTask.fetch(playlist);
-    mResultVideoListAdapter.addAll(detailResults);
+    final List<VideoItem> detailResults = mFetchTask.fetch(playlist);
+    mHandler.post(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mResultVideoListAdapter.clear();
+        mResultVideoListAdapter.addAll(detailResults);
+      }
+    });
   }
 
   private void initResultVideoListView()
