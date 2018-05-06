@@ -148,6 +148,7 @@ public abstract class Server
                           }
                         });
                       }
+                      broadcast(Type.PLAY);
                       broadcastPlaylist();
                       break;
                     case ADD_VIDEO:
