@@ -156,7 +156,7 @@ public class SearchActivity extends AppCompatActivity
 
         mIsNewSearch = true;
         mSearchTask.searchAsync(query, mSearchTaskCallback);
-        
+
         mSearchView.clearFocus();
         return false;
       }
@@ -226,11 +226,8 @@ public class SearchActivity extends AppCompatActivity
           c.addRow(new Object[]{ i, mSuggestions.get(i) });
         }
         mSuggestionAdapter.changeCursor(c);
-
       }
     });
-
   }
-
 }
 

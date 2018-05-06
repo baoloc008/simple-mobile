@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment
   EasyRecyclerView mResultVideoList;
 
   private VideoListAdapter mResultVideoListAdapter;
-  private List<VideoItem> mSearchResults;
+  private List<VideoItem>  mSearchResults;
   private Boolean mIsNewSearch = false;
 
   private SearchYoutubeTask    mSearchTask = YoutubeApiHelper.searchYoutube();
@@ -107,6 +107,7 @@ public class HomeFragment extends Fragment
     Intent intent = new Intent(getContext(), SearchActivity.class);
     startActivityForResult(intent, SearchActivity.SEARCH_REQUEST_CODE);
   }
+
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,
@@ -138,5 +139,4 @@ public class HomeFragment extends Fragment
     mResultVideoListAdapter.clear();
     mResultVideoListAdapter.pauseMore();
   }
-
 }

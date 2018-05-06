@@ -47,8 +47,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
   public PlaylistAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     LayoutInflater layoutInflater
-                        = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    View           view = layoutInflater.inflate(R.layout.video_item_compact, parent, false);
+        = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View view = layoutInflater.inflate(R.layout.video_item_compact, parent, false);
     return new ViewHolder(view);
   }
 

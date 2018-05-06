@@ -39,23 +39,21 @@ public class TrendFragment extends Fragment implements RecyclerArrayAdapter.OnLo
   EasyRecyclerView mRecyclerViewTrendVideo;
 
   private VideoListAdapter mVideoListAdapter;
-  private List<VideoItem> mVideoItems;
+  private List<VideoItem>  mVideoItems;
 
-  private GetTrendVideoTask mGetTrendVideoTask = YoutubeApiHelper.getTrendVideoTask();
-  private FetchVideoDetailTask mFetchTask  = YoutubeApiHelper.fetchVideoDetail();
+  private GetTrendVideoTask    mGetTrendVideoTask = YoutubeApiHelper.getTrendVideoTask();
+  private FetchVideoDetailTask mFetchTask         = YoutubeApiHelper.fetchVideoDetail();
 
   private GetTrendVideoTask.Callback mGetTrendVideoCallback = new GetTrendVideoTask.Callback()
   {
     @Override
     public void onGetTrendVideoComplete(boolean ok, List<String> result)
     {
-      if (ok)
-      {
+      if (ok) {
         mVideoItems = mFetchTask.fetch(result);
         mVideoListAdapter.addAll(mVideoItems);
       }
-      else
-      {
+      else {
         mVideoListAdapter.pauseMore();
         mRecyclerViewTrendVideo.showError();
       }
@@ -81,7 +79,8 @@ public class TrendFragment extends Fragment implements RecyclerArrayAdapter.OnLo
                                              VideoListAdapter.COMPACT_VIEW_TYPE,
                                              new VideoPopupMenuOnItemClickHandler(getContext()));
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                                                                            DividerItemDecoration.VERTICAL);
     mRecyclerViewTrendVideo.setLayoutManager(layoutManager);
     mRecyclerViewTrendVideo.addItemDecoration(dividerItemDecoration);
     mRecyclerViewTrendVideo.setAdapterWithProgress(mVideoListAdapter);

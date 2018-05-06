@@ -42,7 +42,6 @@
     <item name="android:textColorSecondary">@color/colorLightTextSecondary</item>
   </style>
 
-  <style name="BorderlessBackgroundView">
-  </style>
+  <style name="BorderlessBackgroundView"></style>
 
 </resources>

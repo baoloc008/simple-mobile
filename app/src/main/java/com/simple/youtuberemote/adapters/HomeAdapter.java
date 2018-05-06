@@ -25,13 +25,18 @@ import butterknife.OnClick;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
 {
-  private Context         context;
-  private List<VideoItem> videoList;
+  private Context                                context;
+  private List<VideoItem>                        videoList;
   private RecyclerViewHomeAdapterOnclickListener mRecyclerViewHomeAdapterOnclickListener;
-  public interface RecyclerViewHomeAdapterOnclickListener {
+
+  public interface RecyclerViewHomeAdapterOnclickListener
+  {
     void onItemClick(View v, int position);
   }
-  public HomeAdapter(Context context, List<VideoItem> videoList, RecyclerViewHomeAdapterOnclickListener listener)
+
+  public HomeAdapter(Context context,
+                     List<VideoItem> videoList,
+                     RecyclerViewHomeAdapterOnclickListener listener)
   {
     this.context = context;
     this.videoList = videoList;

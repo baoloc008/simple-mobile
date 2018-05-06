@@ -85,5 +85,4 @@ public class SuggestionApiHelper
 
     void onFetchComplete(boolean ok, List<String> suggestions);
   }
-
 }

@@ -126,6 +126,5 @@ public class FetchVideoDetailTask
   {
 
     void onFetchComplete(boolean ok, List<VideoItem> result);
-
   }
 }

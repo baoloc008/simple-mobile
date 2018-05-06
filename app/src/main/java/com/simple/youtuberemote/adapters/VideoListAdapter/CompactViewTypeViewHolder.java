@@ -60,11 +60,15 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
   public void setData(VideoItem video)
   {
     mVideo = video;
-    Glide.with(getContext()).load(video.getThumbnailUrl()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888).into(mThumbnail);
+    Glide.with(getContext())
+         .load(video.getThumbnailUrl())
+         .asBitmap()
+         .format(DecodeFormat.PREFER_ARGB_8888)
+         .into(mThumbnail);
     mTitle.setText(video.getTitle());
     mChannelTitle.setText(video.getChannelTitle());
     mStatistics.setText(getContext().getString(R.string.video_item_statistics,
-                                              Utils.prettyViewCount(video.getViewCount())));
+                                               Utils.prettyViewCount(video.getViewCount())));
     mDuration.setText(Utils.formatDuration(video.getDuration()));
   }
 
@@ -93,5 +97,4 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     });
     popup.show();
   }
-
 }

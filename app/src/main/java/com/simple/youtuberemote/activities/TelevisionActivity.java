@@ -23,7 +23,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
   @BindView (R.id.empty_tv)
   TextView          emptyTextView;
   @BindView (R.id.client_count_tv)
-  TextView clientCountTextView;
+  TextView          clientCountTextView;
   private YouTubePlayer mYouTubePlayer;
   private Server        mServer;
 

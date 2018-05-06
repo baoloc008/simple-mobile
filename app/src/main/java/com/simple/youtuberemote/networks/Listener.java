@@ -35,5 +35,6 @@ public abstract class Listener extends Thread
   }
 
   public abstract void onMessage(Message message);
+
   public abstract void onError();
 }

@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
   <com.jude.easyrecyclerview.EasyRecyclerView
-    android:id="@+id/recycleViewPlaylist"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    app:layout_empty="@layout/rv_empty"
-    app:layout_progress="@layout/rv_progress"
-    app:scrollbarStyle="insideOverlay"
-    android:background="@color/white"/>
+      android:id="@+id/recycleViewPlaylist"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      app:layout_empty="@layout/rv_empty"
+      app:layout_progress="@layout/rv_progress"
+      app:scrollbarStyle="insideOverlay"
+      android:background="@color/white" />
 
   <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:background="@color/colorDarkTextPrimary"
-    android:gravity="center"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:background="@color/colorDarkTextPrimary"
+      android:gravity="center"
+      android:paddingBottom="8dp"
+      android:paddingTop="8dp">
 
     <ImageButton
-      android:id="@+id/playlist_ib_skip_previous"
-      android:layout_width="@dimen/video_player_icon_size"
-      android:layout_height="@dimen/video_player_icon_size"
-      android:background="?android:attr/selectableItemBackgroundBorderless"
-      android:contentDescription="skip previous"
-      android:scaleType="fitXY"
-      app:srcCompat="@drawable/ic_video_player_skip_previous" />
+        android:id="@+id/playlist_ib_skip_previous"
+        android:layout_width="@dimen/video_player_icon_size"
+        android:layout_height="@dimen/video_player_icon_size"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="skip previous"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_video_player_skip_previous" />
 
     <ImageButton
-      android:id="@+id/playlist_ib_play"
-      android:layout_width="@dimen/video_player_icon_size"
-      android:layout_height="@dimen/video_player_icon_size"
-      android:layout_marginEnd="@dimen/video_player_icon_margin"
-      android:layout_marginStart="@dimen/video_player_icon_margin"
-      android:background="?android:attr/selectableItemBackgroundBorderless"
-      android:contentDescription="play/pause"
-      android:scaleType="fitXY"
-      app:srcCompat="@drawable/ic_video_player_play" />
+        android:id="@+id/playlist_ib_play"
+        android:layout_width="@dimen/video_player_icon_size"
+        android:layout_height="@dimen/video_player_icon_size"
+        android:layout_marginEnd="@dimen/video_player_icon_margin"
+        android:layout_marginStart="@dimen/video_player_icon_margin"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="play/pause"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_video_player_play" />
 
     <ImageButton
-      android:id="@+id/playlist_ib_skip_next"
-      android:layout_width="@dimen/video_player_icon_size"
-      android:layout_height="@dimen/video_player_icon_size"
-      android:background="?android:attr/selectableItemBackgroundBorderless"
-      android:contentDescription="next"
-      android:padding="2dp"
-      android:scaleType="fitXY"
-      app:srcCompat="@drawable/ic_video_player_skip_next" />
+        android:id="@+id/playlist_ib_skip_next"
+        android:layout_width="@dimen/video_player_icon_size"
+        android:layout_height="@dimen/video_player_icon_size"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="next"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_video_player_skip_next" />
 
   </LinearLayout>
 

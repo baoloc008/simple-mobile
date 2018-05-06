@@ -47,5 +47,4 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
 
     void onPlay(VideoItem video);
   }
-
 }

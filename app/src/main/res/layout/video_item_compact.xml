@@ -15,6 +15,7 @@
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
       android:scaleType="fitXY" />
+
   <TextView
       android:id="@+id/video_item_compact_tv_duration"
       android:layout_width="wrap_content"

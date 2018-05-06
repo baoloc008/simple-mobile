@@ -88,5 +88,4 @@ public class FullViewTypeViewHolder extends BaseViewHolder<VideoItem>
     });
     popup.show();
   }
-
 }

@@ -46,9 +46,9 @@ public class PlaylistFragment extends Fragment
   ImageButton mPlayButton;
   @BindView (R.id.playlist_ib_skip_next)
   ImageButton mSkipNextButton;
-  private Handler mHandler;
+  private Handler          mHandler;
   private VideoListAdapter mResultVideoListAdapter;
-  private Client mClient;
+  private Client           mClient;
 
   private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
 

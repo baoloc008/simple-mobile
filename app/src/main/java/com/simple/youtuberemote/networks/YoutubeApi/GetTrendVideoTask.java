@@ -16,8 +16,8 @@ import java.util.List;
 public class GetTrendVideoTask
 {
   private final String TAG = GetTrendVideoTask.class.getSimpleName();
-  private Handler                    mHandler;
-  private String                     mNextPageToken;
+  private Handler  mHandler;
+  private String   mNextPageToken;
   private Callback mCallback;
 
   public void getTrendVideoAsync(Callback callback)
@@ -60,15 +60,17 @@ public class GetTrendVideoTask
       }
     }.start();
   }
+
   public GetTrendVideoTask()
   {
     mHandler = new Handler();
   }
+
   private List<String> execute()
   {
     try {
       YouTube.Videos.List getTrendVideoRequest = YoutubeApiHelper.get().videos().list("snippet");
-      String nextPageToken = getNextPageToken();
+      String              nextPageToken        = getNextPageToken();
 
       getTrendVideoRequest.setKey(Config.REMOTE_API_KEY);
       getTrendVideoRequest.setMaxResults((long) 5);
@@ -105,6 +107,7 @@ public class GetTrendVideoTask
   {
     mNextPageToken = token;
   }
+
   public interface Callback
   {
     void onGetTrendVideoComplete(boolean ok, List<String> result);

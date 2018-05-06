@@ -29,7 +29,7 @@ public class Client
   private String            currentVideo;
   private OnPlaylistChange  subscriber;
   private Handler           mHandler;
-  private Context context;
+  private Context           context;
 
   private String serverIp;
 
@@ -39,7 +39,8 @@ public class Client
     mHandler = new Handler();
   }
 
-  public static Client getInstance(Context context) {
+  public static Client getInstance(Context context)
+  {
     if (instance == null) {
       instance = new Client();
     }
@@ -151,7 +152,6 @@ public class Client
     }
   }
 
-
   public ArrayList<String> getPlayList()
   {
     return playList;
@@ -182,14 +182,17 @@ public class Client
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
   }
 
-  public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange) {
+  public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange)
+  {
     subscriber = onPlaylistChange;
   }
 
-  public static void close() {
+  public static void close()
+  {
     try {
-      if (instance.socket != null)
+      if (instance.socket != null) {
         instance.socket.close();
+      }
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -197,9 +200,12 @@ public class Client
     instance = null;
   }
 
-  public interface OnPlaylistChange {
+  public interface OnPlaylistChange
+  {
     void onChange(ArrayList<String> playList, String currentVideo);
+
     void onPlay();
+
     void onPause();
   }
 }

@@ -47,6 +47,5 @@ public class VideoPopupMenuOnItemClickHandler
     catch (Exception e) {
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
     }
-
   }
 }

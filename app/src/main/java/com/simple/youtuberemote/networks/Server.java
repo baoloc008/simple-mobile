@@ -28,7 +28,7 @@ public abstract class Server
 
   private ServerSocket   server;
   private DatagramSocket mDatagramSocket;
-  private boolean running;
+  private boolean        running;
   private byte[] buf = new byte[256];
   private Handler           mHandler;
   private ArrayList<Socket> clients;
@@ -199,7 +199,9 @@ public abstract class Server
       e.printStackTrace();
     }
   }
-  private void broadcast(Type type) {
+
+  private void broadcast(Type type)
+  {
     Message message = new Message(type, null);
     for (Socket client : clients) {
       try {
@@ -209,8 +211,8 @@ public abstract class Server
         e.printStackTrace();
       }
     }
-
   }
+
   private void broadcastPlaylist()
   {
     Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));

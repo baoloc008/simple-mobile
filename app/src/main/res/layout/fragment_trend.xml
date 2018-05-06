@@ -16,7 +16,7 @@
         app:layout_empty="@layout/rv_empty"
         app:layout_progress="@layout/rv_progress"
         app:scrollbarStyle="insideOverlay"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 
     <ProgressBar
         android:id="@+id/pb_trend_videos_loading"
