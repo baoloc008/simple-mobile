@@ -22,6 +22,8 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
   YouTubePlayerView mYoutubeView;
   @BindView (R.id.empty_tv)
   TextView          emptyTextView;
+  @BindView (R.id.client_count_tv)
+  TextView clientCountTextView;
   private YouTubePlayer mYouTubePlayer;
   private Server        mServer;
 
@@ -42,6 +44,12 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
     super.onStart();
     mServer = new Server()
     {
+      @Override
+      public void onClientChange(int count)
+      {
+        clientCountTextView.setText(String.valueOf(count));
+      }
+
       @Override
       public void onPlayListFilled()
       {
