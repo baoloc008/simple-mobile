@@ -111,6 +111,7 @@ public class HomeFragment extends Fragment
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,
+                                                   VideoListAdapter.POPUP_MEMNU_NORMAL,
                                                    new VideoPopupMenuOnItemClickHandler(getContext()));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

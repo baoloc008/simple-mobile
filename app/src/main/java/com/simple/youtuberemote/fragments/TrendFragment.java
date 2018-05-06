@@ -77,6 +77,7 @@ public class TrendFragment extends Fragment implements RecyclerArrayAdapter.OnLo
   {
     mVideoListAdapter = new VideoListAdapter(getContext(),
                                              VideoListAdapter.COMPACT_VIEW_TYPE,
+                                             VideoListAdapter.POPUP_MEMNU_NORMAL,
                                              new VideoPopupMenuOnItemClickHandler(getContext()));
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),

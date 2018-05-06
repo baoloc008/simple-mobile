@@ -173,6 +173,7 @@ public class SearchActivity extends AppCompatActivity
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(this, VideoListAdapter.COMPACT_VIEW_TYPE,
+                                                   VideoListAdapter.POPUP_MEMNU_NORMAL,
                                                    new VideoPopupMenuOnItemClickHandler(this));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
