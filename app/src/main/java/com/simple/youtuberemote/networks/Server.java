@@ -1,13 +1,12 @@
 package com.simple.youtuberemote.networks;
 
-import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import com.simple.youtuberemote.models.message.AddVideo;
 import com.simple.youtuberemote.models.message.Message;
 import com.simple.youtuberemote.models.message.PlayList;
 import com.simple.youtuberemote.models.message.PlaySpecVideo;
+import com.simple.youtuberemote.models.message.RemoveVideo;
 import com.simple.youtuberemote.models.message.Type;
 
 import java.io.IOException;
@@ -83,7 +82,14 @@ public abstract class Server
               final Socket client = server.accept();
               send(client, new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo)));
               clients.add(client);
-
+              mHandler.post(new Runnable()
+              {
+                @Override
+                public void run()
+                {
+                  onClientChange(clients.size());
+                }
+              });
               Listener listener = new Listener(client)
               {
                 @Override
@@ -156,6 +162,11 @@ public abstract class Server
                       playList.add(addVideo.videoId);
                       broadcastPlaylist();
                       break;
+                    case REMOVE_VIDEO:
+                      RemoveVideo removeVideo = (RemoveVideo) message.data;
+                      playList.remove(removeVideo.videoId);
+
+                      break;
                     default:
                       break;
                   }
@@ -165,6 +176,14 @@ public abstract class Server
                 public void onError()
                 {
                   clients.remove(client);
+                  mHandler.post(new Runnable()
+                  {
+                    @Override
+                    public void run()
+                    {
+                      onClientChange(clients.size());
+                    }
+                  });
                 }
               };
               listener.start();
@@ -245,6 +264,8 @@ public abstract class Server
       e.printStackTrace();
     }
   }
+
+  public abstract void onClientChange(int count);
 
   public abstract void onPlayListFilled();
 
