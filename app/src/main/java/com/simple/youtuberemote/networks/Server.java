@@ -105,7 +105,6 @@ public abstract class Server
                           next();
                         }
                       });
-                      broadcastPlaylist();
                       break;
                     case PLAY:
                       mHandler.post(new Runnable()
@@ -247,6 +246,7 @@ public abstract class Server
     }
     currentVideo = playList.get(0);
     onVideoChange(currentVideo);
+    broadcastPlaylist();
   }
 
   public void next()

@@ -102,6 +102,44 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
       mYouTubePlayer = player;
       mYouTubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION |
                                                YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE);
+      mYouTubePlayer.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener()
+      {
+        @Override
+        public void onLoading()
+        {
+
+        }
+
+        @Override
+        public void onLoaded(String s)
+        {
+
+        }
+
+        @Override
+        public void onAdStarted()
+        {
+
+        }
+
+        @Override
+        public void onVideoStarted()
+        {
+
+        }
+
+        @Override
+        public void onVideoEnded()
+        {
+          mServer.next();
+        }
+
+        @Override
+        public void onError(YouTubePlayer.ErrorReason errorReason)
+        {
+
+        }
+      });
     }
   }
 
