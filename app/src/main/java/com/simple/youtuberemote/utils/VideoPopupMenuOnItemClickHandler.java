@@ -48,4 +48,16 @@ public class VideoPopupMenuOnItemClickHandler
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
     }
   }
+
+  @Override
+  public void onDelete(VideoItem video)
+  {
+    Log.d(TAG, "Delete video: " + video.getTitle());
+    try {
+      mClient.removeVideo(video.getVideoId());
+    }
+    catch (Exception e) {
+      Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
+    }
+  }
 }
