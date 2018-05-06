@@ -4,14 +4,16 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.simple.youtuberemote.activities.RemoteControlActivity;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
+import com.simple.youtuberemote.networks.Client;
 
 
 public class VideoPopupMenuOnItemClickHandler
     implements VideoListAdapter.OnItemPopupMenuClickListener
 {
+
+  private Client mClient;
 
   private static final String TAG = VideoPopupMenuOnItemClickHandler.class.getSimpleName();
 
@@ -20,6 +22,7 @@ public class VideoPopupMenuOnItemClickHandler
   public VideoPopupMenuOnItemClickHandler(Context context)
   {
     mContext = context;
+    mClient = Client.getInstance(context);
   }
 
   @Override
@@ -27,7 +30,7 @@ public class VideoPopupMenuOnItemClickHandler
   {
     Log.d(TAG, "Add to playlist: " + video.getTitle());
     try {
-      RemoteControlActivity.mClient.addVideo(video.getVideoId());
+      mClient.addVideo(video.getVideoId());
     }
     catch (Exception e) {
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
@@ -39,7 +42,7 @@ public class VideoPopupMenuOnItemClickHandler
   {
     Log.d(TAG, "Play: " + video.getTitle());
     try {
-      RemoteControlActivity.mClient.playVideo(video.getVideoId());
+      mClient.playVideo(video.getVideoId());
     }
     catch (Exception e) {
       Toast.makeText(mContext, "Chưa kết nối đến TV", Toast.LENGTH_SHORT).show();
