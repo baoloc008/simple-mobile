@@ -153,7 +153,9 @@ public abstract class Server
                           @Override
                           public void run()
                           {
-                            onPlayListFilled();
+                            if (playList.isEmpty()) {
+                              onPlayListFilled();
+                            }
                             playList.add(currentVideo);
                             onVideoChange(currentVideo);
                           }
@@ -165,8 +167,11 @@ public abstract class Server
                       break;
                     case ADD_VIDEO:
                       AddVideo addVideo = (AddVideo) message.data;
-                      playList.add(addVideo.videoId);
-                      broadcastPlaylist();
+                      String videoId = addVideo.videoId;
+                      if (!playList.contains(videoId)) {
+                        playList.add(addVideo.videoId);
+                        broadcastPlaylist();
+                      }
                       break;
                     case REMOVE_VIDEO:
                       RemoveVideo removeVideo = (RemoveVideo) message.data;
