@@ -164,19 +164,23 @@ public class Client
   {
     return isPlaying;
   }
-  public void pauseVideo() throws Exception
-  {
-    send(socket, new Message(Type.PAUSE, null));
-  }
-
-  public void playVideo() throws Exception
-  {
-    send(socket, new Message(Type.PLAY, null));
-  }
 
   public void playVideo(String id) throws Exception
   {
     send(socket, new Message(Type.PLAY_SPEC, new PlaySpecVideo(id)));
+  }
+
+  public void togglePlayerState() throws Exception {
+    if (isPlaying) {
+      send(socket, new Message(Type.PAUSE, null));
+    }
+    else {
+      send(socket, new Message(Type.PLAY, null));
+    }
+  }
+
+  public void next() throws Exception {
+    send(socket, new Message(Type.NEXT, null));
   }
 
   public void addVideo(String id) throws Exception

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class PlaylistFragment extends Fragment
   private Handler          mHandler;
   private VideoListAdapter mResultVideoListAdapter;
   private Client           mClient;
-  private boolean isPlaying;
 
   private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
 
@@ -77,50 +75,25 @@ public class PlaylistFragment extends Fragment
       }
 
       @Override
-      public void onPlayerStateChange(boolean isPlaying)
+      public void onPlayerStateChange(boolean _isPlaying)
       {
-        setIconPlayButton(mClient.isPlaying());
+        setIconPlayButton(_isPlaying);
       }
     });
-    
+
     return view;
-  }
-
-  @OnClick (R.id.playlist_ib_skip_previous)
-  void onSkipPreviousButtonClick()
-  {
-    Toast.makeText(getContext(), "Skip Previous clicked.", Toast.LENGTH_LONG).show();
-  }
-
-  @OnClick (R.id.playlist_ib_play)
-  void onPlayButtonClick()
-  {
-    setIconPlayButton(!isPlaying);
-  }
-
-  @OnClick (R.id.playlist_ib_skip_next)
-  void onSkipNextButtonClick()
-  {
-    Toast.makeText(getContext(), "Skip Next clicked.", Toast.LENGTH_LONG).show();
   }
 
   private void setIconPlayButton(final boolean _isPlaying)
   {
-    getActivity().runOnUiThread(new Runnable()
+    mHandler.post(new Runnable()
     {
       @Override
       public void run()
       {
-        if (_isPlaying)
-        {
-          mPlayButton.setImageResource(R.drawable.ic_video_player_pause);
-          isPlaying = true;
-        }
-        else
-        {
-          mPlayButton.setImageResource(R.drawable.ic_video_player_play);
-          isPlaying = false;
-        }
+        mPlayButton.setImageResource(_isPlaying
+                                     ? R.drawable.ic_video_player_pause
+                                     : R.drawable.ic_video_player_play);
       }
     });
   }
@@ -141,7 +114,9 @@ public class PlaylistFragment extends Fragment
 
   private void initResultVideoListView()
   {
-    mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,  VideoListAdapter.POPUP_MEMNU_PLAYLIST,
+    mResultVideoListAdapter = new VideoListAdapter(getContext(),
+                                                   VideoListAdapter.COMPACT_VIEW_TYPE,
+                                                   VideoListAdapter.POPUP_MEMNU_PLAYLIST,
                                                    new VideoPopupMenuOnItemClickHandler(getContext()));
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -168,5 +143,33 @@ public class PlaylistFragment extends Fragment
 
     mResultVideoListAdapter.clear();
     mResultVideoListAdapter.pauseMore();
+  }
+
+  @OnClick (R.id.playlist_ib_skip_previous)
+  void onSkipPreviousButtonClick()
+  {
+    Toast.makeText(getContext(), "Skip Previous clicked.", Toast.LENGTH_LONG).show();
+  }
+
+  @OnClick (R.id.playlist_ib_play)
+  void onPlayButtonClick()
+  {
+    try {
+      mClient.togglePlayerState();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @OnClick (R.id.playlist_ib_skip_next)
+  void onSkipNextButtonClick()
+  {
+    try {
+      mClient.next();
+    }
+    catch (Exception e) {
+      Toast.makeText(getContext(), "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+    }
   }
 }
