@@ -55,7 +55,6 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
       {
         emptyTextView.setVisibility(View.GONE);
         mYoutubeView.setVisibility(View.VISIBLE);
-        mYouTubePlayer.setFullscreen(true);
       }
 
       @Override
@@ -113,7 +112,7 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
         @Override
         public void onLoaded(String s)
         {
-
+          mYouTubePlayer.setFullscreen(true);
         }
 
         @Override
@@ -136,6 +135,38 @@ public class TelevisionActivity extends YouTubeFailureRecoveryActivity
 
         @Override
         public void onError(YouTubePlayer.ErrorReason errorReason)
+        {
+
+        }
+      });
+      mYouTubePlayer.setPlaybackEventListener(new YouTubePlayer.PlaybackEventListener()
+      {
+        @Override
+        public void onPlaying()
+        {
+          mServer.playVideo();
+        }
+
+        @Override
+        public void onPaused()
+        {
+          mServer.pauseVideo();
+        }
+
+        @Override
+        public void onStopped()
+        {
+
+        }
+
+        @Override
+        public void onBuffering(boolean b)
+        {
+
+        }
+
+        @Override
+        public void onSeekTo(int i)
         {
 
         }

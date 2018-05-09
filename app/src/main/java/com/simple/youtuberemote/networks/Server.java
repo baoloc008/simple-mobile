@@ -83,6 +83,7 @@ public abstract class Server
             try {
               final Socket client = server.accept();
               send(client, new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo)));
+              send(client, new Message(Type.PLAYER_STATE, new PlayerState(isPlaying)));
               clients.add(client);
               mHandler.post(new Runnable()
               {
@@ -120,7 +121,7 @@ public abstract class Server
                         }
                       });
                       isPlaying = true;
-                      broadcastPlayerState();
+                      // broadcastPlayerState();
                       break;
                     case PAUSE:
                       mHandler.post(new Runnable()
@@ -132,7 +133,7 @@ public abstract class Server
                         }
                       });
                       isPlaying = false;
-                      broadcastPlayerState();
+                      // broadcastPlayerState();
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
@@ -275,6 +276,15 @@ public abstract class Server
     catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void pauseVideo() {
+    isPlaying = false;
+    broadcastPlayerState();
+  }
+  public void playVideo() {
+    isPlaying = true;
+    broadcastPlayerState();
   }
 
   public abstract void onClientChange(int count);
