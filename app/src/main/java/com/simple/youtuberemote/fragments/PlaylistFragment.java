@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class PlaylistFragment extends Fragment
   private Handler          mHandler;
   private VideoListAdapter mResultVideoListAdapter;
   private Client           mClient;
+  private boolean isPlaying;
 
   private FetchVideoDetailTask mFetchTask = YoutubeApiHelper.fetchVideoDetail();
 
@@ -64,6 +66,7 @@ public class PlaylistFragment extends Fragment
     initResultVideoListView();
     mClient = Client.getInstance(getContext());
     fetch(mClient.getPlayList());
+    setIconPlayButton(mClient.isPlaying());
 
     mClient.setOnPlaylistChange(new Client.OnPlaylistChange()
     {
@@ -76,10 +79,10 @@ public class PlaylistFragment extends Fragment
       @Override
       public void onPlayerStateChange(boolean isPlaying)
       {
-        
+        setIconPlayButton(mClient.isPlaying());
       }
     });
-
+    
     return view;
   }
 
@@ -92,13 +95,34 @@ public class PlaylistFragment extends Fragment
   @OnClick (R.id.playlist_ib_play)
   void onPlayButtonClick()
   {
-    Toast.makeText(getContext(), "Play clicked.", Toast.LENGTH_LONG).show();
+    setIconPlayButton(!isPlaying);
   }
 
   @OnClick (R.id.playlist_ib_skip_next)
   void onSkipNextButtonClick()
   {
     Toast.makeText(getContext(), "Skip Next clicked.", Toast.LENGTH_LONG).show();
+  }
+
+  private void setIconPlayButton(final boolean _isPlaying)
+  {
+    getActivity().runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (_isPlaying)
+        {
+          mPlayButton.setImageResource(R.drawable.ic_video_player_pause);
+          isPlaying = true;
+        }
+        else
+        {
+          mPlayButton.setImageResource(R.drawable.ic_video_player_play);
+          isPlaying = false;
+        }
+      }
+    });
   }
 
   private void fetch(ArrayList<String> playlist)
