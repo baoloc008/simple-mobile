@@ -111,6 +111,16 @@ public abstract class Server
                       isPlaying = true;
                       broadcastPlayerState();
                       break;
+                    case PREVIOUS:
+                      mHandler.post(new Runnable()
+                      {
+                        @Override
+                        public void run()
+                        {
+                          previous();
+                        }
+                      });
+                      break;
                     case PLAY:
                       mHandler.post(new Runnable()
                       {
@@ -121,7 +131,6 @@ public abstract class Server
                         }
                       });
                       isPlaying = true;
-                      // broadcastPlayerState();
                       break;
                     case PAUSE:
                       mHandler.post(new Runnable()
@@ -133,7 +142,6 @@ public abstract class Server
                         }
                       });
                       isPlaying = false;
-                      // broadcastPlayerState();
                       break;
                     case PLAY_SPEC:
                       final PlaySpecVideo playSpecVideo = (PlaySpecVideo) message.data;
@@ -264,6 +272,16 @@ public abstract class Server
   {
     playList.remove(currentVideo);
     peek();
+  }
+
+  private void previous() {
+    int index = playList.indexOf(currentVideo);
+    if (index > 0) {
+      index--;
+      currentVideo = playList.get(index);
+      onVideoChange(currentVideo);
+      broadcastPlaylist();
+    }
   }
 
   public void close()

@@ -182,7 +182,9 @@ public class Client
   public void next() throws Exception {
     send(socket, new Message(Type.NEXT, null));
   }
-
+  public void previous() throws Exception {
+    send(socket, new Message(Type.PREVIOUS, null));
+  }
   public void addVideo(String id) throws Exception
   {
     send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));

@@ -148,7 +148,12 @@ public class PlaylistFragment extends Fragment
   @OnClick (R.id.playlist_ib_skip_previous)
   void onSkipPreviousButtonClick()
   {
-    Toast.makeText(getContext(), "Skip Previous clicked.", Toast.LENGTH_LONG).show();
+    try {
+      mClient.previous();
+    }
+    catch (Exception e) {
+      Toast.makeText(getContext(), "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+    }
   }
 
   @OnClick (R.id.playlist_ib_play)
