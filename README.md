@@ -1,2 +1,4 @@
 # simple-mobile
-Assignment
+
+- Ex3: Simple Job Finder
+- Assignment: Youtube Remote
