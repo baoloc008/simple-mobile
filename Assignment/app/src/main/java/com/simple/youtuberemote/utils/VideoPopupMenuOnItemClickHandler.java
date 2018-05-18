@@ -1,7 +1,6 @@
 package com.simple.youtuberemote.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
@@ -13,11 +12,9 @@ public class VideoPopupMenuOnItemClickHandler
     implements VideoListAdapter.OnItemPopupMenuClickListener
 {
 
-  private Client mClient;
-
   private static final String TAG = VideoPopupMenuOnItemClickHandler.class.getSimpleName();
-
   Context mContext;
+  private Client mClient;
 
   public VideoPopupMenuOnItemClickHandler(Context context)
   {
@@ -28,7 +25,6 @@ public class VideoPopupMenuOnItemClickHandler
   @Override
   public void onAddToPlaylist(VideoItem video)
   {
-    Log.d(TAG, "Add to playlist: " + video.getTitle());
     try {
       mClient.addVideo(video.getVideoId());
     }
@@ -40,7 +36,6 @@ public class VideoPopupMenuOnItemClickHandler
   @Override
   public void onPlay(VideoItem video)
   {
-    Log.d(TAG, "Play: " + video.getTitle());
     try {
       mClient.playVideo(video.getVideoId());
     }
@@ -52,7 +47,6 @@ public class VideoPopupMenuOnItemClickHandler
   @Override
   public void onDelete(VideoItem video)
   {
-    Log.d(TAG, "Delete video: " + video.getTitle());
     try {
       mClient.removeVideo(video.getVideoId());
     }

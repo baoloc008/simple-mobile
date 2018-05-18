@@ -1,7 +1,6 @@
 package com.simple.youtuberemote.networks.YoutubeApi;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
@@ -63,11 +62,7 @@ public class SearchYoutubeTask
     {
       public void run()
       {
-        Log.d(TAG, "Search Requesting...");
-
         final List<String> results = execute();
-        Log.d(TAG, "Search Response: " + results);
-
         mHandler.post(new Runnable()
         {
           public void run()
@@ -110,7 +105,6 @@ public class SearchYoutubeTask
       return items;
     }
     catch (IOException e) {
-      Log.d(TAG, "Could not searchAsync: " + e);
       return null;
     }
   }

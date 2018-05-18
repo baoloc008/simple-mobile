@@ -1,7 +1,5 @@
 package com.simple.youtuberemote.networks.SuggestionApi;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -51,7 +49,6 @@ public class SuggestionApiHelper
                 suggestions.add(jsonArray.getString(i));
               }
             }
-            Log.d(TAG, suggestions.toString());
           }
           catch (JSONException e) {
             e.printStackTrace();
@@ -59,9 +56,7 @@ public class SuggestionApiHelper
         }
         else {
           int statusCode = response.code();
-          Log.d(TAG, "Error fetching suggestion: " + statusCode);
         }
-        Log.d(TAG, "Call callback");
         callback.onFetchComplete(ok, suggestions);
       }
 

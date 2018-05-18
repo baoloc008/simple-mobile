@@ -1,7 +1,5 @@
 package com.simple.youtuberemote.networks;
 
-import android.util.Log;
-
 import com.simple.youtuberemote.models.message.Message;
 
 import java.io.ObjectInputStream;
@@ -23,7 +21,6 @@ public abstract class Listener extends Thread
       try {
         ObjectInputStream streamIn = new ObjectInputStream(socket.getInputStream());
         Message           message  = (Message) streamIn.readObject();
-        Log.d("Message", message.type.toString());
         onMessage(message);
       }
       catch (Exception e) {

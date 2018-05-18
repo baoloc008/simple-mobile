@@ -101,13 +101,6 @@ public class HomeFragment extends Fragment
     mSearchTask.searchNextAsync();
   }
 
-  @OnClick (R.id.fab_search)
-  void searchVideo()
-  {
-    Intent intent = new Intent(getContext(), SearchActivity.class);
-    startActivityForResult(intent, SearchActivity.SEARCH_REQUEST_CODE);
-  }
-
   private void initResultVideoListView()
   {
     mResultVideoListAdapter = new VideoListAdapter(getContext(), VideoListAdapter.COMPACT_VIEW_TYPE,
@@ -139,5 +132,12 @@ public class HomeFragment extends Fragment
 
     mResultVideoListAdapter.clear();
     mResultVideoListAdapter.pauseMore();
+  }
+
+  @OnClick (R.id.fab_search)
+  void searchVideo()
+  {
+    Intent intent = new Intent(getContext(), SearchActivity.class);
+    startActivityForResult(intent, SearchActivity.SEARCH_REQUEST_CODE);
   }
 }

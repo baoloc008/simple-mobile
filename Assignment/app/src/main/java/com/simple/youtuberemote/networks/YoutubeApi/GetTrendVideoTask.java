@@ -1,7 +1,6 @@
 package com.simple.youtuberemote.networks.YoutubeApi;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
@@ -20,9 +19,19 @@ public class GetTrendVideoTask
   private String   mNextPageToken;
   private Callback mCallback;
 
+  public GetTrendVideoTask()
+  {
+    mHandler = new Handler();
+  }
+
   public void getTrendVideoAsync(Callback callback)
   {
     reset(callback);
+    asyncExecute();
+  }
+
+  public void getNextTrendVideoAsync()
+  {
     asyncExecute();
   }
 
@@ -32,22 +41,13 @@ public class GetTrendVideoTask
     setNextPageToken(null);
   }
 
-  public void getNextTrendVideoAsync()
-  {
-    asyncExecute();
-  }
-
   private void asyncExecute()
   {
     new Thread()
     {
       public void run()
       {
-        Log.d(TAG, "Get Trend Video Requesting...");
-
         final List<String> results = execute();
-        Log.d(TAG, "Search Response: " + results);
-
         mHandler.post(new Runnable()
         {
           public void run()
@@ -59,11 +59,6 @@ public class GetTrendVideoTask
         });
       }
     }.start();
-  }
-
-  public GetTrendVideoTask()
-  {
-    mHandler = new Handler();
   }
 
   private List<String> execute()
@@ -93,7 +88,6 @@ public class GetTrendVideoTask
       return items;
     }
     catch (IOException e) {
-      Log.d(TAG, "Could not searchAsync: " + e);
       return null;
     }
   }

@@ -23,21 +23,21 @@ import java.util.ArrayList;
 
 public class Client
 {
-  private static Client instance = null;
-
   public final static String NO_CONNECTION = "NO_CONNECTION";
+  private static Client instance = null;
   private Socket            socket;
   private ArrayList<String> playList;
   private String            currentVideo;
-  private boolean          isPlaying;
-  private OnPlaylistChange subscriber;
-  private Handler          mHandler;
-  private Context          context;
+  private boolean           isPlaying;
+  private OnPlaylistChange  subscriber;
+  private Handler           mHandler;
+  private Context           context;
 
   private String serverIp;
 
   private Client()
   {
+    currentVideo = "";
     playList = new ArrayList<>();
     mHandler = new Handler();
   }
@@ -49,6 +49,19 @@ public class Client
     }
     instance.context = context;
     return instance;
+  }
+
+  public static void close()
+  {
+    try {
+      if (instance.socket != null) {
+        instance.socket.close();
+      }
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+    instance = null;
   }
 
   public void findServer(final Runnable runnable)
@@ -93,6 +106,61 @@ public class Client
     catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public ArrayList<String> getPlayList()
+  {
+    return playList;
+  }
+
+  public String getCurrentVideo()
+  {
+    return currentVideo;
+  }
+
+  public boolean isPlaying()
+  {
+    return isPlaying;
+  }
+
+  public void playVideo(String id) throws Exception
+  {
+    send(socket, new Message(Type.PLAY_SPEC, new PlaySpecVideo(id)));
+  }
+
+  public void togglePlayerState() throws Exception
+  {
+    if (isPlaying) {
+      send(socket, new Message(Type.PAUSE, null));
+    }
+    else {
+      send(socket, new Message(Type.PLAY, null));
+    }
+  }
+
+  public void next() throws Exception
+  {
+    send(socket, new Message(Type.NEXT, null));
+  }
+
+  public void previous() throws Exception
+  {
+    send(socket, new Message(Type.PREVIOUS, null));
+  }
+
+  public void addVideo(String id) throws Exception
+  {
+    send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
+  }
+
+  public void removeVideo(String id) throws Exception
+  {
+    send(socket, new Message(Type.REMOVE_VIDEO, new RemoveVideo(id)));
+  }
+
+  public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange)
+  {
+    subscriber = onPlaylistChange;
   }
 
   private void start()
@@ -149,68 +217,6 @@ public class Client
     catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public ArrayList<String> getPlayList()
-  {
-    return playList;
-  }
-
-  public String getCurrentVideo()
-  {
-    return currentVideo;
-  }
-  public boolean isPlaying()
-  {
-    return isPlaying;
-  }
-
-  public void playVideo(String id) throws Exception
-  {
-    send(socket, new Message(Type.PLAY_SPEC, new PlaySpecVideo(id)));
-  }
-
-  public void togglePlayerState() throws Exception {
-    if (isPlaying) {
-      send(socket, new Message(Type.PAUSE, null));
-    }
-    else {
-      send(socket, new Message(Type.PLAY, null));
-    }
-  }
-
-  public void next() throws Exception {
-    send(socket, new Message(Type.NEXT, null));
-  }
-  public void previous() throws Exception {
-    send(socket, new Message(Type.PREVIOUS, null));
-  }
-  public void addVideo(String id) throws Exception
-  {
-    send(socket, new Message(Type.ADD_VIDEO, new AddVideo(id)));
-  }
-
-  public void removeVideo(String id) throws Exception
-  {
-    send(socket, new Message(Type.REMOVE_VIDEO, new RemoveVideo(id)));
-  }
-
-  public void setOnPlaylistChange(OnPlaylistChange onPlaylistChange)
-  {
-    subscriber = onPlaylistChange;
-  }
-
-  public static void close()
-  {
-    try {
-      if (instance.socket != null) {
-        instance.socket.close();
-      }
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-    instance = null;
   }
 
   public interface OnPlaylistChange

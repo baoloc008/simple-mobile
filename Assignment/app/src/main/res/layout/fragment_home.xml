@@ -13,10 +13,10 @@
         android:id="@+id/rv_home_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_empty="@layout/rv_empty"
         app:layout_progress="@layout/rv_progress"
-        app:scrollbarStyle="insideOverlay"
-        android:background="@color/white" />
+        app:scrollbarStyle="insideOverlay" />
 
     <ProgressBar
         android:id="@+id/pb_home_videos_loading"
@@ -44,8 +44,8 @@
       android:layout_gravity="end|bottom"
       android:layout_margin="16dp"
       android:focusable="true"
-      app:srcCompat="@drawable/ic_search"
       app:backgroundTint="@color/colorPrimaryDark"
-      app:layout_behavior="com.simple.youtuberemote.utils.FABScrollBehavior" />
+      app:layout_behavior="com.simple.youtuberemote.utils.FABScrollBehavior"
+      app:srcCompat="@drawable/ic_search" />
 
 </android.support.design.widget.CoordinatorLayout>

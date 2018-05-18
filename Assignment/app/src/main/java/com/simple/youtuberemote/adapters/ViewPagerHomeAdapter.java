@@ -29,14 +29,6 @@ public class ViewPagerHomeAdapter extends FragmentPagerAdapter
     addList();
   }
 
-  private void addList()
-  {
-    // add Fragment
-    listFragment.add(new HomeFragment());
-    listFragment.add(new TrendFragment());
-    listFragment.add(new PlaylistFragment());
-  }
-
   @Override
   public Fragment getItem(int position)
   {
@@ -53,5 +45,13 @@ public class ViewPagerHomeAdapter extends FragmentPagerAdapter
   public CharSequence getPageTitle(int position)
   {
     return null;
+  }
+
+  private void addList()
+  {
+    // add Fragment
+    listFragment.add(new HomeFragment());
+    listFragment.add(new TrendFragment());
+    listFragment.add(new PlaylistFragment());
   }
 }

@@ -14,7 +14,7 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
   public static final int FULL_VIEW_TYPE    = 0;
   public static final int COMPACT_VIEW_TYPE = 1;
 
-  public static final int POPUP_MEMNU_NORMAL = 0;
+  public static final int POPUP_MEMNU_NORMAL   = 0;
   public static final int POPUP_MEMNU_PLAYLIST = 1;
 
   private int                          mViewType;
@@ -36,14 +36,18 @@ public class VideoListAdapter extends RecyclerArrayAdapter<VideoItem>
   @Override
   public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
   {
+    BaseViewHolder mBaseViewHolder;
     switch (mViewType) {
       case FULL_VIEW_TYPE:
-        return new FullViewTypeViewHolder(parent, mListener);
+        mBaseViewHolder = new FullViewTypeViewHolder(parent, mListener);
+        break;
       case COMPACT_VIEW_TYPE:
-        return new CompactViewTypeViewHolder(parent, mListener, mPopupType);
+        mBaseViewHolder = new CompactViewTypeViewHolder(parent, mListener, mPopupType);
+        break;
       default:
-        return new FullViewTypeViewHolder(parent, mListener);
+        mBaseViewHolder = new CompactViewTypeViewHolder(parent, mListener, mPopupType);
     }
+    return mBaseViewHolder;
   }
 
   public interface OnItemPopupMenuClickListener

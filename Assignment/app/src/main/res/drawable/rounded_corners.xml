@@ -6,14 +6,14 @@
   <!--android:color="#78000000" />-->
 
   <padding
+      android:bottom="1dp"
       android:left="1dp"
-      android:top="1dp"
       android:right="1dp"
-      android:bottom="1dp" />
+      android:top="1dp" />
 
   <corners
-      android:bottomRightRadius="4dp"
       android:bottomLeftRadius="4dp"
+      android:bottomRightRadius="4dp"
       android:topLeftRadius="4dp"
       android:topRightRadius="4dp" />
 </shape>

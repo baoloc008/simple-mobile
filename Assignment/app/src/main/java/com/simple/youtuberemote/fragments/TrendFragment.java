@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import android.view.ViewGroup;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.simple.youtuberemote.R;
-import com.simple.youtuberemote.adapters.HomeAdapter;
-import com.simple.youtuberemote.adapters.TrendAdapter;
 import com.simple.youtuberemote.adapters.VideoListAdapter.VideoListAdapter;
 import com.simple.youtuberemote.models.VideoItem;
 import com.simple.youtuberemote.networks.YoutubeApi.FetchVideoDetailTask;
@@ -22,7 +19,6 @@ import com.simple.youtuberemote.networks.YoutubeApi.GetTrendVideoTask;
 import com.simple.youtuberemote.networks.YoutubeApi.YoutubeApiHelper;
 import com.simple.youtuberemote.utils.VideoPopupMenuOnItemClickHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,6 +69,19 @@ public class TrendFragment extends Fragment implements RecyclerArrayAdapter.OnLo
     return view;
   }
 
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    mGetTrendVideoTask.getTrendVideoAsync(mGetTrendVideoCallback);
+  }
+
+  @Override
+  public void onLoadMore()
+  {
+    mGetTrendVideoTask.getNextTrendVideoAsync();
+  }
+
   private void initTrendVideoListView()
   {
     mVideoListAdapter = new VideoListAdapter(getContext(),
@@ -104,18 +113,5 @@ public class TrendFragment extends Fragment implements RecyclerArrayAdapter.OnLo
 
     mVideoListAdapter.clear();
     mVideoListAdapter.pauseMore();
-  }
-
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    mGetTrendVideoTask.getTrendVideoAsync(mGetTrendVideoCallback);
-  }
-
-  @Override
-  public void onLoadMore()
-  {
-    mGetTrendVideoTask.getNextTrendVideoAsync();
   }
 }

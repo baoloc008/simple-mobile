@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -67,7 +66,6 @@ public class SearchActivity extends AppCompatActivity
     {
       if (ok) {
         mSearchResults = mFetchTask.fetch(result);
-        Log.d(TAG, "Search Response: " + mSearchResults);
         if (mIsNewSearch) {
           mResultVideoListAdapter.clear();
           mIsNewSearch = false;
@@ -84,7 +82,6 @@ public class SearchActivity extends AppCompatActivity
   @Override
   public void onLoadMore()
   {
-    Log.d(TAG, "Load more searchAsync results...");
     mSearchTask.searchNextAsync();
   }
 
@@ -98,20 +95,6 @@ public class SearchActivity extends AppCompatActivity
 
     initSearchView();
     initResultVideoListView();
-  }
-
-  @OnClick (R.id.iv_action_back)
-  void back()
-  {
-    boolean result = true;
-    if (!result) {
-      setResult(Activity.RESULT_CANCELED);
-    }
-    else {
-      Intent resultIntent = new Intent();
-      setResult(Activity.RESULT_OK, resultIntent);
-    }
-    finish();
   }
 
   private void initSearchView()
@@ -152,8 +135,6 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public boolean onQueryTextSubmit(String query)
       {
-        Log.d(TAG, "Start new searching...");
-
         mIsNewSearch = true;
         mSearchTask.searchAsync(query, mSearchTaskCallback);
 
@@ -210,16 +191,13 @@ public class SearchActivity extends AppCompatActivity
       @Override
       public void onFetchComplete(boolean ok, List<String> suggestions)
       {
-        Log.d(TAG, "SearchActivity suggestion");
         if (!ok || suggestions.size() == 0) {
-          Log.d(TAG, "false");
           return;
         }
         String[] columns = {
             BaseColumns._ID,
             SearchManager.SUGGEST_COLUMN_TEXT_1
         };
-        Log.d(TAG, suggestions.toString());
         mSuggestions = suggestions;
         MatrixCursor c = new MatrixCursor(columns);
 
@@ -229,6 +207,20 @@ public class SearchActivity extends AppCompatActivity
         mSuggestionAdapter.changeCursor(c);
       }
     });
+  }
+
+  @OnClick (R.id.iv_action_back)
+  void back()
+  {
+    boolean result = true;
+    if (!result) {
+      setResult(Activity.RESULT_CANCELED);
+    }
+    else {
+      Intent resultIntent = new Intent();
+      setResult(Activity.RESULT_OK, resultIntent);
+    }
+    finish();
   }
 }
 

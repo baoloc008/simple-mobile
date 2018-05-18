@@ -34,8 +34,8 @@ public abstract class Server
   private Handler           mHandler;
   private ArrayList<Socket> clients;
   private ArrayList<String> playList;
-  private String currentVideo = "";
-  private boolean isPlaying = false;
+  private String  currentVideo = "";
+  private boolean isPlaying    = false;
 
   public Server()
   {
@@ -220,7 +220,50 @@ public abstract class Server
     }
   }
 
-  private void broadcastPlayerState() {
+  public void next()
+  {
+    playList.remove(currentVideo);
+    peek();
+  }
+
+  public void close()
+  {
+    running = false;
+    mDatagramSocket.close();
+    try {
+      server.close();
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void pauseVideo()
+  {
+    isPlaying = false;
+    broadcastPlayerState();
+  }
+
+  public void playVideo()
+  {
+    isPlaying = true;
+    broadcastPlayerState();
+  }
+
+  public abstract void onClientChange(int count);
+
+  public abstract void onPlayListFilled();
+
+  public abstract void onPlayListEmpty();
+
+  public abstract void onVideoChange(String id);
+
+  public abstract void onPause();
+
+  public abstract void onPlay();
+
+  private void broadcastPlayerState()
+  {
     Message message = new Message(Type.PLAYER_STATE, new PlayerState(isPlaying));
     for (Socket client : clients) {
       try {
@@ -231,6 +274,7 @@ public abstract class Server
       }
     }
   }
+
   private void broadcastPlaylist()
   {
     Message message = new Message(Type.PLAY_LIST, new PlayList(playList, currentVideo));
@@ -268,13 +312,8 @@ public abstract class Server
     broadcastPlaylist();
   }
 
-  public void next()
+  private void previous()
   {
-    playList.remove(currentVideo);
-    peek();
-  }
-
-  private void previous() {
     int index = playList.indexOf(currentVideo);
     if (index > 0) {
       index--;
@@ -283,37 +322,4 @@ public abstract class Server
       broadcastPlaylist();
     }
   }
-
-  public void close()
-  {
-    running = false;
-    mDatagramSocket.close();
-    try {
-      server.close();
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void pauseVideo() {
-    isPlaying = false;
-    broadcastPlayerState();
-  }
-  public void playVideo() {
-    isPlaying = true;
-    broadcastPlayerState();
-  }
-
-  public abstract void onClientChange(int count);
-
-  public abstract void onPlayListFilled();
-
-  public abstract void onPlayListEmpty();
-
-  public abstract void onVideoChange(String id);
-
-  public abstract void onPause();
-
-  public abstract void onPlay();
 }

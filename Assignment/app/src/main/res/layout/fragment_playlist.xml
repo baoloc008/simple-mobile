@@ -8,12 +8,11 @@
       android:id="@+id/recycleViewPlaylist"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layout_marginBottom="52dp"
+      android:background="@color/white"
       app:layout_empty="@layout/rv_empty"
       app:layout_progress="@layout/rv_progress"
-      app:scrollbarStyle="insideOverlay"
-      android:background="@color/white"
-      android:layout_marginBottom="52dp"
-      />
+      app:scrollbarStyle="insideOverlay" />
 
   <LinearLayout
       android:layout_width="match_parent"

@@ -29,11 +29,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
   private List<VideoItem>                        videoList;
   private RecyclerViewHomeAdapterOnclickListener mRecyclerViewHomeAdapterOnclickListener;
 
-  public interface RecyclerViewHomeAdapterOnclickListener
-  {
-    void onItemClick(View v, int position);
-  }
-
   public HomeAdapter(Context context,
                      List<VideoItem> videoList,
                      RecyclerViewHomeAdapterOnclickListener listener)
@@ -68,6 +63,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>
   public int getItemCount()
   {
     return videoList.size();
+  }
+
+  public interface RecyclerViewHomeAdapterOnclickListener
+  {
+    void onItemClick(View v, int position);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder
