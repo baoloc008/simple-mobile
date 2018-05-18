@@ -61,8 +61,8 @@ public class PlaylistFragment extends Fragment
     View view = inflater.inflate(R.layout.fragment_playlist, container, false);
     ButterKnife.bind(this, view);
     mHandler = new Handler();
-    initResultVideoListView();
     mClient = Client.getInstance(getContext());
+    initResultVideoListView();
     fetch(mClient.getPlayList());
     setIconPlayButton(mClient.isPlaying());
 
@@ -107,6 +107,9 @@ public class PlaylistFragment extends Fragment
       public void run()
       {
         mResultVideoListAdapter.clear();
+        for (VideoItem videoItem : detailResults) {
+          videoItem.setPlaying(videoItem.getVideoId().equals(mClient.getCurrentVideo()));
+        }
         mResultVideoListAdapter.addAll(detailResults);
       }
     });
