@@ -1,5 +1,6 @@
 package com.simple.youtuberemote.adapters.VideoListAdapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,23 +24,27 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
 
   VideoItem mVideo;
 
-  ImageView   mThumbnail;
-  TextView    mTitle;
-  TextView    mChannelTitle;
-  TextView    mDuration;
-  TextView    mStatistics;
-  ImageButton mMenuButton;
-  int         mPopupType;
+  RelativeLayout mRelativeLayout;
+  ImageView      mThumbnail;
+  TextView       mTitle;
+  TextView       mChannelTitle;
+  TextView       mDuration;
+  TextView       mStatistics;
+  ImageButton    mMenuButton;
+  int            mPopupType;
+
   VideoListAdapter.OnItemPopupMenuClickListener mListener;
 
   public CompactViewTypeViewHolder(ViewGroup parent,
-                                   VideoListAdapter.OnItemPopupMenuClickListener listener, int popupType)
+                                   VideoListAdapter.OnItemPopupMenuClickListener listener,
+                                   int popupType)
   {
     super(parent, R.layout.video_item_compact);
 
     mListener = listener;
     mPopupType = popupType;
 
+    mRelativeLayout = $(R.id.video_item_compact_rl);
     mThumbnail = $(R.id.video_item_compact_iv_thumbnail);
     mTitle = $(R.id.video_item_compact_tv_title);
     mChannelTitle = $(R.id.video_item_compact_tv_channel_title);
@@ -54,17 +60,16 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
       {
 
         switch (mPopupType) {
-          case VideoListAdapter.POPUP_MEMNU_NORMAL:
-          {
+          case VideoListAdapter.POPUP_MEMNU_NORMAL: {
             showPopupMenuNormal(mMenuButton);
             break;
           }
-          case VideoListAdapter.POPUP_MEMNU_PLAYLIST:
-          {
+          case VideoListAdapter.POPUP_MEMNU_PLAYLIST: {
             showPopupMenuPlaylist(mMenuButton);
             break;
           }
-          default: break;
+          default:
+            break;
         }
       }
     });
@@ -84,6 +89,13 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     mStatistics.setText(getContext().getString(R.string.video_item_statistics,
                                                Utils.prettyViewCount(video.getViewCount())));
     mDuration.setText(Utils.formatDuration(video.getDuration()));
+
+    if (video.isPlaying()) {
+      mRelativeLayout.setBackgroundColor(Color.rgb(193, 193, 193));
+    }
+    else {
+      mRelativeLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+    }
   }
 
   private void showPopupMenuNormal(View view)
@@ -111,6 +123,7 @@ public class CompactViewTypeViewHolder extends BaseViewHolder<VideoItem>
     });
     popup.show();
   }
+
   private void showPopupMenuPlaylist(View view)
   {
     PopupMenu    popup    = new PopupMenu(view.getContext(), view);
