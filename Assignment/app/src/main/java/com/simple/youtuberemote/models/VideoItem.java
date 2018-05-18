@@ -16,6 +16,7 @@ public class VideoItem
   private String     mThumbnailUrl;
   private BigInteger mViewCount;
   private String     mDuration;
+  private boolean    isPlaying;
 
   public VideoItem()
   {
@@ -33,16 +34,28 @@ public class VideoItem
     this.mVideoId = videoId;
     this.mViewCount = viewCount;
     this.mDuration = duration;
+    this.isPlaying = false;
+  }
+
+  public VideoItem(String videoId,
+                   String title,
+                   String mChannelTitle,
+                   String thumbnailUrl,
+                   BigInteger viewCount, String duration,
+                   boolean isPlaying)
+  {
+    this.mThumbnailUrl = thumbnailUrl;
+    this.mTitle = title;
+    this.mChannelTitle = mChannelTitle;
+    this.mVideoId = videoId;
+    this.mViewCount = viewCount;
+    this.mDuration = duration;
+    this.isPlaying = isPlaying;
   }
 
   public String getThumbnailUrl()
   {
     return mThumbnailUrl;
-  }
-
-  public void setThumbnailUrl(String thumbnailUrl)
-  {
-    this.mThumbnailUrl = thumbnailUrl;
   }
 
   public String getTitle()
@@ -60,19 +73,9 @@ public class VideoItem
     return mChannelTitle;
   }
 
-  public void setChannelTitle(String channelTitle)
-  {
-    this.mChannelTitle = channelTitle;
-  }
-
   public String getVideoId()
   {
     return mVideoId;
-  }
-
-  public void setVideoId(String videoId)
-  {
-    this.mVideoId = videoId;
   }
 
   public BigInteger getViewCount()
@@ -80,18 +83,18 @@ public class VideoItem
     return mViewCount;
   }
 
-  public void setViewCount(BigInteger viewCount)
-  {
-    this.mViewCount = viewCount;
-  }
-
   public String getDuration()
   {
     return mDuration;
   }
 
-  public void setDuration(String duration)
+  public boolean isPlaying()
   {
-    this.mDuration = duration;
+    return isPlaying;
+  }
+
+  public void setPlaying(boolean playing)
+  {
+    isPlaying = playing;
   }
 }
