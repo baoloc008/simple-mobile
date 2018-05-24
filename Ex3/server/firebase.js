@@ -4,7 +4,7 @@ const serviceAccount = require('./private/jobfinder-adminsdk.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://jobfinder-a5df.firebaseio.com',
+  databaseURL: 'https://jobfinder-a5dfb.firebaseio.com',
 });
 
 function pushNotifyWithToken(registrationToken, title, body) {
@@ -19,4 +19,5 @@ function pushNotifyWithToken(registrationToken, title, body) {
 
 module.exports = {
   pushNotifyWithToken,
+  admin,
 };
