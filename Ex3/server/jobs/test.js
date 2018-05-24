@@ -1,6 +1,6 @@
 const admin = require('../firebase');
 
-admin.pushNotifyWithToken(
-  'cQ8HYtKq5kQ:APA91bHA_xzvum4BndcP_TOUDHXXaySsN8CFSkwPAoau7RUPe2lvLNUWLJ1Fq2IAnCrD2Qu3gZVA4K2KTw8NrUYj3WpUxpoP_UEvpSm8BREI0MQqq2E5NZMR0tn_5GfnoNPuYA2hRBV_',
-  { message: 'hello' },
-);
+const token = 'curhgsRa17c:APA91bFbMLlmAwSiFJJSxL2m4pmOGiq5AY9fgktGwsMjStxc_ZF06epsKs_izktyGheIlOe_mepx-4rH2nEbLIJqhIrjgoCu6a1yFHlw728CGR2HxNszEbOnjQmCTM7Zd-lszC3b9JeP';
+
+admin.pushNotifyWithToken(token, 'Thông báo', 'Chào bạn, chúng tôi đến từ Job Finder');
+
