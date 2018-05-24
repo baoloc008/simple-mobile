@@ -17,12 +17,12 @@ request('https://careerbuilder.vn/', (error, response, body) => {
       const salaryLocation = $(e).find('.salary-location p');
       const salaryNode = salaryLocation[0].childNodes;
       const salary = salaryNode.length > 1 ? salaryNode[1].data : salaryNode[0].data;
-      const location = salaryLocation[1].childNodes[1].data;
+      const location = salaryLocation[1].childNodes[1].data.trim();
       const thumbnail = $(e)
         .find('.ftable img')
         .attr('src');
       return {
-        url,
+        id: url,
         jobTitle,
         company,
         salary,
