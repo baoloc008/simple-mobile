@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const path = require('path');
 
 request('https://careerbuilder.vn/', (error, response, body) => {
   const $ = cheerio.load(body);
@@ -30,6 +31,6 @@ request('https://careerbuilder.vn/', (error, response, body) => {
       };
     })
     .get();
-  console.log(tobJobs);
-  fs.writeFileSync('../data/jobs.json', JSON.stringify(tobJobs)).then(res => console.log(res));
+  const filePath = path.join(__dirname, '../data/jobs.json');
+  fs.writeFileSync(filePath, JSON.stringify(tobJobs));
 });
