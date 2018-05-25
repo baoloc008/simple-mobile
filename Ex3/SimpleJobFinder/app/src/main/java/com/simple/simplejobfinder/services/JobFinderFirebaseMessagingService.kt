@@ -1,6 +1,7 @@
 package com.simple.simplejobfinder.services
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -34,7 +35,20 @@ class JobFinderFirebaseMessagingService : FirebaseMessagingService()
 
     private fun pushNotification(title: String, content: String, isOngoing: Boolean)
     {
-        val builder = NotificationCompat.Builder(this)
+        val CHANNEL_ID = "SimpleJobFinder_Channel"
+
+        val notificationManager =
+                applicationContext.getSystemService(
+                        Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        {
+            val channel = NotificationChannel(CHANNEL_ID, "SimpleJobFinder",
+                                              NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle(title)
                 .setContentText(content)
@@ -43,6 +57,7 @@ class JobFinderFirebaseMessagingService : FirebaseMessagingService()
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(content))
                 .setAutoCancel(true)
+
         val notificationIntent = Intent(this, MainActivity::class.java)
         val contentIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
