@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,42 +24,43 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val mData = FirebaseDatabase.getInstance().reference
-        mData.child("location").addChildEventListener(object : ChildEventListener
-                                                      {
-                                                          override fun onCancelled(
-                                                                  p0: DatabaseError)
-                                                          {
-                                                          }
-
-                                                          override fun onChildMoved(
-                                                                  p0: DataSnapshot, p1: String?)
-                                                          {
-                                                          }
-
-                                                          override fun onChildChanged(
-                                                                  p0: DataSnapshot, p1: String?)
-                                                          {
-                                                          }
-
-                                                          override fun onChildRemoved(
-                                                                  p0: DataSnapshot)
-                                                          {
-                                                          }
-
-                                                          override fun onChildAdded(
-                                                                  p0: DataSnapshot, p1: String?)
-                                                          {
-                                                              val location = p0.getValue(
-                                                                      String::class.java)
-                                                              Log.d("location", location)
-                                                          }
-                                                      })
-
         initJobListView()
+        val mData = FirebaseDatabase.getInstance().reference
+        mData.child("job").addChildEventListener(object : ChildEventListener
+              {
+                  override fun onCancelled(
+                          p0: DatabaseError)
+                  {
+                  }
 
-        mockJobListData()
+                  override fun onChildMoved(
+                          p0: DataSnapshot, p1: String?)
+                  {
+                  }
+
+                  override fun onChildChanged(
+                          p0: DataSnapshot, p1: String?)
+                  {
+                  }
+
+                  override fun onChildRemoved(
+                          p0: DataSnapshot)
+                  {
+                  }
+
+                  override fun onChildAdded(p0: DataSnapshot, p1: String?)
+                  {
+                      val job = p0.getValue(JobItem::class.java)
+                      print("job: ")
+                      print(job)
+                      job?.let {
+                          _jobListAdapter.add(it)
+                          _jobListAdapter.notifyDataSetChanged()
+                      }
+                  }
+              })
+
+        //mockJobListData()
 
     }
 
