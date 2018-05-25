@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity()
 {
 
     private val _jobListAdapter = JobListAdapter(this)
-    private val _jobItems = ArrayList<JobItem>()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -51,49 +50,12 @@ class MainActivity : AppCompatActivity()
                   override fun onChildAdded(p0: DataSnapshot, p1: String?)
                   {
                       val job = p0.getValue(JobItem::class.java)
-                      print("job: ")
-                      print(job)
                       job?.let {
                           _jobListAdapter.add(it)
                           _jobListAdapter.notifyDataSetChanged()
                       }
                   }
               })
-
-        //mockJobListData()
-
-    }
-
-    private fun mockJobListData()
-    {
-        // mock data
-        _jobItems.add(
-                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
-                        "Kỹ Sư Giám Sát Xây Dựng 1", "Công Ty Cổ Phần Kềm Nghĩa",
-                        "15 Tr - 25 Tr VND",
-                        "Hồ Chí Minh",
-                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
-        _jobItems.add(
-                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
-                        "Kỹ Sư Giám Sát Xây Dựng 2", "Công Ty Cổ Phần Kềm Nghĩa",
-                        "15 Tr - 25 Tr VND",
-                        "Hồ Chí Minh",
-                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
-        _jobItems.add(
-                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
-                        "Kỹ Sư Giám Sát Xây Dựng 3", "Công Ty Cổ Phần Kềm Nghĩa",
-                        "15 Tr - 25 Tr VND",
-                        "Hồ Chí Minh",
-                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
-        _jobItems.add(
-                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
-                        "Kỹ Sư Giám Sát Xây Dựng 4", "Công Ty Cổ Phần Kềm Nghĩa",
-                        "15 Tr - 25 Tr VND",
-                        "Hồ Chí Minh",
-                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
-
-        // add to adapter
-        _jobListAdapter.addAll(_jobItems)
     }
 
     private fun initJobListView()
