@@ -122,6 +122,5 @@ class MainActivity : AppCompatActivity(), RecyclerArrayAdapter.OnLoadMoreListene
                                  })
 
         _jobListAdapter.clear()
-//        _jobListAdapter.pauseMore()
     }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -38,6 +38,7 @@
     </style>
 
     <style name="AppTheme.Toolbar" parent="Base.V7.Widget.AppCompat.Toolbar">
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">#FFFFFFFF</item>
         <item name="android:textColorPrimary">@color/colorLightTextPrimary</item>
         <item name="android:textColorSecondary">@color/colorLightTextSecondary</item>
     </style>
