@@ -11,19 +11,22 @@ import com.google.firebase.messaging.RemoteMessage
 import com.simple.simplejobfinder.R
 import com.simple.simplejobfinder.activities.MainActivity
 
+class JobFinderFirebaseMessagingService : FirebaseMessagingService()
+{
 
-class FirebaseMessagingService : FirebaseMessagingService() {
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage?)
+    {
         remoteMessage?.let {
             val message = remoteMessage.notification?.body
             val title = remoteMessage.notification?.title
-           message?.let {
-               pushNotification(title ?: "", message, false)
-           }
+            message?.let {
+                pushNotification(title ?: "", message, false)
+            }
         }
     }
 
-    private fun pushNotification(title: String, content: String, isOngoing: Boolean) {
+    private fun pushNotification(title: String, content: String, isOngoing: Boolean)
+    {
         val builder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle(title)
@@ -34,7 +37,8 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(content))
                 .setAutoCancel(true)
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
+        val contentIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT)
         builder.setContentIntent(contentIntent)
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(0, builder.build())
