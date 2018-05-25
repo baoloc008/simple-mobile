@@ -1,5 +1,6 @@
 package com.simple.simplejobfinder.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -9,8 +10,6 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.iid.FirebaseInstanceId
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter
 import com.simple.simplejobfinder.R
 import com.simple.simplejobfinder.adapters.JobListAdapter
 import com.simple.simplejobfinder.models.JobItem
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        Log.d("token", FirebaseInstanceId.getInstance().token)
         val mData = FirebaseDatabase.getInstance().reference
         mData.child("location").addChildEventListener(object : ChildEventListener
                                                       {
@@ -60,10 +58,42 @@ class MainActivity : AppCompatActivity()
                                                           }
                                                       })
 
-//        initJobListView()
+        initJobListView()
 
-//        _jobItems.add(JobItem("000", "Title", "Company", "salary", "Location", ""))
-//        _jobListAdapter.addAll(_jobItems)
+        mockJobListData()
+
+    }
+
+    private fun mockJobListData()
+    {
+        // mock data
+        _jobItems.add(
+                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
+                        "Kỹ Sư Giám Sát Xây Dựng 1", "Công Ty Cổ Phần Kềm Nghĩa",
+                        "15 Tr - 25 Tr VND",
+                        "Hồ Chí Minh",
+                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
+        _jobItems.add(
+                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
+                        "Kỹ Sư Giám Sát Xây Dựng 2", "Công Ty Cổ Phần Kềm Nghĩa",
+                        "15 Tr - 25 Tr VND",
+                        "Hồ Chí Minh",
+                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
+        _jobItems.add(
+                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
+                        "Kỹ Sư Giám Sát Xây Dựng 3", "Công Ty Cổ Phần Kềm Nghĩa",
+                        "15 Tr - 25 Tr VND",
+                        "Hồ Chí Minh",
+                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
+        _jobItems.add(
+                JobItem("https://careerbuilder.vn/vi/tim-viec-lam/ky-su-giam-sat-xay-dung.35AEE43B.html",
+                        "Kỹ Sư Giám Sát Xây Dựng 4", "Công Ty Cổ Phần Kềm Nghĩa",
+                        "15 Tr - 25 Tr VND",
+                        "Hồ Chí Minh",
+                        "https://images.careerbuilder.vn/employers/7837/104538logokemnghia_95pxx50px.jpg"))
+
+        // add to adapter
+        _jobListAdapter.addAll(_jobItems)
     }
 
     private fun initJobListView()
@@ -75,22 +105,28 @@ class MainActivity : AppCompatActivity()
         rvJobList.addItemDecoration(dividerItemDecoration)
         rvJobList.setAdapterWithProgress(_jobListAdapter)
 
-//        _jobListAdapter.setMore(R.layout.rv_more, this)
-        _jobListAdapter.setError(R.layout.rv_job_list_error,
-                                 object : RecyclerArrayAdapter.OnErrorListener
-                                 {
-                                     override fun onErrorShow()
-                                     {
-                                         _jobListAdapter.resumeMore()
-                                     }
+        _jobListAdapter.setOnItemClickListener {
+            val intent = Intent(this, JobDetailActivity::class.java)
+            intent.putExtra(Intent.EXTRA_TEXT, _jobListAdapter.getItem(it).id)
+            startActivity(intent)
+        }
 
-                                     override fun onErrorClick()
-                                     {
-                                         _jobListAdapter.resumeMore()
-                                     }
-                                 })
+//        _jobListAdapter.setMore(R.layout.rv_more, this)
+//        _jobListAdapter.setError(R.layout.rv_job_list_error,
+//                                 object : RecyclerArrayAdapter.OnErrorListener
+//                                 {
+//                                     override fun onErrorShow()
+//                                     {
+//                                         _jobListAdapter.resumeMore()
+//                                     }
+//
+//                                     override fun onErrorClick()
+//                                     {
+//                                         _jobListAdapter.resumeMore()
+//                                     }
+//                                 })
 
         _jobListAdapter.clear()
-        _jobListAdapter.pauseMore()
+//        _jobListAdapter.pauseMore()
     }
 }

@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/tvJobItemThumbnail"
         android:layout_width="120dp"
         android:layout_height="55dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         tools:src="@drawable/ic_launcher_background" />
 
     <TextView
@@ -16,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/tvJobItemThumbnail"
+        android:textAppearance="@style/AppTheme.Text.Subheader"
         tools:text="Nhân viên kinh doanh" />
 
     <TextView
@@ -24,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvJobItemTitle"
         android:layout_toEndOf="@id/tvJobItemThumbnail"
+        android:textAppearance="@style/AppTheme.Text"
+        android:textColor="@color/colorDarkTextSecondary"
         tools:text="DKSH Vietnam Co., Ltd" />
 
     <TextView
@@ -32,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvJobItemCompany"
         android:layout_toEndOf="@id/tvJobItemThumbnail"
+        android:textAppearance="@style/AppTheme.Text"
+        android:textColor="@color/colorDarkTextSecondary"
         tools:text="15 tr - 40 tr VND" />
 
     <TextView
@@ -40,6 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/tvJobItemCompany"
+        android:textAppearance="@style/AppTheme.Text"
+        android:textColor="@color/colorDarkTextSecondary"
         tools:text="Hồ Chí Minh" />
 
 
