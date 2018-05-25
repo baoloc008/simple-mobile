@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import com.google.firebase.database.*
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter
@@ -29,15 +32,18 @@ class MainActivity : AppCompatActivity(), RecyclerArrayAdapter.OnLoadMoreListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        fabSearchJob.setOnClickListener {
+
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivityForResult(intent, 100)
+        }
+
         FirebaseMessaging.getInstance().subscribeToTopic("all")
         Log.d("token", FirebaseInstanceId.getInstance().token)
 
         initJobListView()
 
         loadFromFirebase(_offset, _limit)
-
-//        searchFirebase()
-
     }
 
     override fun onLoadMore()
@@ -117,37 +123,5 @@ class MainActivity : AppCompatActivity(), RecyclerArrayAdapter.OnLoadMoreListene
 
         _jobListAdapter.clear()
 //        _jobListAdapter.pauseMore()
-    }
-
-    private fun searchFirebase(query: String = "Hồ Chí Minh")
-    {
-        _jobListAdapter.clear()
-        _jobListAdapter.notifyDataSetChanged()
-
-        val jobsRef = FirebaseDatabase.getInstance().getReference("job")
-
-        jobsRef.orderByChild("location").equalTo(query)
-                .addValueEventListener(object : ValueEventListener
-                                       {
-                                           override fun onDataChange(p0: DataSnapshot)
-                                           {
-                                               for (jobData in p0.children)
-                                               {
-                                                   Log.d(TAG, jobData.value.toString())
-                                                   val job = jobData.getValue(JobItem::class.java)
-                                                   job?.let {
-                                                       _jobListAdapter.add(it)
-                                                       _jobListAdapter.notifyDataSetChanged()
-                                                   }
-
-                                               }
-                                           }
-
-                                           override fun onCancelled(p0: DatabaseError)
-                                           {
-                                               Log.d(TAG, "Query failed!")
-                                           }
-
-                                       })
     }
 }
