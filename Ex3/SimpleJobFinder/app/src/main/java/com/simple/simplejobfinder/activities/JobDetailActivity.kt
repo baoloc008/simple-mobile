@@ -17,7 +17,7 @@ class JobDetailActivity : AppCompatActivity()
         intent?.let {
             if (it.hasExtra(Intent.EXTRA_TEXT))
             {
-                tvJobDetailId.text = it.getStringExtra(Intent.EXTRA_TEXT)
+//                tvJobDetailId.text = it.getStringExtra(Intent.EXTRA_TEXT)
             }
         }
     }
