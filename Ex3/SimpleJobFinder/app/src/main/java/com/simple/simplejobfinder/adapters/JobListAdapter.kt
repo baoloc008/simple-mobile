@@ -50,10 +50,10 @@ class JobListAdapter(context: Context) : RecyclerArrayAdapter<JobItem>(context)
         {
             _jobItem = jobItem
 
-            Glide.with(_context).load(jobItem.thumbnailUrl).asBitmap()
+            Glide.with(_context).load(jobItem.thumbnail).asBitmap()
                     .format(DecodeFormat.PREFER_ARGB_8888).into(_thumbnailView)
 
-            _titleView.text = jobItem.title
+            _titleView.text = jobItem.jobTitle
             _companyView.text = jobItem.company
             _salaryView.text = jobItem.salary
             _locationView.text = jobItem.location
