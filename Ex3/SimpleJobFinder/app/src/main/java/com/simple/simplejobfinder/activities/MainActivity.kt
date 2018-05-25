@@ -16,46 +16,39 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
 {
-
     private val _jobListAdapter = JobListAdapter(this)
+    private val offset = 0
+    private val limit = 10
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initJobListView()
+        loadFromFirebae(offset, limit)
+    }
+
+    private fun loadFromFirebae(offset: Int, limit: Int)
+    {
+        val startAt = offset.toString()
+        val endAt = (offset + limit).toString()
         val mData = FirebaseDatabase.getInstance().reference
-        mData.child("job").addChildEventListener(object : ChildEventListener
-              {
-                  override fun onCancelled(
-                          p0: DatabaseError)
-                  {
-                  }
+        mData.child("job").orderByKey().startAt(startAt).endAt(endAt).addChildEventListener(object : ChildEventListener
+        {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {}
+            override fun onChildRemoved( p0: DataSnapshot) {}
 
-                  override fun onChildMoved(
-                          p0: DataSnapshot, p1: String?)
-                  {
-                  }
-
-                  override fun onChildChanged(
-                          p0: DataSnapshot, p1: String?)
-                  {
-                  }
-
-                  override fun onChildRemoved(
-                          p0: DataSnapshot)
-                  {
-                  }
-
-                  override fun onChildAdded(p0: DataSnapshot, p1: String?)
-                  {
-                      val job = p0.getValue(JobItem::class.java)
-                      job?.let {
-                          _jobListAdapter.add(it)
-                          _jobListAdapter.notifyDataSetChanged()
-                      }
-                  }
-              })
+            override fun onChildAdded(p0: DataSnapshot, p1: String?)
+            {
+                val job = p0.getValue(JobItem::class.java)
+                job?.let {
+                    _jobListAdapter.add(it)
+                    _jobListAdapter.notifyDataSetChanged()
+                }
+            }
+        })
     }
 
     private fun initJobListView()
