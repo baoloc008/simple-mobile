@@ -7,13 +7,17 @@ const filePath = path.join(__dirname, '../data/jobDetail.json');
 
 const jobs = require('../data/jobs.json');
 
-const getData = (html, id) => {
+const getData = (html, element) => {
   const $ = cheerio.load(html);
+  const {
+    id, jobTitle, company, location, thumbnail,
+  } = element;
   const result = {
     id,
-    jobTitle: 'AP/GL accountant',
-    company: 'Công Ty TNHH Phát Triển Phú Mỹ Hưng',
-    locations: ['Hồ Chí Minh'],
+    jobTitle,
+    company,
+    location,
+    thumbnail,
     experience: '1 - 2 Năm',
     majors: ['Kế toán / Kiểm toán', 'Ngân hàng', 'Tài chính / Đầu tư'],
     position: 'Nhân viên',
@@ -29,10 +33,13 @@ const getData = (html, id) => {
       'Tăng lương',
       'Chế độ nghỉ phép',
     ],
-    description: 'Check daily payment request document.\nMonthly closing and prepare relevant report/statements.\nPreparing document to auditor.\nSupporting manager/head of team for ad-hoc work.\nOthers assigned by head of team\nAble to be on board asap',
-    requirements: 'more than 01 year experience\nable to communicate in English\nexperience working in construction industry is preferred',
+    description:
+      'Check daily payment request document.\nMonthly closing and prepare relevant report/statements.\nPreparing document to auditor.\nSupporting manager/head of team for ad-hoc work.\nOthers assigned by head of team\nAble to be on board asap',
+    requirements:
+      'more than 01 year experience\nable to communicate in English\nexperience working in construction industry is preferred',
     otherInfo: 'Bằng cấp: Đại học\nĐộ tuổi: Không giới hạn tuổi\nHình thức: Nhân viên chính thức',
-    introduce: 'Công ty TNHH Phát triển Phú Mỹ Hưng\n801 Nguyễn Văn Linh, Phường Tân Phú, Quận 7, HCM\nNgười liên hệ: Ms. Uyên',
+    introduce:
+      'Công ty TNHH Phát triển Phú Mỹ Hưng\n801 Nguyễn Văn Linh, Phường Tân Phú, Quận 7, HCM\nNgười liên hệ: Ms. Uyên',
   };
 
   const detailJobNew = $('.DetailJobNew');
@@ -51,7 +58,7 @@ const promises = jobs.map((element) => {
   const { id } = element;
   const option = {
     uri: encodeURI(id),
-    transform: body => getData(body, id),
+    transform: body => getData(body, element),
   };
 
   return rp(option);
