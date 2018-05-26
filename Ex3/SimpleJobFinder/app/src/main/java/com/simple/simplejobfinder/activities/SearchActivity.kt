@@ -75,7 +75,7 @@ class SearchActivity : AppCompatActivity()
     private fun initSearchView()
     {
         searchView.setIconifiedByDefault(false)
-        searchView.queryHint = "Tìm kiếm công việc"
+        searchView.queryHint = "Tìm kiếm theo địa điểm"
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener
                                           {

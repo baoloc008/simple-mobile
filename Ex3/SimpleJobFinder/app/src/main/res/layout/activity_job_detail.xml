@@ -6,35 +6,46 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical">
-
+      android:orientation="vertical"
+      android:padding="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-      <TextView
-          android:layout_width="wrap_content"
+        android:orientation="horizontal">
+      <ImageView
+          android:id="@+id/imgViewJobDetail"
+          android:layout_width="100dp"
+          android:layout_height="50dp"
+          android:scaleType="fitCenter"
+          android:layout_marginRight="5dp"
+          />
+      <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Phó giám đốc khối thiết kế"
-          android:id="@+id/tvJobDetailTitle"
-          android:textSize="18sp"
-          android:textStyle="bold" />
+          android:orientation="vertical">
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/tvJobDetailCompany"
-          android:text="Công ty cổ phần đầu tư Nam Long"
-          android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phó giám đốc khối thiết kế"
+            android:id="@+id/tvJobDetailTitle"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvJobDetailCompany"
+            android:text="Công ty cổ phần đầu tư Nam Long"
+            android:textSize="16sp" />
+      </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -42,7 +53,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Infomation"
+          android:text="Thông tin"
           android:textSize="18sp"
           android:textStyle="bold" />
 
@@ -146,8 +157,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -155,7 +165,7 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Benefit"
+          android:text="Phúc lợi"
           android:textSize="18sp"
           android:textStyle="bold" />
 
@@ -174,8 +184,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -197,8 +206,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -220,8 +228,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -243,8 +250,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
