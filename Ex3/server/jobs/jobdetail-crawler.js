@@ -19,20 +19,11 @@ const getData = (html, element) => {
     location,
     thumbnail,
     experience: '1 - 2 Năm',
-    majors: ['Kế toán / Kiểm toán', 'Ngân hàng', 'Tài chính / Đầu tư'],
+    majors: 'Kế toán / Kiểm toán, Ngân hàng, Tài chính / Đầu tư',
     position: 'Nhân viên',
-    salaray: 'Cạnh tranh',
+    salary: 'Cạnh tranh',
     expired: '20/06/2018',
-    benefits: [
-      'Bảo hiểm theo quy định',
-      'Du Lịch',
-      'Phụ cấp',
-      'Đồng phục',
-      'Thưởng',
-      'Đào tạo',
-      'Tăng lương',
-      'Chế độ nghỉ phép',
-    ],
+    benefits: 'Bảo hiểm theo quy định, Du Lịch, Phụ cấp, Đồng phục, Thưởng, Đào tạo, Tăng lương,Chế độ nghỉ phép',
     description:
       'Check daily payment request document.\nMonthly closing and prepare relevant report/statements.\nPreparing document to auditor.\nSupporting manager/head of team for ad-hoc work.\nOthers assigned by head of team\nAble to be on board asap',
     requirements:
