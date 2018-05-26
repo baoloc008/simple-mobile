@@ -12,6 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Phó giám đốc khối thiết kế"
+          android:id="@+id/tvJobDetailTitle"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tvJobDetailCompany"
+          android:text="Công ty cổ phần đầu tư Nam Long"
+          android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_marginBottom="0dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
@@ -34,6 +56,7 @@
             android:text="Nơi làm việc: " />
 
         <TextView
+            android:id="@+id/tvJobDetailLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hồ Chí Minh" />
@@ -49,6 +72,7 @@
             android:text="Ngành nghề: " />
 
         <TextView
+            android:id="@+id/tvJobDetailMajor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bất động sản" />
@@ -64,6 +88,7 @@
             android:text="Kinh nghiệm: " />
 
         <TextView
+            android:id="@+id/tvJobDetailExp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1 năm" />
@@ -79,6 +104,7 @@
             android:text="Cấp bậc: " />
 
         <TextView
+            android:id="@+id/tvJobDetailPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nhân viên" />
@@ -94,6 +120,7 @@
             android:text="Lương: " />
 
         <TextView
+            android:id="@+id/tvJobDetailSalary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="6,000,000 - 8,000,000 VND" />
@@ -109,6 +136,7 @@
             android:text="Hết hạn nộp: " />
 
         <TextView
+            android:id="@+id/tvJobDetailExpired"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="21/06/2018" />
@@ -119,6 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
         android:background="@color/blackDisable"
         android:orientation="vertical"
         android:padding="10dp">
@@ -126,11 +155,113 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Phúc lợi"
+          android:text="Benefit"
           android:textSize="18sp"
-          android:textStyle="bold"/>
+          android:textStyle="bold" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvJobDetailBenefits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bảo hiểm theo quy định, Du lịch, Thưởng, Chăm sóc sức khỏe, Đào tạo, Tăng lương" />
+      </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/blackDisable"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Mô tả công việc"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/tvJobDetailDescription"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Nội dung mô tả công việc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/blackDisable"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Yêu cầu công việc"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/tvJobDetailRequirements"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Nội dung yêu cầu công việc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/blackDisable"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Thông tin khác"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/tvJobDetailOtherInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Thông tin khác" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/blackDisable"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Giới thiệu công ty"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/tvJobDetailIntroduce"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Nội dung giới thiệu" />
     </LinearLayout>
   </LinearLayout>
-
 
 </ScrollView>
